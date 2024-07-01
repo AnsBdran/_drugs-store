@@ -1,22 +1,19 @@
-<script>
+<script lang="ts">
 	import * as Card from '$lib/components/ui/card';
 	import * as Form from '$lib/components/ui/form';
 	import { Input } from '$lib/components/ui/input';
 	import SuperDebug, { superForm } from 'sveltekit-superforms';
-	import Combobox from '$lib/components/combobox.svelte';
-	export let data;
+	import { Combo, MultiCompo } from '$lib/components';
+	import type { PageData } from './$types';
+	import Button from '$lib/components/ui/button/button.svelte';
+	import { makeSelectItems } from '$lib/utils';
 
+	export let data: PageData;
 	const form = superForm(data.form, {
 		dataType: 'json'
 	});
 	const { enhance, form: formData } = form;
-
-	const themes = [
-		{ value: 'light-monochrome', label: 'Light Monochrome' },
-		{ value: 'dark-green', label: 'Dark Green' },
-		{ value: 'svelte-orange', label: 'Svelte Orange' },
-		{ value: 'punk-pink', label: 'Punk Pink' }
-	];
+	// $: console.log(data);
 </script>
 
 <SuperDebug data={$formData} />
@@ -46,12 +43,44 @@
 					<Form.FieldErrors />
 				</Form.Control>
 			</Form.Field>
-			<Combobox
-				items={themes}
-				label="Choose the drug indications"
-				bind:inputValue={$formData.indications}
-				{formData}
-			/>
+			{#await data.indications}
+				<p>loading....</p>
+			{:then indications}
+				<MultiCompo
+					items={makeSelectItems(indications)}
+					label="Choose the drug indications"
+					name="indications"
+					bind:selected={$formData.indications}
+					bindTarget="indications"
+					{form}
+				/>
+			{/await}
+			{#await data.contraIndications}
+				<p>loading...</p>
+			{:then contraIndications}
+				<MultiCompo
+					items={makeSelectItems(contraIndications)}
+					label="Choose the drug contra-indications"
+					name="contraIndications"
+					bindTarget="contraIndications"
+					bind:selected={$formData.contraIndications}
+					{form}
+				/>
+			{/await}
+			{#await data.manufacturers}
+				<p>loading...</p>
+			{:then manufacturers}
+				<Combo
+					{form}
+					items={makeSelectItems(manufacturers)}
+					name="manufacturer"
+					bindTarget="manufacturerID"
+					label="Select a manufacturer"
+				/>
+			{/await}
 		</Card.Content>
+		<Card.Footer>
+			<Button type="submit">Submit</Button>
+		</Card.Footer>
 	</Card.Root>
 </form>

@@ -20,6 +20,9 @@ importers:
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
+      cmdk-sv:
+        specifier: ^0.0.17
+        version: 0.0.17(svelte@4.2.18)
       formsnap:
         specifier: ^1.0.1
         version: 1.0.1(svelte@4.2.18)(sveltekit-superforms@2.15.2(@sveltejs/kit@2.5.17(@sveltejs/vite-plugin-svelte@3.1.1(svelte@4.2.18)(vite@5.3.1(@types/node@20.14.9)))(svelte@4.2.18)(vite@5.3.1(@types/node@20.14.9)))(svelte@4.2.18))
@@ -81,6 +84,9 @@ importers:
       '@iconify-json/pixelarticons':
         specifier: ^1.1.12
         version: 1.1.12
+      '@iconify-json/radix-icons':
+        specifier: ^1.1.14
+        version: 1.1.14
       '@iconify-json/solar':
         specifier: ^1.1.9
         version: 1.1.9
@@ -429,6 +435,9 @@ packages:
   '@iconify-json/pixelarticons@1.1.12':
     resolution: {integrity: sha512-CFY3WX3D2z7C+WQ1JpaDYodscUZQvtBiani9gLyv0F88FZF17hg8odcCweOCWfJapzsxsYKLdTreClfHz3CRIg==}
 
+  '@iconify-json/radix-icons@1.1.14':
+    resolution: {integrity: sha512-AYBOyhnJ2hXlg3aIn8Ekphrr7zHRyz1l8x6bidM3PDUuTL+aRt8r6cpCvN3GeuTHy2JOhmihbVJRF0bt2FF7Ag==}
+
   '@iconify-json/solar@1.1.9':
     resolution: {integrity: sha512-BcWzZqA02BiQduYizqU/J4v4RNs0MkjZUGpMbejpozH8YQSt3+S/LfV6zfVRonx/2DhXTVSqiLa1abDRAZtojQ==}
 
@@ -475,6 +484,11 @@ packages:
   '@jsdevtools/ez-spawn@3.0.4':
     resolution: {integrity: sha512-f5DRIOZf7wxogefH03RjMPMdBF7ADTWUMoOs9kaJo06EfwF+aFhMZMDZxHg/Xe12hptN9xoZjGso2fdjapBRIA==}
     engines: {node: '>=10'}
+
+  '@melt-ui/svelte@0.61.2':
+    resolution: {integrity: sha512-BHkD9G31zQBToA4euDRBgTQRvWxT9scufOVCXgDO6HKTvyxFspbWT2bgiSFqAK4BbAGDn9Ao36Q8F9O71KN4OQ==}
+    peerDependencies:
+      svelte: '>=3 <5'
 
   '@melt-ui/svelte@0.76.2':
     resolution: {integrity: sha512-7SbOa11tXUS95T3fReL+dwDs5FyJtCEqrqG3inRziDws346SYLsxOQ6HmX+4BkIsQh1R8U3XNa+EMmdMt38lMA==}
@@ -834,6 +848,11 @@ packages:
     peerDependencies:
       svelte: ^4.0.0 || ^5.0.0-next.118
 
+  bits-ui@0.9.9:
+    resolution: {integrity: sha512-LkdkyTtpXdkjBzPZJVJgpcre4fut6DONoprMfadHFo82HNUhph+02CxDjYEcZcThb5z4YjSxMlCYvQPZm+YtfQ==}
+    peerDependencies:
+      svelte: ^4.0.0
+
   brace-expansion@1.1.11:
     resolution: {integrity: sha512-iCuPHDFgrHX7H2vEI/5xpz07zSHB00TpugqhmYtVmMO6518mCuRMoOYFldEBl0g187ufozdaHgWKcYFb61qGiA==}
 
@@ -889,6 +908,11 @@ packages:
   clsx@2.1.1:
     resolution: {integrity: sha512-eYm0QWBtUrBWZWG0d386OGAw16Z995PiOVo2B7bjWSbHedGl5e0ZWaq65kOGgUSNesEIDkB9ISbTg/JK9dhCZA==}
     engines: {node: '>=6'}
+
+  cmdk-sv@0.0.17:
+    resolution: {integrity: sha512-28QTrK1tT1TSNoGq9MVnzjeLNNjCgjmsM8c2HJfDpRt9t+GD+9m3wX/WdAPaP9jdoNYU0SSdZVdgsGgpaSQOYQ==}
+    peerDependencies:
+      svelte: ^4.0.0
 
   code-red@1.0.4:
     resolution: {integrity: sha512-7qJWqItLA8/VPVlKJlFXU+NBlo/qyfs39aJcuMT/2ere32ZqvF5OSxgdM5xOfJJ7O429gg2HM47y8v9P+9wrNw==}
@@ -1421,6 +1445,11 @@ packages:
   nanoid@3.3.7:
     resolution: {integrity: sha512-eSRppjcPIatRIMC1U6UngP8XFcz8MQWGQdt1MTBQ7NaAmvXDfvNxbvWV3x2y6CdEUciCSsDHDQZbhYaB8QEo2g==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
+    hasBin: true
+
+  nanoid@4.0.2:
+    resolution: {integrity: sha512-7ZtY5KTCNheRGfEFxnedV5zFiORN1+Y1N6zvPTnHQd8ENUvfaDBeuJDZb2bN/oXwXxu3qkTXDzy57W5vAmDTBw==}
+    engines: {node: ^14 || ^16 || >=18}
     hasBin: true
 
   nanoid@5.0.7:
@@ -2387,6 +2416,10 @@ snapshots:
     dependencies:
       '@iconify/types': 2.0.0
 
+  '@iconify-json/radix-icons@1.1.14':
+    dependencies:
+      '@iconify/types': 2.0.0
+
   '@iconify-json/solar@1.1.9':
     dependencies:
       '@iconify/types': 2.0.0
@@ -2455,6 +2488,16 @@ snapshots:
       cross-spawn: 7.0.3
       string-argv: 0.3.2
       type-detect: 4.0.8
+
+  '@melt-ui/svelte@0.61.2(svelte@4.2.18)':
+    dependencies:
+      '@floating-ui/core': 1.6.3
+      '@floating-ui/dom': 1.6.6
+      '@internationalized/date': 3.5.4
+      dequal: 2.0.3
+      focus-trap: 7.5.4
+      nanoid: 4.0.2
+      svelte: 4.2.18
 
   '@melt-ui/svelte@0.76.2(svelte@4.2.18)':
     dependencies:
@@ -2834,6 +2877,12 @@ snapshots:
       nanoid: 5.0.7
       svelte: 4.2.18
 
+  bits-ui@0.9.9(svelte@4.2.18):
+    dependencies:
+      '@melt-ui/svelte': 0.61.2(svelte@4.2.18)
+      nanoid: 5.0.7
+      svelte: 4.2.18
+
   brace-expansion@1.1.11:
     dependencies:
       balanced-match: 1.0.2
@@ -2893,6 +2942,12 @@ snapshots:
       q: 1.5.1
 
   clsx@2.1.1: {}
+
+  cmdk-sv@0.0.17(svelte@4.2.18):
+    dependencies:
+      bits-ui: 0.9.9(svelte@4.2.18)
+      nanoid: 5.0.7
+      svelte: 4.2.18
 
   code-red@1.0.4:
     dependencies:
@@ -3436,6 +3491,8 @@ snapshots:
       thenify-all: 1.6.0
 
   nanoid@3.3.7: {}
+
+  nanoid@4.0.2: {}
 
   nanoid@5.0.7: {}
 

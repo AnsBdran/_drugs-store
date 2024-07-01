@@ -22,3 +22,9 @@ export const uploadFileToCloudinary = async (imageFile: File): Promise<UploadRes
 		uploadStream.end(buffer);
 	});
 };
+
+export const makeSelectItems = (items) =>
+	items.map((item) => ({
+		value: item.id,
+		label: item.name
+	}));
