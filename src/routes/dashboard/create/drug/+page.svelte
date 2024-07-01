@@ -43,7 +43,15 @@
 					<Form.FieldErrors />
 				</Form.Control>
 			</Form.Field>
-			{#await data.indications}
+			<MultiCompo
+				items={data.indications}
+				label="Choose the drug indications"
+				name="indications"
+				bind:selected={$formData.indications}
+				bindTarget="indications"
+				{form}
+			/>
+			<!-- {#await data.indications}
 				<p>loading....</p>
 			{:then indications}
 				<MultiCompo
@@ -54,8 +62,8 @@
 					bindTarget="indications"
 					{form}
 				/>
-			{/await}
-			{#await data.contraIndications}
+			{/await} -->
+			<!-- {#await data.contraIndications}
 				<p>loading...</p>
 			{:then contraIndications}
 				<MultiCompo
@@ -77,7 +85,7 @@
 					bindTarget="manufacturerID"
 					label="Select a manufacturer"
 				/>
-			{/await}
+			{/await} -->
 		</Card.Content>
 		<Card.Footer>
 			<Button type="submit">Submit</Button>

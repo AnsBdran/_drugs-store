@@ -2,19 +2,24 @@ import { superValidate } from 'sveltekit-superforms';
 import type { PageServerLoad } from './$types';
 import { zod } from 'sveltekit-superforms/adapters';
 import { drugSchema } from './schema';
-import prisma from '$lib/server/prisma';
+// import prisma from '$lib/server/prisma';
+import data from '$lib/data.json';
 // import { makeSelectItems } from '$lib/server/utils';
 
 export const load: PageServerLoad = async () => {
 	// const form = await superValidate(zod(drugSchema));
-
+	console.log(data);
 	try {
 		return {
 			form: await superValidate(zod(drugSchema)),
-			indications: await prisma.indication.findMany(),
-			contraIndications: await prisma.contraIndication.findMany(),
-			manufacturers: await prisma.manufacturer.findMany()
+			indications: data
 		};
+		// return {
+		// 	form: await superValidate(zod(drugSchema)),
+		// 	indications: await prisma.indication.findMany(),
+		// 	contraIndications: await prisma.contraIndication.findMany(),
+		// 	manufacturers: await prisma.manufacturer.findMany()
+		// };
 	} catch (e) {
 		console.log(e);
 		return { form, indications: [], contraindications: [] };
