@@ -2,7 +2,6 @@
 	import * as Form from '$lib/components/ui/form';
 	import * as Command from '$lib/components/ui/command';
 	import * as Popover from '$lib/components/ui/popover';
-	import { countries } from '$lib/info';
 	import Button from '$lib/components/ui/button/button.svelte';
 	import MaterialSymbolsCheckSmallRounded from '~icons/material-symbols/check-small-rounded';
 	import { cn } from '$lib/utils';
@@ -22,29 +21,33 @@
 	export let name;
 	export let label = 'Select an item';
 	export let items;
-	export let bindTarget;
 	export let emptyMessage = 'No items were found.';
 	export let placeholder = 'Search item..';
 	const { form: formData } = form;
 
-	const displayedString = items.find((i) => i.value === $formData[bindTarget]);
+	const choosedItem = items.find((i) => i.value === $formData[name]);
 </script>
 
 <Form.Field {form} {name} class="relative">
 	<Form.Control let:attrs>
 		<Popover.Root bind:open let:ids>
-			<Popover.Trigger asChild let:builder>
-				<Button
-					builders={[builder]}
-					variant="outline"
-					role="combobox"
-					aria-expanded={open}
-					class="w-[200px] justify-between"
-				>
-					{displayedString?.label ?? 'select an item'}
-					<RadixIconsCaretSort class="ml-2 h-4 w-4 shrink-0 opacity-50" />
-				</Button>
-			</Popover.Trigger>
+			<Form.Control let:attrs>
+				<Form.Label class="mb-2 block">{label}</Form.Label>
+
+				<Popover.Trigger asChild let:builder>
+					<Button
+						builders={[builder]}
+						variant="outline"
+						role="combobox"
+						aria-expanded={open}
+						class="w-[200px] justify-between"
+					>
+						{choosedItem?.label ?? 'select an item'}
+						<RadixIconsCaretSort class="ml-2 h-4 w-4 shrink-0 opacity-50" />
+					</Button>
+				</Popover.Trigger>
+				<input hidden value={$formData[name]} name={attrs.name} type="text" />
+			</Form.Control>
 			<Popover.Content class="w-[200px] p-0">
 				<Command.Root>
 					<ScrollArea class="h-72">
@@ -55,15 +58,12 @@
 								<Command.Item
 									value={item.value}
 									onSelect={(currentValue) => {
-										$formData[bindTarget] = currentValue;
+										$formData[name] = currentValue;
 										closeAndFocusTrigger(ids.trigger);
 									}}
 								>
 									<MaterialSymbolsCheckSmallRounded
-										class={cn(
-											'mr-2 h-4 w-4',
-											$formData[bindTarget] !== item.value && 'text-transparent'
-										)}
+										class={cn('mr-2 h-4 w-4', $formData[name] !== item.value && 'text-transparent')}
 									/>
 									{item.label}</Command.Item
 								>

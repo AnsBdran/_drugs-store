@@ -5,40 +5,50 @@
 	import MaterialSymbolsCheckRounded from '~icons/material-symbols/check-rounded';
 	import PhCaretUpDownBold from '~icons/ph/caret-up-down-bold';
 	import ScrollArea from './ui/scroll-area/scroll-area.svelte';
+	import { arrayProxy } from 'sveltekit-superforms';
 	import SelectedShips from './selected-ships.svelte';
-	import { writable } from 'svelte/store';
 
 	// props
 	export let items: { label: string; value: string }[];
 	export let label;
 	export let placeholder = 'Choose from the list';
-	export let name;
-	export let selected: { value: string; label: string; disabled: boolean }[];
 	export let form;
-	export let bindTarget;
+	export let name;
 
-	const { form: formData } = form;
+	// TODO => how to tell typescript that values of SelectOption[] type.
+	type SelctOption = {
+		value: string;
+		label: string;
+		disabled: boolean;
+	};
 
-	const selectedStore = writable(selected);
+	const { values } = arrayProxy(form, name);
 
-	const deleteItem = (event) => {
+	let inputValue = '';
+	let touchedInput = false;
+
+	const deleteOption = (event) => {
 		const item = event.detail;
-		selectedStore.update((selectedItems) => {
-			const updatedSelected = selectedItems.filter((i) => i.value !== item.value);
-			formData[bindTarget] = updatedSelected;
-			return updatedSelected;
+		values.update((prev) => {
+			let updated = prev.filter((i) => i.value !== item.value);
+			return updated;
 		});
 	};
 
-	$: console.log('reactive', $formData);
-	// const deleteItem = (event) => {
-	// 	console.log('wait, we are trying');
-	// 	console.log({ e: event.detail, hi: $formData[bindTarget] });
-	// 	// $formData[bindTarget].filter((i) => i.value !== event.value);
-	// };
+	$: filteredItems =
+		inputValue && touchedInput
+			? items.filter((item) => item.label.toLowerCase().includes(inputValue.toLowerCase()))
+			: items;
+	$: console.log('reactive', inputValue, touchedInput, $values);
 </script>
 
-<Combobox.Root {items} multiple {name} bind:selected={$selectedStore}>
+<Combobox.Root
+	items={filteredItems}
+	multiple
+	bind:inputValue
+	bind:selected={$values}
+	bind:touchedInput
+>
 	<div class="space-y-2">
 		<Label>{label}</Label>
 		<div class="relative">
@@ -59,7 +69,7 @@
 		class="w-full rounded-md border-2 border-muted bg-background shadow-popover outline-none"
 	>
 		<ScrollArea class="h-72">
-			{#each items as item (item.value)}
+			{#each filteredItems as item (item.value)}
 				<Combobox.Item
 					class="rounded-button Combobox-none flex h-10 w-full items-center py-3 pl-5 pr-1.5 text-sm outline-none transition-all duration-75 data-[highlighted]:bg-muted"
 					value={item.value}
@@ -70,10 +80,12 @@
 						<MaterialSymbolsCheckRounded />
 					</Combobox.ItemIndicator>
 				</Combobox.Item>
+			{:else}
+				<span class="block px-5 py-2 text-sm text-muted-foreground"> No results found </span>
 			{/each}
 		</ScrollArea>
 	</Combobox.Content>
 	<Combobox.Arrow />
 	<Combobox.HiddenInput />
 </Combobox.Root>
-<SelectedShips selected={$selectedStore} on:delete={deleteItem} />
+<SelectedShips selected={$values ?? []} on:delete={deleteOption} />

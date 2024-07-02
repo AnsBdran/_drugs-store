@@ -2,12 +2,49 @@
 	import { Button } from '$lib/components/ui/button';
 	import * as Drawer from '$lib/components/ui/drawer';
 	import { dashboardLinks } from '$lib/links';
-
+	import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
 	// icons
 	import SolarListBold from '~icons/solar/list-bold';
+	import { cn } from '$lib/utils';
+	import { page } from '$app/stores';
+	console.log($page.url.pathname);
 </script>
 
-<Drawer.Root>
+<div class="flex justify-between">
+	<h1>Dashboard</h1>
+	<DropdownMenu.Root>
+		<DropdownMenu.Trigger>
+			<Button size="icon">
+				<SolarListBold class="scale-x-[-1] transform" />
+			</Button>
+		</DropdownMenu.Trigger>
+		<DropdownMenu.Content>
+			<DropdownMenu.Group>
+				<DropdownMenu.Label>Dashboard links</DropdownMenu.Label>
+				<DropdownMenu.Separator />
+			</DropdownMenu.Group>
+			{#each dashboardLinks as link}
+				<DropdownMenu.Item
+					href="/dashboard/{link.href}"
+					disabled={link.href === ''
+						? $page.url.pathname === '/dashboard'
+						: $page.url.pathname.includes(link.href)}
+					class="flex gap-4 py-3 pe-4 ps-2"
+				>
+					<svelte:component this={link.icon} />
+					<span>
+						{link.name}
+					</span>
+				</DropdownMenu.Item>
+			{/each}
+		</DropdownMenu.Content>
+	</DropdownMenu.Root>
+</div>
+<!-- disabled={$page.url.pathname === '/dashboard'
+	? $page.url.pathname === '/dashboard'
+	: $page.url.pathname.includes(link.href) && $page.url.pathname !== '/dashboard'} -->
+
+<!-- <Drawer.Root>
 	<div class="flex justify-between">
 		<h1>Dashboard</h1>
 		<Drawer.Trigger>
@@ -34,5 +71,5 @@
 			{/each}
 		</section>
 	</Drawer.Content>
-</Drawer.Root>
+</Drawer.Root> -->
 <slot></slot>

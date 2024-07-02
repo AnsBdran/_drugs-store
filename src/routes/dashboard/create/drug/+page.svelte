@@ -3,17 +3,19 @@
 	import * as Form from '$lib/components/ui/form';
 	import { Input } from '$lib/components/ui/input';
 	import SuperDebug, { superForm } from 'sveltekit-superforms';
-	import { Combo, MultiCompo } from '$lib/components';
+	import { MultiCombo, Combo } from '$lib/components';
 	import type { PageData } from './$types';
 	import Button from '$lib/components/ui/button/button.svelte';
 	import { makeSelectItems } from '$lib/utils';
+	import { contraIndications, indications } from '$lib/info';
+	import InputSkeleton from '$lib/components/skeletons/input-skeleton.svelte';
+	import Label from '$lib/components/ui/label/label.svelte';
 
 	export let data: PageData;
 	const form = superForm(data.form, {
 		dataType: 'json'
 	});
 	const { enhance, form: formData } = form;
-	// $: console.log(data);
 </script>
 
 <SuperDebug data={$formData} />
@@ -43,49 +45,46 @@
 					<Form.FieldErrors />
 				</Form.Control>
 			</Form.Field>
-			<MultiCompo
-				items={data.indications}
-				label="Choose the drug indications"
-				name="indications"
-				bind:selected={$formData.indications}
-				bindTarget="indications"
-				{form}
-			/>
-			<!-- {#await data.indications}
-				<p>loading....</p>
+			{#await data.indications}
+				<InputSkeleton />
 			{:then indications}
-				<MultiCompo
+				<MultiCombo
 					items={makeSelectItems(indications)}
 					label="Choose the drug indications"
 					name="indications"
-					bind:selected={$formData.indications}
-					bindTarget="indications"
 					{form}
 				/>
-			{/await} -->
-			<!-- {#await data.contraIndications}
-				<p>loading...</p>
+			{/await}
+			{#await data.contraIndications}
+				<InputSkeleton />
 			{:then contraIndications}
-				<MultiCompo
+				<MultiCombo
 					items={makeSelectItems(contraIndications)}
-					label="Choose the drug contra-indications"
+					label="Choose the drug contra indications"
 					name="contraIndications"
-					bindTarget="contraIndications"
-					bind:selected={$formData.contraIndications}
+					{form}
+				/>
+			{/await}
+			{#await data.categories}
+				<InputSkeleton />
+			{:then categories}
+				<MultiCombo
+					items={makeSelectItems(categories)}
+					label="Choose the drug categories"
+					name="categoryIDs"
 					{form}
 				/>
 			{/await}
 			{#await data.manufacturers}
-				<p>loading...</p>
+				<InputSkeleton />
 			{:then manufacturers}
 				<Combo
-					{form}
 					items={makeSelectItems(manufacturers)}
-					name="manufacturer"
-					bindTarget="manufacturerID"
-					label="Select a manufacturer"
+					label="Choose the manufacturer"
+					name="manufacturerID"
+					{form}
 				/>
-			{/await} -->
+			{/await}
 		</Card.Content>
 		<Card.Footer>
 			<Button type="submit">Submit</Button>

@@ -23,6 +23,11 @@ enum UNITS {
   unit
 }
 
+enum SIZE {
+  ml
+  unit
+}
+
 // =============================================
 // DATA TYPES
 type DrugName {
@@ -40,6 +45,11 @@ type Strength {
   unit    UNITS
   per     Int
   perUnit UNITS
+}
+
+type Size {
+  amount Int
+  unit   SIZE
 }
 
 // =============================================
@@ -95,6 +105,8 @@ model DrugItem {
   featured             Boolean             @default(false)
   dosageInstructions   DosageInstruction[] @relation(fields: [dosageInstructionIDs], references: [id])
   dosageInstructionIDs String[]            @db.ObjectId
+  size                 Size
+  notes                String[]
 }
 
 model Category {
