@@ -32,7 +32,7 @@ enum SIZE {
 // DATA TYPES
 type DrugName {
   brand   String
-  generic String
+  generic String[]
 }
 
 type Count {
@@ -40,16 +40,26 @@ type Count {
   items   Int?
 }
 
-type Strength {
-  amount  Int
-  unit    UNITS
-  per     Int
-  perUnit UNITS
-}
+// type Strength {
+//   amount  Int
+//   unit    UNITS
+//   per     Int
+//   perUnit UNITS
+// }
 
 type Size {
   amount Int
   unit   SIZE
+}
+
+type DrugImage {
+  cover String
+  inner String?
+}
+
+type Price {
+  unit  Int
+  batch Int
 }
 
 // =============================================
@@ -72,7 +82,7 @@ model Drug {
   createdAt           DateTime           @default(now())
   updatedAt           DateTime           @updatedAt
   name                DrugName           @unique
-  description         String
+  description         String?
   indicationIDs       String[]           @db.ObjectId
   indications         Indication[]       @relation(fields: [indicationIDs], references: [id])
   contraIndicationIDs String[]           @db.ObjectId
@@ -83,6 +93,7 @@ model Drug {
   manufacturer        Manufacturer       @relation(fields: [manufacturerID], references: [id])
   categoryIDs         String[]           @db.ObjectId
   categories          Category[]         @relation(fields: [categoryIDs], references: [id])
+  notes               String[]
 }
 
 model DrugItem {
@@ -91,21 +102,23 @@ model DrugItem {
   updatedAt            DateTime            @updatedAt
   drug                 Drug                @relation(fields: [drugID], references: [id])
   drugID               String              @db.ObjectId
-  imageURL             String
+  imageURL             DrugImage
   subImagesURL         String[]
-  price                Int
+  price                Price
   quantityInStock      Count
   description          String?
   likesCount           Int                 @default(0)
-  discount             Int?                @default(0)
+  discount             Price?
   available            Boolean             @default(true)
-  strength             Strength
+  strengthID           String              @db.ObjectId
+  strength             DrugStrength        @relation(fields: [strengthID], references: [id])
   formID               String              @db.ObjectId
   form                 Form                @relation(fields: [formID], references: [id])
   featured             Boolean             @default(false)
   dosageInstructions   DosageInstruction[] @relation(fields: [dosageInstructionIDs], references: [id])
   dosageInstructionIDs String[]            @db.ObjectId
   size                 Size
+  itemsInBatch         Int
   notes                String[]
 }
 
@@ -161,13 +174,14 @@ model Form {
 }
 
 model DrugStrength {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id        String     @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
   amount    Int
   unit      UNITS
-  per       Int      @default(1)
-  perUnit   UNITS    @default(unit)
+  per       Int        @default(1)
+  perUnit   UNITS      @default(unit)
+  DrugItem  DrugItem[]
 }
 
 model DosageInstruction {
@@ -179,6 +193,6 @@ model DosageInstruction {
   frequencyPerDay Int
   amountPerDose   Int
   unit            UNITS
-  drugItems       DrugItem[] @relation(fields: [drugItemIDs], references: [id])
+  DrugItem        DrugItem[] @relation(fields: [drugItemIDs], references: [id])
   drugItemIDs     String[]   @db.ObjectId
 }

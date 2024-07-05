@@ -23,13 +23,13 @@
 				<DropdownMenu.Label>Dashboard links</DropdownMenu.Label>
 				<DropdownMenu.Separator />
 			</DropdownMenu.Group>
-			{#each dashboardLinks as link}
+			{#each dashboardLinks as link (link.href)}
 				<DropdownMenu.Item
 					href="/dashboard/{link.href}"
 					disabled={link.href === ''
 						? $page.url.pathname === '/dashboard'
 						: $page.url.pathname.includes(link.href)}
-					class="flex gap-4 py-3 pe-4 ps-2"
+					class="flex gap-6 px-4 py-3"
 				>
 					<svelte:component this={link.icon} />
 					<span>

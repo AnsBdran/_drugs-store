@@ -12,7 +12,7 @@
 		<Button href="/" class="text-xl font-semibold" variant="link">Store</Button>
 		<div class="flex items-center space-x-3">
 			<ul class="hidden items-center md:flex">
-				{#each navLinks as navLink}
+				{#each navLinks as navLink (navLink.href)}
 					<li>
 						<Button variant="link" href={navLink.href}>{navLink.name}</Button>
 					</li>

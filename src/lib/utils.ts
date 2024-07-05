@@ -59,3 +59,65 @@ export const makeSelectItems = (items) =>
 		value: item.id,
 		label: item.name
 	}));
+
+// export const setNestedValue = (obj: Record<string, unknown>, keys: string[], value: any) => {
+// 	let current = obj;
+// 	if (keys.length === 1) {
+// 		return (current[keys[0]] = value);
+// 	}
+
+// 	for (let i = 0; i < keys.length - 1; i++) {
+// 		if (typeof current[keys[i]] !== 'object' || current[keys[i]] === null) {
+// 			current[keys[i]] = {}; // Ensure it's an object
+// 		}
+// 		current = current[keys[i]];
+// 	}
+// 	current[keys[keys.length - 1]] = value;
+// };
+
+// export const getNestedValue = (obj, keys) => {
+// 	let current = obj;
+// 	for (let i = 0; i < keys.length; i++) {
+// 		if (current[keys[i]] === undefined) {
+// 			return undefined; // Key not found
+// 		}
+// 		current = current[keys[i]];
+// 	}
+// 	return current;
+// };
+
+export const makeSelectItemsFromStrings = (items: string[]) =>
+	items.map((i) => ({ value: i, label: i }));
+
+export const makeStrengthsSelectItems = (
+	values: {
+		id: string;
+		amount: number;
+		unit: string;
+		per: number;
+		perUnit: string;
+		[key: string]: unknown;
+	}[]
+) => {
+	return values.map((v) => {
+		if (v.per === 1 && v.perUnit === 'unit') {
+			return {
+				value: v.id,
+				label: `${v.amount}${v.unit}`
+			};
+		}
+
+		return {
+			value: v.id,
+			label: `${v.amount}${v.unit} per ${v.per}${v.perUnit}`
+		};
+	});
+};
+
+export const getValuesFromSelctObjects = (
+	values: {
+		value: string;
+		label: string;
+		disabled?: boolean | undefined;
+	}[]
+) => values.map((v) => v.value);

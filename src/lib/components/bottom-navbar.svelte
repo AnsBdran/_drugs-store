@@ -7,7 +7,7 @@
 <section
 	class="fixed bottom-0 left-0 z-50 flex w-full justify-around border border-accent bg-background shadow-xl md:hidden"
 >
-	{#each navLinks as link}
+	{#each navLinks as link (link.href)}
 		<a
 			href={link.href}
 			class={cn(

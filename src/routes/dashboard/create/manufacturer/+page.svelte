@@ -5,12 +5,13 @@
 	import { Input } from '$lib/components/ui/input';
 	import SuperDebug, { superForm } from 'sveltekit-superforms';
 	import { Textarea } from '$lib/components/ui/textarea';
-	import Combobox from '$lib/components/combobox.svelte';
+	import { Combo } from '$lib/components';
 	import { countries } from '$lib/info';
 	import Checkbox from '$lib/components/ui/checkbox/checkbox.svelte';
 	import Button from '$lib/components/ui/button/button.svelte';
 	import { zodClient } from 'sveltekit-superforms/adapters';
 	import manufacturerSchema from './schema';
+	import { makeSelectItemsFromStrings } from '$lib/utils';
 	export let data: PageData;
 	const form = superForm(data.form, {
 		validators: zodClient(manufacturerSchema)
@@ -41,12 +42,11 @@
 					<Form.FieldErrors />
 				</Form.Control>
 			</Form.Field>
-			<Combobox
+			<Combo
 				{form}
-				items={countries}
+				options={makeSelectItemsFromStrings(countries)}
 				label="Select a country"
-				name="country"
-				bindTarget="country"
+				name={['country']}
 			/>
 			<Form.Field {form} name="city">
 				<Form.Control let:attrs>
