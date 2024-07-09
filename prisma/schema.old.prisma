@@ -1,0 +1,198 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "mongodb"
+    url      = env("DATABASE_URL")
+}
+
+// =============================================
+// ENUMS definitions
+enum Role {
+    ADMIN
+    USER
+    SUPER_ADMIN
+}
+
+enum UNITS {
+    ml
+    mg
+    g
+    l
+    unit
+}
+
+enum SIZE {
+    ml
+    unit
+}
+
+// =============================================
+// DATA TYPES
+type DrugName {
+    brand   String
+    generic String[]
+}
+
+type Count {
+    batches Int?
+    items   Int?
+}
+
+// type Strength {
+//   amount  Int
+//   unit    UNITS
+//   per     Int
+//   perUnit UNITS
+// }
+
+type Size {
+    amount Int
+    unit   SIZE
+}
+
+type DrugImage {
+    cover String
+    inner String?
+}
+
+type Price {
+    unit  Int
+    batch Int
+}
+
+// =============================================
+// MODELS
+model User {
+    id        String   @id @default(auto()) @map("_id") @db.ObjectId
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    firstName String?
+    lastName  String?
+    username  String   @unique
+    email     String   @unique
+    password  String
+    role      Role     @default(USER)
+    likes     String[] @db.ObjectId
+}
+
+model Drug {
+    id                  String             @id @default(auto()) @map("_id") @db.ObjectId
+    createdAt           DateTime           @default(now())
+    updatedAt           DateTime           @updatedAt
+    name                DrugName           @unique
+    description         String?
+    indicationIDs       String[]           @db.ObjectId
+    indications         Indication[]       @relation(fields: [indicationIDs], references: [id])
+    contraIndicationIDs String[]           @db.ObjectId
+    contraIndications   ContraIndication[] @relation(fields: [contraIndicationIDs], references: [id])
+    activeIngredients   String[]
+    drugItems           DrugItem[]
+    manufacturerID      String             @db.ObjectId
+    manufacturer        Manufacturer       @relation(fields: [manufacturerID], references: [id])
+    categoryIDs         String[]           @db.ObjectId
+    categories          Category[]         @relation(fields: [categoryIDs], references: [id])
+    notes               String[]
+}
+
+model DrugItem {
+    id                   String              @id @default(auto()) @map("_id") @db.ObjectId
+    createdAt            DateTime            @default(now())
+    updatedAt            DateTime            @updatedAt
+    drug                 Drug                @relation(fields: [drugID], references: [id])
+    drugID               String              @db.ObjectId
+    imageURL             DrugImage
+    subImagesURL         String[]
+    price                Price
+    quantityInStock      Count
+    description          String?
+    likesCount           Int                 @default(0)
+    discount             Price?
+    available            Boolean             @default(true)
+    strengthID           String              @db.ObjectId
+    strength             DrugStrength        @relation(fields: [strengthID], references: [id])
+    formID               String              @db.ObjectId
+    form                 Form                @relation(fields: [formID], references: [id])
+    featured             Boolean             @default(false)
+    dosageInstructions   DosageInstruction[] @relation(fields: [dosageInstructionIDs], references: [id])
+    dosageInstructionIDs String[]            @db.ObjectId
+    size                 Size
+    itemsInBatch         Int
+    notes                String[]
+}
+
+model Category {
+    id          String   @id @default(auto()) @map("_id") @db.ObjectId
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+    name        String   @unique
+    description String?
+    imageURL    String?
+    drugIDs     String[] @db.ObjectId
+    drugs       Drug[]   @relation(fields: [drugIDs], references: [id])
+}
+
+model Manufacturer {
+    id          String   @id @default(auto()) @map("_id") @db.ObjectId
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+    name        String   @unique
+    country     String
+    city        String
+    drugs       Drug[]
+    url         String?
+    description String?
+    featured    Boolean  @default(false)
+}
+
+// Indication
+model Indication {
+    id        String   @id @default(auto()) @map("_id") @db.ObjectId
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    name      String   @unique
+    drugIDs   String[] @db.ObjectId
+    drugs     Drug[]   @relation(fields: [drugIDs], references: [id])
+}
+
+model ContraIndication {
+    id        String   @id @default(auto()) @map("_id") @db.ObjectId
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    name      String   @unique
+    drugIDs   String[] @db.ObjectId
+    drugs     Drug[]   @relation(fields: [drugIDs], references: [id])
+}
+
+model Form {
+    id        String     @id @default(auto()) @map("_id") @db.ObjectId
+    createdAt DateTime   @default(now())
+    updatedAt DateTime   @updatedAt
+    name      String
+    drugs     DrugItem[]
+}
+
+model DrugStrength {
+    id        String     @id @default(auto()) @map("_id") @db.ObjectId
+    createdAt DateTime   @default(now())
+    updatedAt DateTime   @updatedAt
+    amount    Int
+    unit      UNITS
+    per       Int        @default(1)
+    perUnit   UNITS      @default(unit)
+    DrugItem  DrugItem[]
+}
+
+model DosageInstruction {
+    id              String     @id @default(auto()) @map("_id") @db.ObjectId
+    createdAt       DateTime   @default(now())
+    updatedAt       DateTime   @updatedAt
+    minAge          Int
+    maxAge          Int
+    frequencyPerDay Int
+    amountPerDose   Int
+    unit            UNITS
+    DrugItem        DrugItem[] @relation(fields: [drugItemIDs], references: [id])
+    drugItemIDs     String[]   @db.ObjectId
+}

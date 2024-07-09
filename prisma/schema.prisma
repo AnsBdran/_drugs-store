@@ -25,14 +25,27 @@ enum UNITS {
 
 enum SIZE {
   ml
+  g
+  l
+  mg
   unit
 }
 
 // =============================================
 // DATA TYPES
-type DrugName {
-  brand   String
-  generic String[]
+// type DrugName {
+//   brand   String
+//   generic String[]
+// }
+
+type Strength {
+  amount String
+  per    String
+}
+
+type ActiveIngredient {
+  name     String
+  strength Strength
 }
 
 type Count {
@@ -40,60 +53,55 @@ type Count {
   items   Int?
 }
 
-// type Strength {
-//   amount  Int
-//   unit    UNITS
-//   per     Int
-//   perUnit UNITS
-// }
-
 type Size {
   amount Int
   unit   SIZE
 }
 
-type DrugImage {
-  cover String
-  inner String?
-}
+// type DrugImage {
+//   cover String
+//   inner String?
+// }
 
 type Price {
-  unit  Int
+  item  Int
   batch Int
+}
+
+type Category {
+  name        String
+  description String
 }
 
 // =============================================
 // MODELS
 model User {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  firstName String?
-  lastName  String?
-  username  String   @unique
-  email     String   @unique
-  password  String
-  role      Role     @default(USER)
-  likes     String[] @db.ObjectId
+  id           String     @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  firstName    String?
+  lastName     String?
+  username     String     @unique
+  email        String     @unique
+  password     String
+  role         Role       @default(USER)
+  likedItemIDs String[]   @db.ObjectId
+  likedItems   DrugItem[] @relation(fields: [likedItemIDs], references: [id])
 }
 
 model Drug {
-  id                  String             @id @default(auto()) @map("_id") @db.ObjectId
-  createdAt           DateTime           @default(now())
-  updatedAt           DateTime           @updatedAt
-  name                DrugName           @unique
-  description         String?
-  indicationIDs       String[]           @db.ObjectId
-  indications         Indication[]       @relation(fields: [indicationIDs], references: [id])
-  contraIndicationIDs String[]           @db.ObjectId
-  contraIndications   ContraIndication[] @relation(fields: [contraIndicationIDs], references: [id])
-  activeIngredients   String[]
-  drugItems           DrugItem[]
-  manufacturerID      String             @db.ObjectId
-  manufacturer        Manufacturer       @relation(fields: [manufacturerID], references: [id])
-  categoryIDs         String[]           @db.ObjectId
-  categories          Category[]         @relation(fields: [categoryIDs], references: [id])
-  notes               String[]
+  id                String       @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt         DateTime     @default(now())
+  updatedAt         DateTime     @updatedAt
+  brandName         String
+  description       String?
+  indications       String[]     @unique
+  contraIndications String[]
+  drugItems         DrugItem[]
+  manufacturerID    String       @db.ObjectId
+  manufacturer      Manufacturer @relation(fields: [manufacturerID], references: [id])
+  categories        String[]
+  notes             String[]
 }
 
 model DrugItem {
@@ -102,35 +110,25 @@ model DrugItem {
   updatedAt            DateTime            @updatedAt
   drug                 Drug                @relation(fields: [drugID], references: [id])
   drugID               String              @db.ObjectId
-  imageURL             DrugImage
+  activeIngredients    ActiveIngredient[]
+  imageURL             String
   subImagesURL         String[]
   price                Price
-  quantityInStock      Count
+  quantityInStock      Count?
   description          String?
   likesCount           Int                 @default(0)
   discount             Price?
   available            Boolean             @default(true)
-  strengthID           String              @db.ObjectId
-  strength             DrugStrength        @relation(fields: [strengthID], references: [id])
-  formID               String              @db.ObjectId
-  form                 Form                @relation(fields: [formID], references: [id])
+  form                 String
   featured             Boolean             @default(false)
   dosageInstructions   DosageInstruction[] @relation(fields: [dosageInstructionIDs], references: [id])
   dosageInstructionIDs String[]            @db.ObjectId
   size                 Size
-  itemsInBatch         Int
+  itemsInBatch         Int?
   notes                String[]
-}
-
-model Category {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  name        String   @unique
-  description String?
-  imageURL    String?
-  drugIDs     String[] @db.ObjectId
-  drugs       Drug[]   @relation(fields: [drugIDs], references: [id])
+  features             String[]
+  User                 User[]              @relation(fields: [userID], references: [id])
+  userID               String[]            @db.ObjectId
 }
 
 model Manufacturer {
@@ -146,44 +144,6 @@ model Manufacturer {
   featured    Boolean  @default(false)
 }
 
-// Indication
-model Indication {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  name      String   @unique
-  drugIDs   String[] @db.ObjectId
-  drugs     Drug[]   @relation(fields: [drugIDs], references: [id])
-}
-
-model ContraIndication {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  name      String   @unique
-  drugIDs   String[] @db.ObjectId
-  drugs     Drug[]   @relation(fields: [drugIDs], references: [id])
-}
-
-model Form {
-  id        String     @id @default(auto()) @map("_id") @db.ObjectId
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-  name      String
-  drugs     DrugItem[]
-}
-
-model DrugStrength {
-  id        String     @id @default(auto()) @map("_id") @db.ObjectId
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-  amount    Int
-  unit      UNITS
-  per       Int        @default(1)
-  perUnit   UNITS      @default(unit)
-  DrugItem  DrugItem[]
-}
-
 model DosageInstruction {
   id              String     @id @default(auto()) @map("_id") @db.ObjectId
   createdAt       DateTime   @default(now())
@@ -195,4 +155,15 @@ model DosageInstruction {
   unit            UNITS
   DrugItem        DrugItem[] @relation(fields: [drugItemIDs], references: [id])
   drugItemIDs     String[]   @db.ObjectId
+}
+
+model Info {
+  id                String     @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt         DateTime   @default(now())
+  updatedAt         DateTime   @updatedAt
+  indications       String[]   @unique
+  contraIndications String[]   @unique
+  categories        Category[] @unique
+  strengths         Strength[] @unique
+  forms             String[]   @unique
 }

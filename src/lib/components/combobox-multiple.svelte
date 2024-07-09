@@ -39,8 +39,8 @@
 			? options.filter((item) => item.label.toLowerCase().includes(inputValue.toLowerCase()))
 			: options;
 
-	$: console.log('values', path, $valueErrors);
-	$: options.map((o) => console.log('multi', o));
+	// $: console.log('values', path, $valueErrors);
+	// $: options.map((o) => console.log('multi', o));
 </script>
 
 <div class="relative">

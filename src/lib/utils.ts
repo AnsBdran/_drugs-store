@@ -1,8 +1,10 @@
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { cubicOut } from 'svelte/easing';
+import { toast } from 'svelte-sonner';
 import type { TransitionConfig } from 'svelte/transition';
-
+import type { SuperValidated } from 'sveltekit-superforms';
+import type { UNITS } from '@prisma/client';
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
 }
@@ -54,62 +56,45 @@ export const flyAndScale = (
 		easing: cubicOut
 	};
 };
-export const makeSelectItems = (items) =>
+
+export const makeStringsSelectItems = (items) =>
 	items.map((item) => ({
-		value: item.id,
-		label: item.name
+		value: item,
+		label: item
 	}));
 
-// export const setNestedValue = (obj: Record<string, unknown>, keys: string[], value: any) => {
-// 	let current = obj;
-// 	if (keys.length === 1) {
-// 		return (current[keys[0]] = value);
-// 	}
+export const makeDrugsSelectItems = (items) =>
+	items.map((i) => ({ label: i.brandName, value: i.id }));
 
-// 	for (let i = 0; i < keys.length - 1; i++) {
-// 		if (typeof current[keys[i]] !== 'object' || current[keys[i]] === null) {
-// 			current[keys[i]] = {}; // Ensure it's an object
-// 		}
-// 		current = current[keys[i]];
-// 	}
-// 	current[keys[keys.length - 1]] = value;
-// };
+export const makeSelectItems = (items) => items.map((i) => ({ label: i.name, value: i.id }));
 
-// export const getNestedValue = (obj, keys) => {
-// 	let current = obj;
-// 	for (let i = 0; i < keys.length; i++) {
-// 		if (current[keys[i]] === undefined) {
-// 			return undefined; // Key not found
-// 		}
-// 		current = current[keys[i]];
-// 	}
-// 	return current;
-// };
+export const parseSelectItems = (
+	arr: { label: string; value: string; disabled?: boolean | undefined }[]
+) => arr.map((item) => item.value);
 
 export const makeSelectItemsFromStrings = (items: string[]) =>
 	items.map((i) => ({ value: i, label: i }));
 
 export const makeStrengthsSelectItems = (
-	values: {
-		id: string;
-		amount: number;
-		unit: string;
-		per: number;
-		perUnit: string;
-		[key: string]: unknown;
-	}[]
+	values:
+		| {
+				amount: string;
+				per: string;
+		  }[]
+		| undefined
 ) => {
+	if (!values) return;
 	return values.map((v) => {
-		if (v.per === 1 && v.perUnit === 'unit') {
+		if (v.per === 'unit') {
 			return {
-				value: v.id,
-				label: `${v.amount}${v.unit}`
+				value: v,
+				label: `${v.amount}`
 			};
 		}
 
 		return {
-			value: v.id,
-			label: `${v.amount}${v.unit} per ${v.per}${v.perUnit}`
+			value: v,
+			label: `${v.amount} per ${v.per}`
 		};
 	});
 };
@@ -121,3 +106,13 @@ export const getValuesFromSelctObjects = (
 		disabled?: boolean | undefined;
 	}[]
 ) => values.map((v) => v.value);
+
+export const showToast = (form) => {
+	if (form.message) {
+		if (form.message.type === 'success') {
+			toast.success('Success ✨', { description: form.message.text });
+		} else {
+			toast.error('Error 🕵️', { description: form.message.text });
+		}
+	}
+};

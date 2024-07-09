@@ -11,15 +11,15 @@
 		<a
 			href={link.href}
 			class={cn(
-				'flex h-14 w-24 flex-1 flex-col items-center justify-center gap-1 rounded-sm  px-4 py-1 text-xs font-medium',
+				'h-18 flex flex-1 flex-col items-center justify-center gap-[2px] rounded-sm  px-3 py-1 text-xs font-medium',
 				{
 					'bg-accent text-3xl font-semibold text-accent-foreground ':
 						$page.url.pathname === link.href
 				}
 			)}
 		>
-			<svelte:component this={link.icon} class="h-6 w-6" />
-			<span class="text-sm">{link.name}</span>
+			<svelte:component this={link.icon} class="h-8" />
+			<span class="text-xs">{link.name}</span>
 		</a>
 	{/each}
 </section>

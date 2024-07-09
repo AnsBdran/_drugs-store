@@ -13,10 +13,8 @@ const config: Config = {
 				'2xl': '1400px'
 			}
 		},
+
 		extend: {
-			screens: {
-				xs: '500px'
-			},
 			colors: {
 				border: 'hsl(var(--border) / <alpha-value>)',
 				input: 'hsl(var(--input) / <alpha-value>)',
@@ -59,6 +57,9 @@ const config: Config = {
 			},
 			fontFamily: {
 				sans: [...fontFamily.sans]
+			},
+			screens: {
+				xs: '500px'
 			}
 		}
 	}

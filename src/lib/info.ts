@@ -196,100 +196,122 @@ export const countries = [
 	'Zimbabwe'
 ];
 
-export const drugDosages: {
-	amount: number;
-	unit: UNITS;
-	per: number;
-	perUnit: UNITS;
-}[] = [
-	{ amount: 1, unit: 'mg', per: 1, perUnit: 'unit' },
-	{ amount: 2, unit: 'mg', per: 1, perUnit: 'unit' },
-	{ amount: 5, unit: 'mg', per: 1, perUnit: 'unit' },
-	{ amount: 10, unit: 'mg', per: 1, perUnit: 'unit' },
-	{ amount: 20, unit: 'mg', per: 1, perUnit: 'unit' },
-	{ amount: 25, unit: 'mg', per: 1, perUnit: 'unit' },
-	{ amount: 50, unit: 'mg', per: 1, perUnit: 'unit' },
-	{ amount: 75, unit: 'mg', per: 1, perUnit: 'unit' },
-	{ amount: 100, unit: 'mg', per: 1, perUnit: 'unit' },
-	{ amount: 150, unit: 'mg', per: 1, perUnit: 'unit' },
-	{ amount: 200, unit: 'mg', per: 1, perUnit: 'unit' },
-	{ amount: 250, unit: 'mg', per: 1, perUnit: 'unit' },
-	{ amount: 300, unit: 'mg', per: 1, perUnit: 'unit' },
-	{ amount: 400, unit: 'mg', per: 1, perUnit: 'unit' },
-	{ amount: 500, unit: 'mg', per: 1, perUnit: 'unit' },
-	{ amount: 600, unit: 'mg', per: 1, perUnit: 'unit' },
-	{ amount: 750, unit: 'mg', per: 1, perUnit: 'unit' },
-	{ amount: 800, unit: 'mg', per: 1, perUnit: 'unit' },
-	{ amount: 900, unit: 'mg', per: 1, perUnit: 'unit' },
-	{ amount: 1000, unit: 'mg', per: 1, perUnit: 'unit' },
-	{ amount: 2.5, unit: 'mg', per: 1, perUnit: 'unit' },
-	{ amount: 7.5, unit: 'mg', per: 1, perUnit: 'unit' },
-	{ amount: 12.5, unit: 'mg', per: 1, perUnit: 'unit' },
-	{ amount: 17.5, unit: 'mg', per: 1, perUnit: 'unit' },
-	{ amount: 37.5, unit: 'mg', per: 1, perUnit: 'unit' },
-	{ amount: 62.5, unit: 'mg', per: 1, perUnit: 'unit' },
-	{ amount: 125, unit: 'mg', per: 1, perUnit: 'unit' },
-	{ amount: 1500, unit: 'mg', per: 1, perUnit: 'unit' },
-	{ amount: 180, unit: 'mg', per: 1, perUnit: 'unit' },
-	{ amount: 360, unit: 'mg', per: 1, perUnit: 'unit' },
-	{ amount: 0.5, unit: 'mg', per: 1, perUnit: 'unit' },
-	{ amount: 0.25, unit: 'mg', per: 1, perUnit: 'unit' },
-	{ amount: 0.75, unit: 'mg', per: 1, perUnit: 'unit' },
-	{ amount: 1.25, unit: 'mg', per: 1, perUnit: 'unit' },
-	{ amount: 0.1, unit: 'mg', per: 1, perUnit: 'unit' },
-	{ amount: 0.2, unit: 'mg', per: 1, perUnit: 'unit' },
-	{ amount: 0.3, unit: 'mg', per: 1, perUnit: 'unit' },
-	{ amount: 1, unit: 'g', per: 1, perUnit: 'unit' },
-	{ amount: 1.5, unit: 'g', per: 1, perUnit: 'unit' },
-	{ amount: 2, unit: 'g', per: 1, perUnit: 'unit' },
-	{ amount: 3, unit: 'g', per: 1, perUnit: 'unit' },
-	{ amount: 4, unit: 'g', per: 1, perUnit: 'unit' },
-	{ amount: 5, unit: 'g', per: 1, perUnit: 'unit' },
-	{ amount: 6, unit: 'g', per: 1, perUnit: 'unit' },
-	{ amount: 8, unit: 'g', per: 1, perUnit: 'unit' },
-	{ amount: 10, unit: 'g', per: 1, perUnit: 'unit' }
+export const drugStrengths = [
+	{ amount: '1mg', per: 'unit' },
+	{ amount: '2mg', per: 'unit' },
+	{ amount: '5mg', per: 'unit' },
+	{ amount: '10mg', per: 'unit' },
+	{ amount: '20mg', per: 'unit' },
+	{ amount: '25mg', per: 'unit' },
+	{ amount: '50mg', per: 'unit' },
+	{ amount: '75mg', per: 'unit' },
+	{ amount: '100mg', per: 'unit' },
+	{ amount: '150mg', per: 'unit' },
+	{ amount: '200mg', per: 'unit' },
+	{ amount: '250mg', per: 'unit' },
+	{ amount: '300mg', per: 'unit' },
+	{ amount: '400mg', per: 'unit' },
+	{ amount: '500mg', per: 'unit' },
+	{ amount: '600mg', per: 'unit' },
+	{ amount: '750mg', per: 'unit' },
+	{ amount: '800mg', per: 'unit' },
+	{ amount: '900mg', per: 'unit' },
+	{ amount: '1000mg', per: 'unit' },
+	{ amount: '2.5mg', per: 'unit' },
+	{ amount: '7.5mg', per: 'unit' },
+	{ amount: '12.5mg', per: 'unit' },
+	{ amount: '17.5mg', per: 'unit' },
+	{ amount: '37.5mg', per: 'unit' },
+	{ amount: '62.5mg', per: 'unit' },
+	{ amount: '125mg', per: 'unit' },
+	{ amount: '1500mg', per: 'unit' },
+	{ amount: '180mg', per: 'unit' },
+	{ amount: '360mg', per: 'unit' },
+	{ amount: '0.5mg', per: 'unit' },
+	{ amount: '0.25mg', per: 'unit' },
+	{ amount: '0.75mg', per: 'unit' },
+	{ amount: '1.25mg', per: 'unit' },
+	{ amount: '0.1mg', per: 'unit' },
+	{ amount: '0.2mg', per: 'unit' },
+	{ amount: '0.3mg', per: 'unit' },
+	{ amount: '1g', per: 'unit' },
+	{ amount: '1.5g', per: 'unit' },
+	{ amount: '2g', per: 'unit' },
+	{ amount: '3g', per: 'unit' },
+	{ amount: '4g', per: 'unit' },
+	{ amount: '5g', per: 'unit' },
+	{ amount: '6g', per: 'unit' },
+	{ amount: '8g', per: 'unit' },
+	{ amount: '10g', per: 'unit' },
+
+	{ amount: '200mg', per: '100ml' },
+	{ amount: '400mg', per: '100ml' },
+	{ amount: '600mg', per: '100ml' },
+	{ amount: '800mg', per: '100ml' },
+	{ amount: '1000mg', per: '100ml' },
+	{ amount: '1200mg', per: '100ml' },
+	{ amount: '1400mg', per: '100ml' },
+	{ amount: '1600mg', per: '100ml' },
+	{ amount: '1800mg', per: '100ml' },
+	{ amount: '2000mg', per: '100ml' },
+	{ amount: '250mg', per: '5ml' },
+	{ amount: '500mg', per: '5ml' },
+	{ amount: '750mg', per: '5ml' },
+	{ amount: '1000mg', per: '5ml' },
+	{ amount: '1500mg', per: '5ml' },
+	{ amount: '2000mg', per: '5ml' },
+	{ amount: '2500mg', per: '5ml' },
+	{ amount: '3000mg', per: '5ml' },
+	{ amount: '3500mg', per: '5ml' },
+	{ amount: '4000mg', per: '5ml' }
 ];
 
 export const drugForms = [
-	'AEROSOL',
-	'BALM',
-	'CAPSULE',
-	'CREAM',
-	'ELIXIR',
-	'EMULSION',
-	'FOAM',
-	'GEL',
-	'INHALANT',
-	'INJECTION',
-	'LIQUID',
-	'LOTION',
-	'MASK',
-	'OIL',
-	'OINTMENT',
-	'PATCH',
-	'PILL',
-	'POWDER',
-	'SERUM',
-	'SOLUTION',
-	'SPRAY',
-	'SUPPOSITORY',
-	'SUSPENSION',
-	'SYRUP',
-	'TABLET',
-	'TINCTURE',
-	'TOOTHPASTE',
-	'MOUTHWASH',
-	'SKIN_CARE',
-	'COSMETIC',
-	'SHAMPOO',
-	'PASTE',
-	'GUM',
-	'DROPS',
-	'PELLET',
-	'CAPLET',
-	'POULTICE'
+	'Aerosol',
+	'Balm',
+	'Capsule',
+	'Cream',
+	'Elixir',
+	'Emulsion',
+	'Foam',
+	'Gel',
+	'Inhalant',
+	'Injection',
+	'Liquid',
+	'Lotion',
+	'Mask',
+	'Oil',
+	'Ointment',
+	'Patch',
+	'Pill',
+	'Powder',
+	'Serum',
+	'Solution',
+	'Spray',
+	'Suppository',
+	'Suspension',
+	'Syrup',
+	'Tablet',
+	'Tincture',
+	'Toothpaste',
+	'Mouthwash',
+	'Skin Care',
+	'Cosmetic',
+	'Shampoo',
+	'Paste',
+	'Gum',
+	'Drops',
+	'Pellet',
+	'Caplet',
+	'Poultice',
+	'Lozenge',
+	'Granules',
+	'Implant',
+	'Medicated Soap',
+	'Eye Droper',
+	'Nasal Spray',
+	'Inhaler'
 ];
-
 export const indications = [
 	'Pain',
 	'Fever',
@@ -557,7 +579,6 @@ export const activeIngredients = [
 	'Pioglitazone',
 	'Prazosin',
 	'Propranolol',
-	'Risperidone',
 	'Scopolamine',
 	'Tizanidine',
 	'Tolterodine',
@@ -633,21 +654,1061 @@ export const drugCategories = [
 	}
 ];
 
-function checkDuplicates(arr) {
-	const seen = new Set();
-	for (const item of arr) {
-		if (seen.has(item)) {
-			console.log(`Duplicate found: ${item}`);
-			return true;
-		}
-		seen.add(item);
+export const dosageInstructions: {
+	minAge: number;
+	maxAge: number;
+	frequencyPerDay: number;
+	amountPerDose: number;
+	unit: UNITS;
+}[] = [
+	{
+		minAge: 0,
+		maxAge: 2,
+		frequencyPerDay: 3,
+		amountPerDose: 2.5,
+		unit: 'ml'
+	},
+	{
+		minAge: 3,
+		maxAge: 5,
+		frequencyPerDay: 2,
+		amountPerDose: 5,
+		unit: 'ml'
+	},
+	{
+		minAge: 6,
+		maxAge: 12,
+		frequencyPerDay: 1,
+		amountPerDose: 250,
+		unit: 'mg'
+	},
+	{
+		minAge: 6,
+		maxAge: 12,
+		frequencyPerDay: 2,
+		amountPerDose: 5,
+		unit: 'ml'
+	},
+	{
+		minAge: 6,
+		maxAge: 12,
+		frequencyPerDay: 2,
+		amountPerDose: 500,
+		unit: 'mg'
+	},
+	{
+		minAge: 13,
+		maxAge: 18,
+		frequencyPerDay: 2,
+		amountPerDose: 500,
+		unit: 'mg'
+	},
+	{
+		minAge: 18,
+		maxAge: 65,
+		frequencyPerDay: 3,
+		amountPerDose: 10,
+		unit: 'ml'
+	},
+	{
+		minAge: 18,
+		maxAge: 65,
+		frequencyPerDay: 2,
+		amountPerDose: 500,
+		unit: 'mg'
+	},
+	{
+		minAge: 65,
+		maxAge: 100,
+		frequencyPerDay: 1,
+		amountPerDose: 250,
+		unit: 'mg'
+	},
+	{
+		minAge: 0,
+		maxAge: 2,
+		frequencyPerDay: 4,
+		amountPerDose: 2,
+		unit: 'ml'
+	},
+	{
+		minAge: 3,
+		maxAge: 5,
+		frequencyPerDay: 3,
+		amountPerDose: 4,
+		unit: 'ml'
+	},
+	{
+		minAge: 6,
+		maxAge: 12,
+		frequencyPerDay: 2,
+		amountPerDose: 7.5,
+		unit: 'ml'
+	},
+	{
+		minAge: 13,
+		maxAge: 18,
+		frequencyPerDay: 1,
+		amountPerDose: 750,
+		unit: 'mg'
+	},
+	{
+		minAge: 18,
+		maxAge: 65,
+		frequencyPerDay: 2,
+		amountPerDose: 15,
+		unit: 'ml'
+	},
+	{
+		minAge: 65,
+		maxAge: 100,
+		frequencyPerDay: 1,
+		amountPerDose: 500,
+		unit: 'mg'
+	},
+	{
+		minAge: 0,
+		maxAge: 2,
+		frequencyPerDay: 3,
+		amountPerDose: 1,
+		unit: 'unit'
+	},
+	{
+		minAge: 3,
+		maxAge: 5,
+		frequencyPerDay: 2,
+		amountPerDose: 1,
+		unit: 'unit'
+	},
+	{
+		minAge: 6,
+		maxAge: 12,
+		frequencyPerDay: 1,
+		amountPerDose: 0.5,
+		unit: 'unit'
+	},
+	{
+		minAge: 6,
+		maxAge: 12,
+		frequencyPerDay: 2,
+		amountPerDose: 1,
+		unit: 'unit'
+	},
+	{
+		minAge: 6,
+		maxAge: 12,
+		frequencyPerDay: 2,
+		amountPerDose: 0.5,
+		unit: 'unit'
+	},
+	{
+		minAge: 13,
+		maxAge: 18,
+		frequencyPerDay: 2,
+		amountPerDose: 1,
+		unit: 'unit'
+	},
+	{
+		minAge: 18,
+		maxAge: 65,
+		frequencyPerDay: 3,
+		amountPerDose: 1,
+		unit: 'unit'
+	},
+	{
+		minAge: 18,
+		maxAge: 65,
+		frequencyPerDay: 2,
+		amountPerDose: 2,
+		unit: 'unit'
+	},
+	{
+		minAge: 65,
+		maxAge: 100,
+		frequencyPerDay: 1,
+		amountPerDose: 0.5,
+		unit: 'unit'
+	},
+	{
+		minAge: 0,
+		maxAge: 2,
+		frequencyPerDay: 4,
+		amountPerDose: 0.5,
+		unit: 'unit'
+	},
+	{
+		minAge: 3,
+		maxAge: 5,
+		frequencyPerDay: 3,
+		amountPerDose: 1,
+		unit: 'unit'
+	},
+	{
+		minAge: 6,
+		maxAge: 12,
+		frequencyPerDay: 2,
+		amountPerDose: 2,
+		unit: 'unit'
+	},
+	{
+		minAge: 13,
+		maxAge: 18,
+		frequencyPerDay: 1,
+		amountPerDose: 3,
+		unit: 'unit'
+	},
+	{
+		minAge: 18,
+		maxAge: 65,
+		frequencyPerDay: 2,
+		amountPerDose: 2,
+		unit: 'unit'
+	},
+	{
+		minAge: 65,
+		maxAge: 100,
+		frequencyPerDay: 1,
+		amountPerDose: 1,
+		unit: 'unit'
+	},
+	{
+		minAge: 0,
+		maxAge: 2,
+		frequencyPerDay: 3,
+		amountPerDose: 3,
+		unit: 'ml'
+	},
+	{
+		minAge: 3,
+		maxAge: 5,
+		frequencyPerDay: 2,
+		amountPerDose: 6,
+		unit: 'ml'
+	},
+	{
+		minAge: 6,
+		maxAge: 12,
+		frequencyPerDay: 1,
+		amountPerDose: 300,
+		unit: 'mg'
+	},
+	{
+		minAge: 6,
+		maxAge: 12,
+		frequencyPerDay: 2,
+		amountPerDose: 6,
+		unit: 'ml'
+	},
+	{
+		minAge: 6,
+		maxAge: 12,
+		frequencyPerDay: 2,
+		amountPerDose: 600,
+		unit: 'mg'
+	},
+	{
+		minAge: 13,
+		maxAge: 18,
+		frequencyPerDay: 2,
+		amountPerDose: 600,
+		unit: 'mg'
+	},
+	{
+		minAge: 18,
+		maxAge: 65,
+		frequencyPerDay: 3,
+		amountPerDose: 12,
+		unit: 'ml'
+	},
+	{
+		minAge: 18,
+		maxAge: 65,
+		frequencyPerDay: 2,
+		amountPerDose: 600,
+		unit: 'mg'
+	},
+	{
+		minAge: 65,
+		maxAge: 100,
+		frequencyPerDay: 1,
+		amountPerDose: 300,
+		unit: 'mg'
+	},
+	{
+		minAge: 0,
+		maxAge: 2,
+		frequencyPerDay: 4,
+		amountPerDose: 2.5,
+		unit: 'ml'
+	},
+	{
+		minAge: 3,
+		maxAge: 5,
+		frequencyPerDay: 3,
+		amountPerDose: 5,
+		unit: 'ml'
+	},
+	{
+		minAge: 6,
+		maxAge: 12,
+		frequencyPerDay: 2,
+		amountPerDose: 8,
+		unit: 'ml'
+	},
+	{
+		minAge: 13,
+		maxAge: 18,
+		frequencyPerDay: 1,
+		amountPerDose: 800,
+		unit: 'mg'
+	},
+	{
+		minAge: 18,
+		maxAge: 65,
+		frequencyPerDay: 2,
+		amountPerDose: 16,
+		unit: 'ml'
+	},
+	{
+		minAge: 65,
+		maxAge: 100,
+		frequencyPerDay: 1,
+		amountPerDose: 600,
+		unit: 'mg'
+	},
+	{
+		minAge: 0,
+		maxAge: 2,
+		frequencyPerDay: 3,
+		amountPerDose: 1,
+		unit: 'unit'
+	},
+	{
+		minAge: 3,
+		maxAge: 5,
+		frequencyPerDay: 2,
+		amountPerDose: 1,
+		unit: 'unit'
+	},
+	{
+		minAge: 6,
+		maxAge: 12,
+		frequencyPerDay: 1,
+		amountPerDose: 0.5,
+		unit: 'unit'
+	},
+	{
+		minAge: 6,
+		maxAge: 12,
+		frequencyPerDay: 2,
+		amountPerDose: 1,
+		unit: 'unit'
+	},
+	{
+		minAge: 6,
+		maxAge: 12,
+		frequencyPerDay: 2,
+		amountPerDose: 0.5,
+		unit: 'unit'
+	},
+	{
+		minAge: 13,
+		maxAge: 18,
+		frequencyPerDay: 2,
+		amountPerDose: 1,
+		unit: 'unit'
+	},
+	{
+		minAge: 18,
+		maxAge: 65,
+		frequencyPerDay: 3,
+		amountPerDose: 1,
+		unit: 'unit'
+	},
+	{
+		minAge: 18,
+		maxAge: 65,
+		frequencyPerDay: 2,
+		amountPerDose: 2,
+		unit: 'unit'
+	},
+	{
+		minAge: 65,
+		maxAge: 100,
+		frequencyPerDay: 1,
+		amountPerDose: 0.5,
+		unit: 'unit'
+	},
+	{
+		minAge: 0,
+		maxAge: 2,
+		frequencyPerDay: 4,
+		amountPerDose: 0.5,
+		unit: 'unit'
+	},
+	{
+		minAge: 3,
+		maxAge: 5,
+		frequencyPerDay: 3,
+		amountPerDose: 1,
+		unit: 'unit'
+	},
+	{
+		minAge: 6,
+		maxAge: 12,
+		frequencyPerDay: 2,
+		amountPerDose: 2,
+		unit: 'unit'
+	},
+	{
+		minAge: 13,
+		maxAge: 18,
+		frequencyPerDay: 1,
+		amountPerDose: 3,
+		unit: 'unit'
+	},
+	{
+		minAge: 18,
+		maxAge: 65,
+		frequencyPerDay: 2,
+		amountPerDose: 2,
+		unit: 'unit'
+	},
+	{
+		minAge: 65,
+		maxAge: 100,
+		frequencyPerDay: 1,
+		amountPerDose: 1,
+		unit: 'unit'
+	},
+	{
+		minAge: 0,
+		maxAge: 2,
+		frequencyPerDay: 3,
+		amountPerDose: 2.5,
+		unit: 'ml'
+	},
+	{
+		minAge: 3,
+		maxAge: 5,
+		frequencyPerDay: 2,
+		amountPerDose: 5,
+		unit: 'ml'
+	},
+	{
+		minAge: 6,
+		maxAge: 12,
+		frequencyPerDay: 1,
+		amountPerDose: 250,
+		unit: 'mg'
+	},
+	{
+		minAge: 6,
+		maxAge: 12,
+		frequencyPerDay: 2,
+		amountPerDose: 5,
+		unit: 'ml'
+	},
+	{
+		minAge: 6,
+		maxAge: 12,
+		frequencyPerDay: 2,
+		amountPerDose: 500,
+		unit: 'mg'
+	},
+	{
+		minAge: 13,
+		maxAge: 18,
+		frequencyPerDay: 2,
+		amountPerDose: 500,
+		unit: 'mg'
+	},
+	{
+		minAge: 18,
+		maxAge: 65,
+		frequencyPerDay: 3,
+		amountPerDose: 10,
+		unit: 'ml'
+	},
+	{
+		minAge: 18,
+		maxAge: 65,
+		frequencyPerDay: 2,
+		amountPerDose: 500,
+		unit: 'mg'
+	},
+	{
+		minAge: 65,
+		maxAge: 100,
+		frequencyPerDay: 1,
+		amountPerDose: 250,
+		unit: 'mg'
+	},
+	{
+		minAge: 0,
+		maxAge: 2,
+		frequencyPerDay: 4,
+		amountPerDose: 2,
+		unit: 'ml'
+	},
+	{
+		minAge: 3,
+		maxAge: 5,
+		frequencyPerDay: 3,
+		amountPerDose: 4,
+		unit: 'ml'
+	},
+	{
+		minAge: 6,
+		maxAge: 12,
+		frequencyPerDay: 2,
+		amountPerDose: 7.5,
+		unit: 'ml'
+	},
+	{
+		minAge: 13,
+		maxAge: 18,
+		frequencyPerDay: 1,
+		amountPerDose: 750,
+		unit: 'mg'
+	},
+	{
+		minAge: 18,
+		maxAge: 65,
+		frequencyPerDay: 2,
+		amountPerDose: 15,
+		unit: 'ml'
+	},
+	{
+		minAge: 65,
+		maxAge: 100,
+		frequencyPerDay: 1,
+		amountPerDose: 500,
+		unit: 'mg'
+	},
+	{
+		minAge: 0,
+		maxAge: 2,
+		frequencyPerDay: 3,
+		amountPerDose: 1,
+		unit: 'unit'
+	},
+	{
+		minAge: 3,
+		maxAge: 5,
+		frequencyPerDay: 2,
+		amountPerDose: 1,
+		unit: 'unit'
+	},
+	{
+		minAge: 6,
+		maxAge: 12,
+		frequencyPerDay: 1,
+		amountPerDose: 0.5,
+		unit: 'unit'
+	},
+	{
+		minAge: 6,
+		maxAge: 12,
+		frequencyPerDay: 2,
+		amountPerDose: 1,
+		unit: 'unit'
+	},
+	{
+		minAge: 6,
+		maxAge: 12,
+		frequencyPerDay: 2,
+		amountPerDose: 0.5,
+		unit: 'unit'
+	},
+	{
+		minAge: 13,
+		maxAge: 18,
+		frequencyPerDay: 2,
+		amountPerDose: 1,
+		unit: 'unit'
+	},
+	{
+		minAge: 18,
+		maxAge: 65,
+		frequencyPerDay: 3,
+		amountPerDose: 1,
+		unit: 'unit'
+	},
+	{
+		minAge: 18,
+		maxAge: 65,
+		frequencyPerDay: 2,
+		amountPerDose: 2,
+		unit: 'unit'
+	},
+	{
+		minAge: 65,
+		maxAge: 100,
+		frequencyPerDay: 1,
+		amountPerDose: 0.5,
+		unit: 'unit'
+	},
+	{
+		minAge: 0,
+		maxAge: 2,
+		frequencyPerDay: 4,
+		amountPerDose: 0.5,
+		unit: 'unit'
+	},
+	{
+		minAge: 3,
+		maxAge: 5,
+		frequencyPerDay: 3,
+		amountPerDose: 1,
+		unit: 'unit'
+	},
+	{
+		minAge: 6,
+		maxAge: 12,
+		frequencyPerDay: 2,
+		amountPerDose: 2,
+		unit: 'unit'
+	},
+	{
+		minAge: 13,
+		maxAge: 18,
+		frequencyPerDay: 1,
+		amountPerDose: 3,
+		unit: 'unit'
+	},
+	{
+		minAge: 18,
+		maxAge: 65,
+		frequencyPerDay: 2,
+		amountPerDose: 2,
+		unit: 'unit'
+	},
+	{
+		minAge: 65,
+		maxAge: 100,
+		frequencyPerDay: 1,
+		amountPerDose: 1,
+		unit: 'unit'
+	},
+	{
+		minAge: 0,
+		maxAge: 2,
+		frequencyPerDay: 3,
+		amountPerDose: 2.5,
+		unit: 'ml'
+	},
+	{
+		minAge: 3,
+		maxAge: 5,
+		frequencyPerDay: 2,
+		amountPerDose: 5,
+		unit: 'ml'
+	},
+	{
+		minAge: 6,
+		maxAge: 12,
+		frequencyPerDay: 1,
+		amountPerDose: 250,
+		unit: 'mg'
+	},
+	{
+		minAge: 6,
+		maxAge: 12,
+		frequencyPerDay: 2,
+		amountPerDose: 5,
+		unit: 'ml'
+	},
+	{
+		minAge: 6,
+		maxAge: 12,
+		frequencyPerDay: 2,
+		amountPerDose: 500,
+		unit: 'mg'
+	},
+	{
+		minAge: 13,
+		maxAge: 18,
+		frequencyPerDay: 2,
+		amountPerDose: 500,
+		unit: 'mg'
+	},
+	{
+		minAge: 18,
+		maxAge: 65,
+		frequencyPerDay: 3,
+		amountPerDose: 10,
+		unit: 'ml'
+	},
+	{
+		minAge: 18,
+		maxAge: 65,
+		frequencyPerDay: 2,
+		amountPerDose: 500,
+		unit: 'mg'
+	},
+	{
+		minAge: 65,
+		maxAge: 100,
+		frequencyPerDay: 1,
+		amountPerDose: 250,
+		unit: 'mg'
+	},
+	{
+		minAge: 0,
+		maxAge: 2,
+		frequencyPerDay: 4,
+		amountPerDose: 2,
+		unit: 'ml'
+	},
+	{
+		minAge: 3,
+		maxAge: 5,
+		frequencyPerDay: 3,
+		amountPerDose: 4,
+		unit: 'ml'
+	},
+	{
+		minAge: 6,
+		maxAge: 12,
+		frequencyPerDay: 2,
+		amountPerDose: 7.5,
+		unit: 'ml'
+	},
+	{
+		minAge: 13,
+		maxAge: 18,
+		frequencyPerDay: 1,
+		amountPerDose: 750,
+		unit: 'mg'
+	},
+	{
+		minAge: 18,
+		maxAge: 65,
+		frequencyPerDay: 2,
+		amountPerDose: 15,
+		unit: 'ml'
+	},
+	{
+		minAge: 65,
+		maxAge: 100,
+		frequencyPerDay: 1,
+		amountPerDose: 500,
+		unit: 'mg'
+	},
+	{
+		minAge: 0,
+		maxAge: 2,
+		frequencyPerDay: 3,
+		amountPerDose: 1,
+		unit: 'unit'
+	},
+	{
+		minAge: 3,
+		maxAge: 5,
+		frequencyPerDay: 2,
+		amountPerDose: 1,
+		unit: 'unit'
+	},
+	{
+		minAge: 6,
+		maxAge: 12,
+		frequencyPerDay: 1,
+		amountPerDose: 0.5,
+		unit: 'unit'
+	},
+	{
+		minAge: 6,
+		maxAge: 12,
+		frequencyPerDay: 2,
+		amountPerDose: 1,
+		unit: 'unit'
+	},
+	{
+		minAge: 6,
+		maxAge: 12,
+		frequencyPerDay: 2,
+		amountPerDose: 0.5,
+		unit: 'unit'
+	},
+	{
+		minAge: 13,
+		maxAge: 18,
+		frequencyPerDay: 2,
+		amountPerDose: 1,
+		unit: 'unit'
+	},
+	{
+		minAge: 18,
+		maxAge: 65,
+		frequencyPerDay: 3,
+		amountPerDose: 1,
+		unit: 'unit'
+	},
+	{
+		minAge: 18,
+		maxAge: 65,
+		frequencyPerDay: 2,
+		amountPerDose: 2,
+		unit: 'unit'
+	},
+	{
+		minAge: 65,
+		maxAge: 100,
+		frequencyPerDay: 1,
+		amountPerDose: 0.5,
+		unit: 'unit'
+	},
+	{
+		minAge: 0,
+		maxAge: 2,
+		frequencyPerDay: 4,
+		amountPerDose: 0.5,
+		unit: 'unit'
+	},
+	{
+		minAge: 3,
+		maxAge: 5,
+		frequencyPerDay: 3,
+		amountPerDose: 1,
+		unit: 'unit'
+	},
+	{
+		minAge: 6,
+		maxAge: 12,
+		frequencyPerDay: 2,
+		amountPerDose: 2,
+		unit: 'unit'
+	},
+	{
+		minAge: 13,
+		maxAge: 18,
+		frequencyPerDay: 1,
+		amountPerDose: 3,
+		unit: 'unit'
+	},
+	{
+		minAge: 18,
+		maxAge: 65,
+		frequencyPerDay: 2,
+		amountPerDose: 2,
+		unit: 'unit'
+	},
+	{
+		minAge: 65,
+		maxAge: 100,
+		frequencyPerDay: 1,
+		amountPerDose: 1,
+		unit: 'unit'
+	},
+	{
+		minAge: 0,
+		maxAge: 2,
+		frequencyPerDay: 3,
+		amountPerDose: 2.5,
+		unit: 'ml'
+	},
+	{
+		minAge: 3,
+		maxAge: 5,
+		frequencyPerDay: 2,
+		amountPerDose: 5,
+		unit: 'ml'
+	},
+	{
+		minAge: 6,
+		maxAge: 12,
+		frequencyPerDay: 1,
+		amountPerDose: 250,
+		unit: 'mg'
+	},
+	{
+		minAge: 6,
+		maxAge: 12,
+		frequencyPerDay: 2,
+		amountPerDose: 5,
+		unit: 'ml'
+	},
+	{
+		minAge: 6,
+		maxAge: 12,
+		frequencyPerDay: 2,
+		amountPerDose: 500,
+		unit: 'mg'
+	},
+	{
+		minAge: 13,
+		maxAge: 18,
+		frequencyPerDay: 2,
+		amountPerDose: 500,
+		unit: 'mg'
+	},
+	{
+		minAge: 18,
+		maxAge: 65,
+		frequencyPerDay: 3,
+		amountPerDose: 10,
+		unit: 'ml'
+	},
+	{
+		minAge: 18,
+		maxAge: 65,
+		frequencyPerDay: 2,
+		amountPerDose: 500,
+		unit: 'mg'
+	},
+	{
+		minAge: 65,
+		maxAge: 100,
+		frequencyPerDay: 1,
+		amountPerDose: 250,
+		unit: 'mg'
+	},
+	{
+		minAge: 0,
+		maxAge: 2,
+		frequencyPerDay: 4,
+		amountPerDose: 2,
+		unit: 'ml'
+	},
+	{
+		minAge: 3,
+		maxAge: 5,
+		frequencyPerDay: 3,
+		amountPerDose: 4,
+		unit: 'ml'
+	},
+	{
+		minAge: 6,
+		maxAge: 12,
+		frequencyPerDay: 2,
+		amountPerDose: 7.5,
+		unit: 'ml'
+	},
+	{
+		minAge: 13,
+		maxAge: 18,
+		frequencyPerDay: 1,
+		amountPerDose: 750,
+		unit: 'mg'
+	},
+	{
+		minAge: 18,
+		maxAge: 65,
+		frequencyPerDay: 2,
+		amountPerDose: 15,
+		unit: 'ml'
+	},
+	{
+		minAge: 65,
+		maxAge: 100,
+		frequencyPerDay: 1,
+		amountPerDose: 500,
+		unit: 'mg'
+	},
+	{
+		minAge: 0,
+		maxAge: 2,
+		frequencyPerDay: 3,
+		amountPerDose: 1,
+		unit: 'unit'
+	},
+	{
+		minAge: 3,
+		maxAge: 5,
+		frequencyPerDay: 2,
+		amountPerDose: 1,
+		unit: 'unit'
+	},
+	{
+		minAge: 6,
+		maxAge: 12,
+		frequencyPerDay: 1,
+		amountPerDose: 0.5,
+		unit: 'unit'
+	},
+	{
+		minAge: 6,
+		maxAge: 12,
+		frequencyPerDay: 2,
+		amountPerDose: 1,
+		unit: 'unit'
+	},
+	{
+		minAge: 6,
+		maxAge: 12,
+		frequencyPerDay: 2,
+		amountPerDose: 0.5,
+		unit: 'unit'
+	},
+	{
+		minAge: 13,
+		maxAge: 18,
+		frequencyPerDay: 2,
+		amountPerDose: 1,
+		unit: 'unit'
+	},
+	{
+		minAge: 18,
+		maxAge: 65,
+		frequencyPerDay: 3,
+		amountPerDose: 1,
+		unit: 'unit'
+	},
+	{
+		minAge: 18,
+		maxAge: 65,
+		frequencyPerDay: 2,
+		amountPerDose: 2,
+		unit: 'unit'
+	},
+	{
+		minAge: 65,
+		maxAge: 100,
+		frequencyPerDay: 1,
+		amountPerDose: 0.5,
+		unit: 'unit'
+	},
+	{
+		minAge: 0,
+		maxAge: 2,
+		frequencyPerDay: 4,
+		amountPerDose: 0.5,
+		unit: 'unit'
+	},
+	{
+		minAge: 3,
+		maxAge: 5,
+		frequencyPerDay: 3,
+		amountPerDose: 1,
+		unit: 'unit'
+	},
+	{
+		minAge: 6,
+		maxAge: 12,
+		frequencyPerDay: 2,
+		amountPerDose: 2,
+		unit: 'unit'
+	},
+	{
+		minAge: 13,
+		maxAge: 18,
+		frequencyPerDay: 1,
+		amountPerDose: 3,
+		unit: 'unit'
+	},
+	{
+		minAge: 18,
+		maxAge: 65,
+		frequencyPerDay: 2,
+		amountPerDose: 2,
+		unit: 'unit'
+	},
+	{
+		minAge: 65,
+		maxAge: 100,
+		frequencyPerDay: 1,
+		amountPerDose: 1,
+		unit: 'unit'
 	}
-	return false;
-}
-console.log('Checking drugForms:', checkDuplicates(drugForms));
-console.log('Checking indications:', checkDuplicates(indications));
-console.log('Checking contraIndications:', checkDuplicates(contraIndications));
-console.log('Checking activeIngredients:', checkDuplicates(activeIngredients));
-console.log('Checking drugCategories:', checkDuplicates(drugCategories.map((cat) => cat.name)));
-console.log('Checking drugDosages:', checkDuplicates(drugDosages));
-console.log('Checking countries:', checkDuplicates(countries));
+];

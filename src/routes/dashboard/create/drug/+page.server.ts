@@ -3,44 +3,39 @@ import type { PageServerLoad } from './$types';
 import { zod } from 'sveltekit-superforms/adapters';
 import { drugSchema } from './schema';
 import prisma from '$lib/server/prisma';
-import { getValuesFromSelctObjects } from '$lib/utils';
-// import { drugItemSchema } from '../drug-item/schema';
+import { parseSelectItems } from '$lib/utils';
 
 export const load: PageServerLoad = async () => {
 	const form = await superValidate(zod(drugSchema));
-	try {
-		return {
-			form,
-			indications: prisma.indication.findMany(),
-			contraIndications: prisma.contraIndication.findMany(),
-			manufacturers: prisma.manufacturer.findMany(),
-			categories: prisma.category.findMany()
-		};
-	} catch (e) {
-		console.log(e);
-		return { form, indications: [], contraindications: [] };
-	}
+	return {
+		form,
+		info: prisma.info.findFirst(),
+		manufacturers: prisma.manufacturer.findMany()
+	};
 };
 export const actions = {
 	default: async (event) => {
 		console.log('we are submitting');
 		const form = await superValidate(event, zod(drugSchema));
+		const { brandName, categories, contraIndications, description, indications, manufacturerID } =
+			form.data;
+		// console.log(...drugSchema.safeParse(form.data));
 		try {
 			const result = await prisma.drug.create({
 				data: {
-					indicationIDs: getValuesFromSelctObjects(form.data.indications),
-					contraIndicationIDs: getValuesFromSelctObjects(form.data.contraIndications),
-					categoryIDs: getValuesFromSelctObjects(form.data.categoryIDs),
-					name: { brand: form.data.name.brand, generic: form.data.name.generic },
-					manufacturerID: form.data.manufacturerID
+					brandName,
+					categories: parseSelectItems(categories),
+					indications: parseSelectItems(indications),
+					contraIndications: parseSelectItems(contraIndications),
+					manufacturerID
 				}
 			});
-			console.log('new drug created', result);
-			return { form };
+			console.log('new recored created');
+			console.log(result);
 		} catch (e) {
-			console.log('Error while trying to create a new drug');
-			console.log(form);
-			return { form };
+			console.log('error while trying to create a new drug record.');
+			console.log(e);
 		}
+		return { form };
 	}
 };
