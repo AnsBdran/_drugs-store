@@ -27,7 +27,7 @@
 >
     <Pagination.Content>
         <Pagination.Item>
-            <Pagination.PrevButton/>
+            <Pagination.PrevButton href={`${link}/${Number(page) - 1}`}/>
         </Pagination.Item>
         {#each pages as page (page.key)}
             {#if page.type === 'ellipsis'}
@@ -45,7 +45,7 @@
             {/if}
         {/each}
         <Pagination.Item>
-            <Pagination.NextButton href={`${link}/${page.value + 1}`}/>
+            <Pagination.NextButton href={`${link}/${Number(page) + 1}`}/>
         </Pagination.Item>
     </Pagination.Content>
 </Pagination.Root>

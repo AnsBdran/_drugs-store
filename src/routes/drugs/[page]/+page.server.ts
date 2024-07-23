@@ -6,9 +6,9 @@ export const load: PageServerLoad = async ({params}) => {
 
     const getDrugs = async () => {
         const limit = 10;
-        const drugs = await prisma.drugItem.findMany({
-            skip: (page - 1) * limit,
+        return prisma.drugItem.findMany({
             take: limit,
+            skip: (page - 1) * limit,
             include: {
                 drug: {
                     select: {
@@ -16,9 +16,9 @@ export const load: PageServerLoad = async ({params}) => {
                         manufacturer: true
                     }
                 }
-            }
+            },
         });
-        return drugs;
+
     };
     const getDrugsCount = async () => await prisma.drugItem.count();
 
