@@ -1,7 +1,7 @@
 import { superValidate, fail, message } from 'sveltekit-superforms';
 import type { Actions, PageServerLoad } from './$types';
 import { zod } from 'sveltekit-superforms/adapters';
-import { drugItemSchema } from './schema';
+import { drugItemSchema } from '$lib/schemas/drug-item';
 import prisma from '$lib/server/prisma';
 import { uploadFileToCloudinary } from '$lib/server/utils';
 // import { parseSelectItems } from '$lib/utils';

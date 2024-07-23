@@ -48,7 +48,7 @@ type ActiveIngredient {
   strength Strength
 }
 
-type Count {
+type Quantity {
   batches Int?
   items   Int?
 }
@@ -82,11 +82,20 @@ model User {
   firstName    String?
   lastName     String?
   username     String     @unique
-  email        String     @unique
-  password     String
+  email        String?    @unique
+  passwordHash String
   role         Role       @default(USER)
-  likedItemIDs String[]   @db.ObjectId
-  likedItems   DrugItem[] @relation(fields: [likedItemIDs], references: [id])
+  drugItemIDs  String[]   @db.ObjectId
+  drugItems    DrugItem[] @relation(fields: [drugItemIDs], references: [id])
+  sessions     Session[]
+}
+
+model Session {
+  // id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  id        String   @id @map("_id")
+  userId    String   @db.ObjectId
+  expiresAt DateTime
+  user      User     @relation(references: [id], fields: [userId], onDelete: Cascade)
 }
 
 model Drug {
@@ -108,13 +117,13 @@ model DrugItem {
   id                   String              @id @default(auto()) @map("_id") @db.ObjectId
   createdAt            DateTime            @default(now())
   updatedAt            DateTime            @updatedAt
-  drug                 Drug                @relation(fields: [drugID], references: [id])
+  drug                 Drug                @relation(fields: [drugID], references: [id], onDelete: Cascade)
   drugID               String              @db.ObjectId
   activeIngredients    ActiveIngredient[]
   imageURL             String
   subImagesURL         String[]
   price                Price
-  quantityInStock      Count?
+  quantityInStock      Quantity?
   description          String?
   likesCount           Int                 @default(0)
   discount             Price?
@@ -127,8 +136,8 @@ model DrugItem {
   itemsInBatch         Int?
   notes                String[]
   features             String[]
-  User                 User[]              @relation(fields: [userID], references: [id])
-  userID               String[]            @db.ObjectId
+  User                 User[]              @relation(fields: [userIDs], references: [id])
+  userIDs              String[]            @db.ObjectId
 }
 
 model Manufacturer {
@@ -166,4 +175,13 @@ model Info {
   categories        Category[] @unique
   strengths         Strength[] @unique
   forms             String[]   @unique
+}
+
+model Record {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  userID     String   @db.ObjectId
+  drugItemID String   @db.ObjectId
+  quantity   Quantity
 }

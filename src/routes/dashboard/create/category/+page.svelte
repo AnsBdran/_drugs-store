@@ -1,13 +1,13 @@
 <script>
 	import { superForm } from 'sveltekit-superforms';
-	import { CategoryForm } from '$lib/components/forms';
+	import { CategoryForm } from '$lib/components/form';
 	import { zodClient } from 'sveltekit-superforms/adapters';
-	import { categoryFormSchema } from './schema';
-	import FormWrapper from '$lib/components/form-wrapper.svelte';
+	import { categorySchema } from '$lib/schemas/category';
+	import { FormWrapper } from '$lib/components/form';
 
 	export let data;
 	const form = superForm(data.form, {
-		validators: zodClient(categoryFormSchema)
+		validators: zodClient(categorySchema)
 	});
 
 	const { enhance } = form;

@@ -1,7 +1,7 @@
 import { fail, superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import type { Actions, PageServerLoad } from './$types';
-import manufacturerSchema from './schema';
+import { manufacturerSchema } from '$lib/schemas/manufacturer';
 import prisma from '$lib/server/prisma';
 
 export const load: PageServerLoad = async () => {

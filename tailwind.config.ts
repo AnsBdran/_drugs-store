@@ -59,7 +59,12 @@ const config: Config = {
 				sans: [...fontFamily.sans]
 			},
 			screens: {
-				xs: '500px'
+				xs: '500px',
+				'900': '900px'
+			},
+			spacing: {
+				header: 'var(--header)',
+				sidebar: 'var(--sidebar)'
 			}
 		}
 	}

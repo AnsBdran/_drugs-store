@@ -1,7 +1,7 @@
 import { superValidate } from 'sveltekit-superforms';
 import type { PageServerLoad } from './$types';
 import { zod } from 'sveltekit-superforms/adapters';
-import { drugSchema } from './schema';
+import { drugSchema } from '$lib/schemas/drug';
 import prisma from '$lib/server/prisma';
 import { parseSelectItems } from '$lib/utils';
 

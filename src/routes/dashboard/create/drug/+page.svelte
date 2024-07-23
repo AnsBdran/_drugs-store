@@ -2,9 +2,9 @@
 	import { superForm } from 'sveltekit-superforms';
 	import type { PageData } from './$types';
 	import { zodClient } from 'sveltekit-superforms/adapters';
-	import { drugSchema } from './schema';
-	import { DrugForm } from '$lib/components/forms';
-	import FormWrapper from '$lib/components/form-wrapper.svelte';
+	import { drugSchema } from '$lib/schemas/drug';
+	import { DrugForm } from '$lib/components/form';
+	import { FormWrapper } from '$lib/components/form';
 
 	// props
 	export let data: PageData;

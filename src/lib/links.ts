@@ -32,8 +32,9 @@ export const dashboardLinks = [
 ];
 
 export const dashboardCreateLinks = [
-	{ href: 'category', name: 'Category', icon: TablerCategory2 },
+	// { href: 'category', name: 'Category', icon: TablerCategory2 },
 	{ href: 'drug', name: 'Drug', icon: MaterialSymbolsLightMedicationRounded },
 	{ href: 'drug-item', name: 'Drug-item', icon: CircumTablets1 },
-	{ href: 'manufacturer', name: 'Manufacturer', icon: FluentManufacturer24Regular }
+	{ href: 'manufacturer', name: 'Manufacturer', icon: FluentManufacturer24Regular },
+	{ href: 'metadata', name: 'Metadata', icon: IcBaselineDashboardCustomize }
 ];

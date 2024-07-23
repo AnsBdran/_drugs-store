@@ -7,6 +7,7 @@ import {
 	indications
 } from '../src/lib/info';
 import prisma from '../src/lib/server/prisma';
+import { drugItems, manufacturers } from '../src/lib/mock-data';
 const seedDB = async () => {
 	try {
 		// await prisma.info.create({
@@ -18,8 +19,14 @@ const seedDB = async () => {
 		// 		forms: drugForms
 		// 	}
 		// });
-		await prisma.dosageInstruction.createMany({
-			data: dosageInstructions
+		// await prisma.dosageInstruction.createMany({
+		// 	data: dosageInstructions
+		// });
+		// await prisma.drugItem.createMany({
+		// 	data: drugItems
+		// });
+		await prisma.manufacturer.createMany({
+			data: manufacturers
 		});
 		console.log('database seed successfully');
 	} catch (error) {
