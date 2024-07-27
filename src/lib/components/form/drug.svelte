@@ -6,9 +6,11 @@
 	import InputSkeleton from '$lib/components/skeletons/input-skeleton.svelte';
 	import Textarea from '$lib/components/ui/textarea/textarea.svelte';
 	import LoadErrorAlert from './load-error-alert.svelte';
+	import type { Infer, SuperForm } from 'sveltekit-superforms';
+	import type { DrugSchema } from '$lib/schemas/drug';
 
 	// props
-	export let form;
+	export let form: SuperForm<Infer<DrugSchema>>;
 	export let manufacturers;
 	export let info;
 

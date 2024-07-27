@@ -17,7 +17,9 @@ export const lucia = new Lucia(adapter, {
 			username: attributes.username,
 			name: `${attributes.firstName} ${attributes.lastName}`,
 			email: attributes.email,
-			role: attributes.role
+			role: attributes.role,
+			firstName: attributes.firstName,
+			lastName: attributes.lastName
 		};
 	}
 });
@@ -34,4 +36,6 @@ interface DatabaseUserAttributes {
 	name: string;
 	email: string;
 	role: Role;
+	firstName: string;
+	lastName: string;
 }

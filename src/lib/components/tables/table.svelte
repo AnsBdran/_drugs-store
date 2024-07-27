@@ -17,6 +17,7 @@
 	import { rankItem } from '@tanstack/match-sorter-utils';
 	import Input from '../ui/input/input.svelte';
 	import Pagination from './pagination.svelte';
+	import ScrollArea from '../ui/scroll-area/scroll-area.svelte';
 
 	// props
 	export let data;
@@ -76,7 +77,7 @@
 </script>
 
 <section>
-	<div class="mb-3 flex items-center justify-between border border-muted">
+	<div class="mb-3 flex flex-col items-start justify-between gap-1 border border-muted lg:flex-row">
 		<Input
 			class="block w-max border-none py-2"
 			type="search"
@@ -86,34 +87,38 @@
 		/>
 		<Pagination count={data.length} {perPage} bind:page class="w-max" />
 	</div>
-	<Table.Root>
-		<Table.Header>
-			{#each $table.getHeaderGroups() as headerGroup}
-				<Table.Row>
-					{#each headerGroup.headers as header}
-						<Table.Head colspan={header.colSpan}>
-							{#if !header.isPlaceholder}
+	<ScrollArea orientation="horizontal" class="pb-2">
+		<Table.Root>
+			<Table.Header>
+				{#each $table.getHeaderGroups() as headerGroup}
+					<Table.Row>
+						{#each headerGroup.headers as header}
+							<Table.Head colspan={header.colSpan}>
+								{#if !header.isPlaceholder}
+									<svelte:component
+										this={flexRender(header.column.columnDef.header, header.getContext())}
+									/>
+								{/if}
+							</Table.Head>
+						{/each}
+					</Table.Row>
+				{/each}
+			</Table.Header>
+			<Table.Body>
+				{#each $table.getRowModel().rows as row}
+					<Table.Row>
+						{#each row.getVisibleCells() as cell}
+							<Table.Cell class="text-nowrap">
 								<svelte:component
-									this={flexRender(header.column.columnDef.header, header.getContext())}
+									this={flexRender(cell.column.columnDef.cell, cell.getContext())}
 								/>
-							{/if}
-						</Table.Head>
-					{/each}
-				</Table.Row>
-			{/each}
-		</Table.Header>
-		<Table.Body>
-			{#each $table.getRowModel().rows as row}
-				<Table.Row>
-					{#each row.getVisibleCells() as cell}
-						<Table.Cell>
-							<svelte:component this={flexRender(cell.column.columnDef.cell, cell.getContext())} />
-						</Table.Cell>
-					{/each}
-				</Table.Row>
-			{/each}
-		</Table.Body>
-	</Table.Root>
+							</Table.Cell>
+						{/each}
+					</Table.Row>
+				{/each}
+			</Table.Body>
+		</Table.Root>
+	</ScrollArea>
 </section>
 
 <!-- Form dialogs -->

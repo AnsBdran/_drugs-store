@@ -1,8 +1,8 @@
-import type { DrugItem, Manufacturer } from '@prisma/client';
+import type { DrugItem, Manufacturer, Request } from '@prisma/client';
 import { writable } from 'svelte/store';
 
 export const rowChanges = writable<{
-	data: Manufacturer| DrugItem | null;
+	data: Manufacturer | DrugItem | Request | null;
 	isEditOpen: boolean;
 	isDeleteOpen: boolean;
 }>({

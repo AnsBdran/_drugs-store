@@ -42,7 +42,9 @@ export const strengthsSchema = z
 	.optional();
 // .default([{ amount: '', per: '' }]);
 
-export const metadataSchema = z.object({
+// const metadataSchemaFields: keyof typeof metadataSchema =
+
+const _metadataSchema = z.object({
 	indications: indicationsSchema,
 	contraIndications: contraIndicationsSchema,
 	activeIngredients: activeIngredientsSchema,
@@ -51,7 +53,14 @@ export const metadataSchema = z.object({
 	strengths: strengthsSchema
 });
 
-// types
+export const metadataSchema = _metadataSchema.refine(
+	(data) => {
+		return Object.keys(data).some((key) => data[key].length > 0);
+	},
+	{
+		message: 'You must at least provide one value.'
+	}
+);
 
 export type IndicationsSchema = typeof indicationsSchema;
 export type ContraIndicationsSchema = typeof contraIndicationsSchema;

@@ -17,11 +17,12 @@
 	import MaterialSymbolsAdd from '~icons/material-symbols/add';
 	import { Select } from '$lib/components/form';
 	import { fly, fade } from 'svelte/transition';
-	import { fileProxy } from 'sveltekit-superforms';
+	import { fileProxy, type Infer, type SuperForm } from 'sveltekit-superforms';
 	import LoadErrorAlert from './load-error-alert.svelte';
+	import type { DrugItemSchema } from '$lib/schemas/drug-item';
 
 	// props
-	export let form;
+	export let form: SuperForm<Infer<DrugItemSchema>>;
 	export let info;
 	export let drugs;
 	export let initialValues = undefined;

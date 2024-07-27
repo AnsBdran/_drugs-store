@@ -45,9 +45,9 @@
 			}}
 		>
 			<input type="hidden" name="_id" value={$rowChanges.data?.id} />
-			<Dialog.Footer>
+			<Dialog.Footer class="flex-row justify-end gap-3">
 				<Button on:click={() => updateRowChanges(false)}>Cancel</Button>
-				<Button type="submit">
+				<Button type="submit" variant="destructive">
 					{#if isFormLoading}
 						deleting <LineMdLoadingAltLoop />
 					{:else}

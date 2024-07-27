@@ -31,6 +31,12 @@ enum SIZE {
   unit
 }
 
+enum RESPONSE_STATUS {
+  pending
+  accepted
+  rejected
+}
+
 // =============================================
 // DATA TYPES
 // type DrugName {
@@ -88,6 +94,8 @@ model User {
   drugItemIDs  String[]   @db.ObjectId
   drugItems    DrugItem[] @relation(fields: [drugItemIDs], references: [id])
   sessions     Session[]
+  requests     Request[]
+  requestsIDs  String[]   @db.ObjectId
 }
 
 model Session {
@@ -175,6 +183,7 @@ model Info {
   categories        Category[] @unique
   strengths         Strength[] @unique
   forms             String[]   @unique
+  activeIngredients String[]
 }
 
 model Record {
@@ -184,4 +193,20 @@ model Record {
   userID     String   @db.ObjectId
   drugItemID String   @db.ObjectId
   quantity   Quantity
+}
+
+model Request {
+  id             String          @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  brandName      String?
+  genericName    String?
+  strength       String?
+  imageURL       String?
+  responseStatus RESPONSE_STATUS @default(pending)
+  response       String?
+  votes          Int             @default(0)
+  description    String?
+  userID         String          @db.ObjectId
+  User           User            @relation(fields: [userID], references: [id])
 }

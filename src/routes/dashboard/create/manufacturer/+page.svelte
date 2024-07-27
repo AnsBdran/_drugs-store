@@ -6,13 +6,13 @@
 	import { ManufacturerForm } from '$lib/components/form';
 	import FormWrapper from '$lib/components/form/form-wrapper.svelte';
 	export let data: PageData;
-	const form = superForm(data.form, {
-		validators: zodClient(manufacturerSchema)
-	});
+	// const form = superForm(data.form, {
+	// 	validators: zodClient(manufacturerSchema)
+	// });
 
-	const { form: formData, enhance } = form;
+	// const { form: formData, enhance, delayed } = form;
 </script>
 
-<FormWrapper {enhance} title="Manufacturer">
+<FormWrapper data={data.form} title="Manufacturer" schema={manufacturerSchema} let:form>
 	<ManufacturerForm {form} />
 </FormWrapper>

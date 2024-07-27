@@ -4,21 +4,21 @@
 	import { cn } from '$lib/utils';
 </script>
 
-<section
-	class="fixed bottom-0 left-0 z-50 flex w-full justify-around border border-accent bg-background shadow-xl md:hidden"
->
+<section class="fixed bottom-0 left-0 z-50 flex w-full justify-around bg-accent md:hidden">
 	{#each navLinks as link (link.href)}
 		<a
 			href={link.href}
 			class={cn(
-				'h-18 flex flex-1 flex-col items-center justify-center gap-[2px] rounded-sm  px-3 py-1 text-xs font-medium',
+				'flex h-12 flex-1 flex-col items-center justify-between gap-[2px] border-t bg-muted px-3 pb-1 pt-[5px] text-xs font-normal tracking-wider text-muted-foreground',
 				{
-					'bg-accent text-3xl font-semibold text-accent-foreground ':
-						$page.url.pathname === link.href
+					'border-t-accent-foreground/40 bg-muted-foreground/20':
+						link.href === '/'
+							? $page.url.pathname === '/'
+							: $page.url.pathname.startsWith(link.href)
 				}
 			)}
 		>
-			<svelte:component this={link.icon} class="h-8" />
+			<svelte:component this={link.icon} class="size-5" />
 			<span class="text-xs">{link.name}</span>
 		</a>
 	{/each}

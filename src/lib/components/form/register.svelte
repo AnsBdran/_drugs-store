@@ -1,12 +1,31 @@
 <script lang="ts">
 	import * as Form from '$lib/components/ui/form';
+	import type { Infer, SuperForm } from 'sveltekit-superforms';
 	import { Input } from '../ui/input';
+	import type { RegisterSchema } from '$lib/schemas/auth';
 
 	// props
-	// export let form: SuperValidated<Infer<AuthSchema>>;
-	export let form;
+	export let form: SuperForm<Infer<RegisterSchema>>;
 	const { form: formData } = form;
 </script>
+
+<div class="flex gap-2">
+	<Form.Field {form} name="firstName">
+		<Form.Control let:attrs>
+			<Form.Label>First name</Form.Label>
+			<Input {...attrs} bind:value={$formData.firstName} />
+		</Form.Control>
+		<Form.FieldErrors />
+	</Form.Field>
+
+	<Form.Field {form} name="lastName">
+		<Form.Control let:attrs>
+			<Form.Label>Last name</Form.Label>
+			<Input {...attrs} bind:value={$formData.lastName} />
+		</Form.Control>
+		<Form.FieldErrors />
+	</Form.Field>
+</div>
 
 <Form.Field {form} name="username">
 	<Form.Control let:attrs>
@@ -15,6 +34,7 @@
 	</Form.Control>
 	<Form.FieldErrors />
 </Form.Field>
+
 <Form.Field {form} name="email">
 	<Form.Control let:attrs>
 		<Form.Label>Email</Form.Label>
@@ -23,6 +43,7 @@
 	</Form.Control>
 	<Form.FieldErrors />
 </Form.Field>
+
 <Form.Field {form} name="password">
 	<Form.Control let:attrs>
 		<Form.Label>Password</Form.Label>
@@ -30,6 +51,7 @@
 	</Form.Control>
 	<Form.FieldErrors />
 </Form.Field>
+
 <Form.Field {form} name="confirmPassword">
 	<Form.Control let:attrs>
 		<Form.Label>Confirm Password</Form.Label>

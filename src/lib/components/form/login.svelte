@@ -1,9 +1,12 @@
-<script>
+<script lang="ts">
 	import * as Form from '$lib/components/ui/form';
+	import type { SuperForm } from 'sveltekit-superforms';
 	import { Input } from '../ui/input';
+	import type { Infer } from 'sveltekit-superforms';
+	import type { LoginSchema } from '$lib/schemas/auth';
 
 	// props
-	export let form;
+	export let form: SuperForm<Infer<LoginSchema>>;
 	const { form: formData } = form;
 </script>
 

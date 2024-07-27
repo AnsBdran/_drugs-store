@@ -8,10 +8,11 @@
 	import * as Avatar from '$lib/components/ui/avatar';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
 	import { enhance } from '$app/forms';
+	import type { User } from 'lucia';
 
-	export let username: string | null;
+	export let user: User | null;
 
-	console.log('username in header', username, !!username);
+	console.log('user in header', user);
 	// icons
 
 	$: isActive = (href: string) =>
@@ -44,13 +45,17 @@
 				{/each}
 			</ul>
 			<ThemeToggle />
-			{#if !username}
+			{#if !user}
 				<Button href="/auth">Login</Button>
 			{:else}
 				<DropdownMenu.Root>
 					<DropdownMenu.Trigger>
-						<Avatar.Root class="rounded-none">
-							<Avatar.Fallback class="rounded-lg">HI</Avatar.Fallback>
+						<Avatar.Root class="rounded-none shadow-lg duration-[8000ms]">
+							<Avatar.Fallback
+								class=" rounded-lg border border-gray-500 bg-gray-800 text-gray-50 transition-all hover:border-gray-300 "
+							>
+								{user.firstName?.charAt(0)}{user.lastName?.charAt(0)}
+							</Avatar.Fallback>
 						</Avatar.Root>
 					</DropdownMenu.Trigger>
 					<DropdownMenu.Content>

@@ -8,17 +8,23 @@
 	import { DrugItemForm } from '$lib/components/form';
 
 	export let data: PageData;
-	const form = superForm(data.form, {
-		dataType: 'json',
-		validators: zodClient(drugItemSchema),
-		onUpdated({ form }) {
-			showToast(form);
-		}
-	});
-	const { enhance, capture, restore } = form;
-	export const snapshot = { capture, restore };
+	// const form = superForm(data.form, {
+	// 	dataType: 'json',
+	// 	validators: zodClient(drugItemSchema),
+	// 	onUpdated({ form }) {
+	// 		showToast(form);
+	// 	}
+	// });
+	// const { enhance, capture, restore, delayed } = form;
+	// export const snapshot = { capture, restore };
 </script>
 
-<FormWrapper {enhance} enctype="multipart/form-data" title="Drug item">
+<FormWrapper
+	schema={drugItemSchema}
+	data={data.form}
+	enctype="multipart/form-data"
+	title="Drug item"
+	let:form
+>
 	<DrugItemForm {form} drugs={data.drugs} info={data.info} />
 </FormWrapper>

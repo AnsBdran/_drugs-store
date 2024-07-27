@@ -65,6 +65,34 @@ const config: Config = {
 			spacing: {
 				header: 'var(--header)',
 				sidebar: 'var(--sidebar)'
+			},
+			// keyframes: {
+			//     marquee: {
+			//         '0%': {transform: 'translateX(0%)'},
+			//         '100%': {transform: 'translateX(-100%)'}
+			//     },
+			//     _marquee: {
+			//         '0%': {transform: 'translateX(100%)'},
+			//         '100%': {transform: 'translateX(0%)'},
+			//     }
+			// },
+			// animation: {
+			//     marquee: 'marquee 2s linear infinite',
+			//     _marquee: '_marquee 2s linear infinite',
+			// },
+			animation: {
+				marquee: 'marquee 15s linear infinite',
+				_marquee: '_marquee 15s linear infinite'
+			},
+			keyframes: {
+				marquee: {
+					'0%': { transform: 'translateX(0%)' },
+					'100%': { transform: 'translateX(-100%)' }
+				},
+				_marquee: {
+					'0%': { transform: 'translateX(100%)' },
+					'100%': { transform: 'translateX(0%)' }
+				}
 			}
 		}
 	}

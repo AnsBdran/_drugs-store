@@ -1,4 +1,4 @@
-import { fail, superValidate } from 'sveltekit-superforms';
+import { fail, message, superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import type { Actions, PageServerLoad } from './$types';
 import { manufacturerSchema } from '$lib/schemas/manufacturer';
@@ -19,7 +19,10 @@ export const actions: Actions = {
 		try {
 			const prismaResult = await prisma.manufacturer.create({ data: form.data });
 			console.log({ prismaResult });
-			return { form };
+			return message(form, {
+				type: 'success',
+				text: `New manufacturer ${prismaResult.name} added successfully.`
+			});
 		} catch (e) {
 			console.log('something bad happened', e);
 			return { form };

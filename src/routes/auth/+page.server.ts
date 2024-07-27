@@ -7,7 +7,8 @@ import { hash, verify } from '@node-rs/argon2';
 import { lucia } from '$lib/server/auth';
 import { redirect } from '@sveltejs/kit';
 
-export const load: PageServerLoad = async ({}) => {
+export const load: PageServerLoad = async ({ locals }) => {
+	if (locals.user) redirect(302, '/dashboard');
 	const loginForm = await superValidate(zod(loginSchema));
 	const registerForm = await superValidate(zod(registerSchema));
 	return { loginForm, registerForm };
@@ -61,7 +62,8 @@ export const actions: Actions = {
 	// Signup====================
 	signup: async ({ request, cookies }) => {
 		const form = await superValidate(request, zod(registerSchema));
-		const { password, username, email } = form.data;
+		const { password, username, email, firstName, lastName } = form.data;
+
 		if (!form.valid) {
 			return fail(400, { form });
 		}
@@ -84,23 +86,30 @@ export const actions: Actions = {
 			parallelism: 1
 		});
 
-		const user = await prisma.user.create({
-			data: {
-				username,
-				passwordHash,
-				email: email ?? undefined
-			}
-		});
+		try {
+			const user = await prisma.user.create({
+				data: {
+					username,
+					passwordHash,
+					firstName,
+					lastName,
+					email: email ?? undefined
+				}
+			});
 
-		console.log('prisma said', user);
-		const session = await lucia.createSession(user.id, {});
-		const sessionCookie = lucia.createSessionCookie(session.id);
-		cookies.set(sessionCookie.name, sessionCookie.value, {
-			path: '.',
-			...sessionCookie.attributes
-		});
+			console.log('prisma said', user);
+			const session = await lucia.createSession(user.id, {});
+			const sessionCookie = lucia.createSessionCookie(session.id);
+			cookies.set(sessionCookie.name, sessionCookie.value, {
+				path: '.',
+				...sessionCookie.attributes
+			});
 
-		redirect(302, '/');
+			redirect(302, '/');
+		} catch (error) {
+			console.log(error);
+			fail(401, { form });
+		}
 	},
 	logout: async ({ locals, cookies }) => {
 		if (!locals.session) {

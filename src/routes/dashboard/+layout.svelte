@@ -65,7 +65,7 @@
 		</DropdownMenu.Content>
 	</DropdownMenu.Root>
 </div>
-<div class="md:pl-sidebar">
+<div class="">
 	<h1 class="mb-0 hidden md:block">Dashboard</h1>
 	<slot></slot>
 </div>
