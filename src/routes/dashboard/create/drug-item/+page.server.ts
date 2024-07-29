@@ -58,7 +58,7 @@ export const actions: Actions = {
 		} catch (e) {
 			console.log('some error happened while trying to create a new drug item.');
 			console.log(e);
+			return fail(400, { form });
 		}
-		console.log(form);
 	}
 };

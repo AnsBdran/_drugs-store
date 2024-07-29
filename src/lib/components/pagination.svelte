@@ -10,11 +10,11 @@
 	export let page: number;
 	export let link: string;
 	export { className as class };
-	$: console.log({
-		count,
-		perPage,
-		page
-	});
+	// $: console.log({
+	// 	count,
+	// 	perPage,
+	// 	page
+	// });
 </script>
 
 <Pagination.Root

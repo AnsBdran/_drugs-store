@@ -32,8 +32,8 @@
 	const bindValue = path.join('.');
 
 	let { value, errors } = formFieldProxy(form, bindValue);
-	$: choosedItem = options.find((i) => i.value === value);
-	console.log('________', { bindValue, choosedItem });
+	// $: choosedItem = options.find((i) => i.value === value);
+	// console.log('________', { bindValue, choosedItem });
 </script>
 
 <Form.Field {form} name={bindValue} class="space-y-2 {className}">

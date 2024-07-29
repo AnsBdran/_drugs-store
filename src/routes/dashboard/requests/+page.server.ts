@@ -11,7 +11,7 @@ export const load: PageServerLoad = async () => {
 		form,
 		requests: await prisma.request.findMany({
 			include: {
-				User: true
+				Author: true
 			}
 		})
 	};

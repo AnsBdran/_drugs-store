@@ -4,13 +4,22 @@
 	export let data;
 </script>
 
-<h2>Requests page</h2>
-{#await data.requests}
+<div class="mb-8 flex justify-between">
+	<h2>Requests page</h2>
+	<Button variant="link" href="/requests/create">Create new</Button>
+</div>
+<!-- {#await data.requests}
 	<p>loading...</p>
-{:then requests}
-	{#each requests as request}
-		<RequestCard {request} />
+{:then requests} -->
+<section class="space-y-8">
+	{#each data.requests as request}
+		<RequestCard
+			{request}
+			user={data.user}
+			isLikedByUser={data.user ? !!request.likedBy.find((v) => v.userID === data.user?.id) : false}
+		/>
+	{:else}
+		<p>No data found.</p>
 	{/each}
-{/await}
-
-<Button variant="link" href="/requests/create">Create new</Button>
+</section>
+<!-- {/await} -->

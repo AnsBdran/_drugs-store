@@ -20,13 +20,15 @@
 	import { fileProxy, type Infer, type SuperForm } from 'sveltekit-superforms';
 	import LoadErrorAlert from './load-error-alert.svelte';
 	import type { DrugItemSchema } from '$lib/schemas/drug-item';
+	import type { Info } from '@prisma/client';
 
 	// props
 	export let form: SuperForm<Infer<DrugItemSchema>>;
-	export let info;
+	export let info: Info;
 	export let drugs;
+	// export let activeIngredients;
 	export let initialValues = undefined;
-
+	// console.log('info in form', info);
 	const { form: formData, errors } = form;
 
 	const imageFile = fileProxy(form, 'image');
@@ -56,7 +58,7 @@
 	};
 
 	initialValues && Object.assign($formData, initialValues);
-	$: console.log('initial values', initialValues);
+	// $: console.log('initial values', initialValues);
 </script>
 
 <!-- ==================================== -->
@@ -109,7 +111,7 @@
 					in:fly={{ duration: 500, y: 50 }}
 					out:fly={{ duration: 500, y: 50 }}
 				>
-					<Form.ElementField
+					<!-- <Form.ElementField
 						{form}
 						name="activeIngredients[{i}].name"
 						class="flex-1 flex-shrink-0 "
@@ -121,7 +123,14 @@
 						<FormFieldErrors>
 							<Form.FieldErrors />
 						</FormFieldErrors>
-					</Form.ElementField>
+					</Form.ElementField> -->
+					<Combo
+						options={makeSelectItemsFromStrings(info?.activeIngredients)}
+						{form}
+						path={[`activeIngredients[${i}]`, 'name']}
+						label="Active Ingredient {i + 1}"
+						class=""
+					/>
 					<Combo
 						options={makeStrengthsSelectItems(info?.strengths)}
 						{form}

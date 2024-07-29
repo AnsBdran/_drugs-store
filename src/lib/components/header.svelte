@@ -12,7 +12,7 @@
 
 	export let user: User | null;
 
-	console.log('user in header', user);
+	// console.log('user in header', user);
 	// icons
 
 	$: isActive = (href: string) =>

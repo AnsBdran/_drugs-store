@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
+	import { goto, invalidateAll } from '$app/navigation';
 	import * as Alert from '$lib/components/ui/alert';
 	import Button from '../ui/button/button.svelte';
 	export let name: string = 'a';
@@ -7,6 +7,7 @@
 	const refreshPage = () => {
 		const target = window.location.pathname;
 		console.log('target', target);
+		invalidateAll();
 		goto(target);
 	};
 </script>

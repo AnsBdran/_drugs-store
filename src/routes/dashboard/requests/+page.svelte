@@ -1,7 +1,6 @@
 <script lang="ts">
-	import { RequestForm, RequestEditForm } from '$lib/components/form';
+	import { RequestEditForm } from '$lib/components/form';
 	import FormattedDate from '$lib/components/formatted-date.svelte';
-	import Header from '$lib/components/header.svelte';
 	import { Status } from '$lib/components/requests';
 	import Btns from '$lib/components/tables/edit/btns.svelte';
 	import Table from '$lib/components/tables/table.svelte';
@@ -21,7 +20,7 @@
 				}),
 			header: 'Date'
 		}),
-		columnHelper.accessor((row) => `${row.User.firstName} ${row.User.lastName}`, {
+		columnHelper.accessor((row) => `${row.Author.firstName} ${row.Author.lastName}`, {
 			header: 'User'
 		}),
 		columnHelper.group({
@@ -41,7 +40,7 @@
 					value: info.getValue()
 				})
 		}),
-		columnHelper.accessor('votes', {}),
+		columnHelper.accessor('likes', {}),
 		columnHelper.display({
 			cell: (info) =>
 				renderComponent(Btns, {

@@ -2,7 +2,7 @@
 	import Button from '$lib/components/ui/button/button.svelte';
 </script>
 
-<div class="mx-auto max-w-7xl px-4 pb-16 pt-20 text-center sm:px-6 lg:px-8 lg:pt-32">
+<div class="mx-auto max-w-7xl px-4 pb-16 pt-12 text-center sm:px-6 lg:px-8 lg:pt-16">
 	<p class="mx-auto -mt-4 max-w-2xl text-lg tracking-tight text-foreground/60 sm:mt-6">
 		Welcome to
 		<span class="border-b border-dotted border-primary/80 text-foreground">our store</span>

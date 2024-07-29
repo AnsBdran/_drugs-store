@@ -32,7 +32,7 @@ export const actions: Actions = {
 					description: description ?? undefined,
 					strength: strength ?? undefined,
 					imageURL: imageLink ?? undefined,
-					userID: locals.user?.id as string
+					authorID: locals.user?.id as string
 				}
 			});
 			console.log(result);

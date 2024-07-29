@@ -17,7 +17,7 @@
 
 	const field = arrayProxy(form, name);
 	const { values, errors, path, valueErrors } = field;
-	console.log('field', field);
+	// console.log('field', field);
 	let inputValue = '';
 	let touchedInput = false;
 
