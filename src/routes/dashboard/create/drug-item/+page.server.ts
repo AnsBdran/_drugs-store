@@ -4,7 +4,6 @@ import { zod } from 'sveltekit-superforms/adapters';
 import { drugItemSchema } from '$lib/schemas/drug-item';
 import prisma from '$lib/server/prisma';
 import { uploadFileToCloudinary } from '$lib/server/utils';
-// import { parseSelectItems } from '$lib/utils';
 
 export const load: PageServerLoad = async () => {
 	const form = await superValidate(zod(drugItemSchema));
@@ -41,7 +40,13 @@ export const actions: Actions = {
 				data: {
 					form: drugForm,
 					price,
-					imageURL: uploadResult.secure_url,
+					image: {
+						height: uploadResult.height,
+						width: uploadResult.width,
+						public_id: uploadResult.public_id,
+						secure_url: uploadResult.secure_url,
+						url: uploadResult.url
+					},
 					description,
 					drugID,
 					activeIngredients,

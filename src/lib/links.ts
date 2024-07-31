@@ -9,7 +9,7 @@ import IcBaselineDashboardCustomize from '~icons/ic/baseline-dashboard-customize
 import MaterialSymbolsAddToPhotosOutlineRounded from '~icons/material-symbols/add-to-photos-outline-rounded';
 import IcOutlineChat from '~icons/ic/outline-chat';
 import PixelarticonsInfoBox from '~icons/pixelarticons/info-box';
-
+import SolarUsersGroupRoundedBoldDuotone from '~icons/solar/users-group-rounded-bold-duotone';
 // Dashboard Create icons
 // import BxBxsCategoryAlt from '~icons/bx/bxs-category-alt';
 import CircumTablets1 from '~icons/circum/tablets-1';
@@ -30,6 +30,7 @@ export const dashboardLinks = [
 	{ href: 'create', name: 'Create', icon: IcBaselineDashboardCustomize },
 	{ href: 'edit', name: 'Edit', icon: MaterialSymbolsAddToPhotosOutlineRounded },
 	{ href: 'requests', name: 'Requests', icon: IcOutlineChat },
+	{ href: 'users', name: 'Users', icon: SolarUsersGroupRoundedBoldDuotone },
 	{ href: 'settings', name: 'Settings', icon: IcBaselineSettings }
 ];
 

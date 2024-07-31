@@ -1,10 +1,7 @@
 import cloudinary from './cloudinary';
+import type { Image } from '@prisma/client';
 
-interface UploadResult {
-	secure_url: string;
-}
-
-export const uploadFileToCloudinary = async (imageFile: File): Promise<UploadResult> => {
+export const uploadFileToCloudinary = async (imageFile: File): Promise<Image> => {
 	const arrayBuffer = await imageFile.arrayBuffer();
 	const buffer = Buffer.from(arrayBuffer);
 

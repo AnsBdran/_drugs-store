@@ -1,7 +1,9 @@
 <script lang="ts">
 	import * as Pagination from '$lib/components/ui/pagination';
 	import { cn } from '$lib/utils';
-
+	import MaterialSymbolsArrowLeftAltRounded from '~icons/material-symbols/arrow-left-alt-rounded';
+	import MaterialSymbolsArrowRightAltRounded from '~icons/material-symbols/arrow-right-alt-rounded';
+	import Button from './ui/button/button.svelte';
 	let className = '';
 
 	// props
@@ -10,11 +12,14 @@
 	export let page: number;
 	export let link: string;
 	export { className as class };
-	// $: console.log({
-	// 	count,
-	// 	perPage,
-	// 	page
-	// });
+
+	$: showPrev = Number(page) > 1;
+	$: showNext = Number(page) < count / perPage;
+	$: console.log({
+		count,
+		perPage,
+		page
+	});
 </script>
 
 <Pagination.Root
@@ -23,11 +28,18 @@
 	let:pages
 	let:currentPage
 	bind:page
-	class={cn('mx-0 mb-6', className)}
+	class={cn('mx-0 mb-6 w-max', className)}
 >
 	<Pagination.Content>
-		<Pagination.Item v>
-			<Pagination.PrevButton href={`${link}/${Number(page) - 1}`} />
+		<Pagination.Item>
+			<Button
+				size="icon"
+				disabled={!showPrev}
+				variant="secondary"
+				href={showPrev ? `${link}/${Number(page) - 1}` : undefined}
+			>
+				<MaterialSymbolsArrowLeftAltRounded />
+			</Button>
 		</Pagination.Item>
 		{#each pages as page (page.key)}
 			{#if page.type === 'ellipsis'}
@@ -35,17 +47,30 @@
 					<Pagination.Ellipsis />
 				</Pagination.Item>
 			{:else}
-				<Pagination.Item>
+				<Button
+					href={currentPage === page.value ? undefined : `${link}/${page.value}`}
+					variant="ghost"
+					size="icon"
+					class={cn({
+						'bg-muted opacity-50': currentPage === page.value
+					})}>{page.value}</Button
+				>
+				<!-- <Pagination.Item>
 					<a href={`${link}/${page.value}`}>
 						<Pagination.Link {page} isActive={currentPage === page.value} variant="destructive">
 							{page.value}
 						</Pagination.Link>
 					</a>
-				</Pagination.Item>
+				</Pagination.Item> -->
 			{/if}
 		{/each}
-		<Pagination.Item>
-			<Pagination.NextButton href={`${link}/${Number(page) + 1}`} />
-		</Pagination.Item>
+		<Button
+			size="icon"
+			variant="secondary"
+			disabled={!showNext}
+			href={showNext ? `${link}/${Number(page) + 1}` : undefined}
+		>
+			<MaterialSymbolsArrowRightAltRounded /></Button
+		>
 	</Pagination.Content>
 </Pagination.Root>

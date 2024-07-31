@@ -1,15 +1,8 @@
 <script lang="ts">
-	import { goto, invalidateAll } from '$app/navigation';
 	import * as Alert from '$lib/components/ui/alert';
 	import Button from '../ui/button/button.svelte';
 	export let name: string = 'a';
-
-	const refreshPage = () => {
-		const target = window.location.pathname;
-		console.log('target', target);
-		invalidateAll();
-		goto(target);
-	};
+	import { page } from '$app/stores';
 </script>
 
 <Alert.Root variant="destructive" about="hi">
@@ -21,7 +14,8 @@
 		<Button
 			size="sm"
 			class="border border-destructive bg-background text-destructive hover:border-transparent hover:bg-destructive hover:text-foreground"
-			on:click={refreshPage}>Refresh</Button
+			href={$page.url.pathname}
+			data-sveltekit-reload>Refresh</Button
 		>
 	</div>
 </Alert.Root>

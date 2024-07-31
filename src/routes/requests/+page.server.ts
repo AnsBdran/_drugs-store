@@ -4,7 +4,7 @@ import { fail } from '@sveltejs/kit';
 
 export const load = async ({ locals }) => {
 	return {
-		requests: await prisma.request.findMany({
+		requests: prisma.request.findMany({
 			where: {
 				responseStatus: 'accepted'
 			},
@@ -19,7 +19,7 @@ export const load = async ({ locals }) => {
 export const actions = {
 	like: async ({ request }) => {
 		const formData = await request.formData();
-		const requestID = formData.get('requestID') as string;
+		const requestID = formData.get('itemID') as string;
 		const userID = formData.get('userID') as string;
 		console.log('recived', { requestID, userID });
 		let isLiked: boolean;
@@ -66,7 +66,7 @@ export const actions = {
 				});
 				isLiked = true;
 			}
-			return { request: updatedRequest, isLikedByUser: isLiked };
+			return { likesCount: updatedRequest.likes, isLikedByUser: isLiked };
 		} catch (error) {
 			console.error(error);
 			return fail(400);

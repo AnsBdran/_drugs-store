@@ -11,3 +11,4 @@ export { default as Select } from './select.svelte';
 export { default as RegisterForm } from './register.svelte';
 export { default as RequestForm } from './request.svelte';
 export { default as RequestEditForm } from './request-edit.svelte';
+export { default as EditUserForm } from './edit-user.svelte';

@@ -3,7 +3,7 @@
 	import * as Dialog from '$lib/components/ui/dialog';
 	import type { DrugItem, Manufacturer, Request } from '@prisma/client';
 	import { rowChanges } from '$lib/stores/table.store';
-	import { superForm, type Infer, type SuperValidated } from 'sveltekit-superforms';
+	import SuperDebug, { superForm, type Infer, type SuperValidated } from 'sveltekit-superforms';
 	import type { ManufacturerSchema } from '$lib/schemas/manufacturer';
 	import { toast } from 'svelte-sonner';
 	import { invalidateAll } from '$app/navigation';
@@ -37,15 +37,16 @@
 </script>
 
 <Dialog.Root bind:open={$rowChanges.isEditOpen}>
-	<Dialog.Content>
-		<Dialog.Header>
-			<Dialog.Title>Edit item</Dialog.Title>
-			<Dialog.Description>Complete the form to edit the item</Dialog.Description>
-		</Dialog.Header>
-		<form method="POST" action="?/edit" use:enhance enctype="multipart/form-data">
+	<form method="POST" action="?/edit" use:enhance enctype="multipart/form-data">
+		<Dialog.Content class="flex h-[80vh] flex-col overflow-hidden  p-2 sm:p-6">
+			<Dialog.Header class="">
+				<Dialog.Title>Edit item</Dialog.Title>
+				<Dialog.Description>Complete the form to edit the item</Dialog.Description>
+			</Dialog.Header>
 			<!-- form section -->
-			<ScrollArea class="mb-3 h-[70vh] shadow-inner">
-				<div class="px-2">
+			<ScrollArea class="mb-3 shadow-inner">
+				<!-- <SuperDebug data={$formData} /> -->
+				<div class="space-y-4 px-1">
 					<svelte:component
 						this={formComponent}
 						{form}
@@ -55,8 +56,8 @@
 						mode="edit"
 					/>
 				</div>
+				<input type="hidden" name="_id" value={$rowChanges.data?.id} />
 			</ScrollArea>
-			<input type="hidden" name="_id" value={$rowChanges.data?.id} />
 			<Dialog.Footer class="flex-row items-center justify-end gap-2 px-2">
 				<Button on:click={() => setRow(false)} variant="destructive">Cancel</Button>
 				<Button type="submit" class="">
@@ -68,6 +69,6 @@
 				</Button>
 			</Dialog.Footer>
 			<!-- end form section -->
-		</form>
-	</Dialog.Content>
+		</Dialog.Content>
+	</form>
 </Dialog.Root>

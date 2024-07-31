@@ -21,6 +21,7 @@
 	import LoadErrorAlert from './load-error-alert.svelte';
 	import type { DrugItemSchema } from '$lib/schemas/drug-item';
 	import type { Info } from '@prisma/client';
+	import { Badge } from '../ui/badge';
 
 	// props
 	export let form: SuperForm<Infer<DrugItemSchema>>;
@@ -62,34 +63,15 @@
 </script>
 
 <!-- ==================================== -->
-<!-- price -->
-<Form.Fieldset {form} name="price" class="flex items-center gap-2">
-	<Form.Legend>Drug Price</Form.Legend>
-	<Form.ElementField {form} name="price.item">
-		<Form.Control let:attrs>
-			<Form.Label>item</Form.Label>
-			<Input {...attrs} type="number" bind:value={$formData.price.item} />
-		</Form.Control>
-		<Form.FieldErrors />
-	</Form.ElementField>
-	<Form.ElementField {form} name="price.batch">
-		<Form.Control let:attrs>
-			<Form.Label>batch</Form.Label>
-			<Input {...attrs} type="number" bind:value={$formData.price.batch} />
-		</Form.Control>
-		<Form.FieldErrors />
-	</Form.ElementField>
-</Form.Fieldset>
-
+<!-- parent drug -->
+{#await drugs}
+	<InputSkeleton />
+{:then drugs}
+	<Combo {form} options={makeDrugsSelectItems(drugs)} path={['drugID']} label="Parent drug" />
+{:catch}
+	<LoadErrorAlert name="main drug" />
+{/await}
 <!-- ==================================== -->
-<!-- description -->
-<Form.Field {form} name="description">
-	<Form.Control let:attrs>
-		<Form.Label>Drug description</Form.Label>
-		<Textarea {...attrs} bind:value={$formData.description} />
-	</Form.Control>
-	<Form.FieldErrors />
-</Form.Field>
 
 <!-- ==================================== -->
 <!-- active ingredients -->
@@ -111,31 +93,19 @@
 					in:fly={{ duration: 500, y: 50 }}
 					out:fly={{ duration: 500, y: 50 }}
 				>
-					<!-- <Form.ElementField
-						{form}
-						name="activeIngredients[{i}].name"
-						class="flex-1 flex-shrink-0 "
-					>
-						<Form.Control let:attrs>
-							<Form.Label class="">Drug generic name {i + 1}</Form.Label>
-							<Input bind:value={$formData.activeIngredients[i].name} {...attrs} class="" />
-						</Form.Control>
-						<FormFieldErrors>
-							<Form.FieldErrors />
-						</FormFieldErrors>
-					</Form.ElementField> -->
+					<Badge variant="outline" class="mt-[2px]">{i + 1}</Badge>
 					<Combo
 						options={makeSelectItemsFromStrings(info?.activeIngredients)}
 						{form}
 						path={[`activeIngredients[${i}]`, 'name']}
-						label="Active Ingredient {i + 1}"
+						label="Active Ingredient"
 						class=""
 					/>
 					<Combo
 						options={makeStrengthsSelectItems(info?.strengths)}
 						{form}
 						path={[`activeIngredients[${i}]`, 'strength']}
-						label="Drug strength {i + 1}"
+						label="strength"
 						class=""
 					/>
 					{#if showDeleteActiveIngredientButton}
@@ -159,6 +129,39 @@
 <!-- ==================================== -->
 
 <!-- ==================================== -->
+<!-- price -->
+
+<!-- ==================================== -->
+<!-- description -->
+<Form.Field {form} name="description">
+	<Form.Control let:attrs>
+		<Form.Label>Drug description</Form.Label>
+		<Textarea {...attrs} bind:value={$formData.description} />
+	</Form.Control>
+	<Form.FieldErrors />
+</Form.Field>
+<!-- ==================================== -->
+
+<!-- ==================================== -->
+<Form.Fieldset {form} name="price" class="flex items-center gap-2">
+	<Form.Legend>Drug Price</Form.Legend>
+	<Form.ElementField {form} name="price.item">
+		<Form.Control let:attrs>
+			<Form.Label>item</Form.Label>
+			<Input {...attrs} type="number" bind:value={$formData.price.item} />
+		</Form.Control>
+		<Form.FieldErrors />
+	</Form.ElementField>
+	<Form.ElementField {form} name="price.batch">
+		<Form.Control let:attrs>
+			<Form.Label>batch</Form.Label>
+			<Input {...attrs} type="number" bind:value={$formData.price.batch} />
+		</Form.Control>
+		<Form.FieldErrors />
+	</Form.ElementField>
+</Form.Fieldset>
+<!-- ==================================== -->
+
 {#await info}
 	<InputSkeleton />
 {:then info}
@@ -170,20 +173,6 @@
 	/>
 {:catch}
 	<LoadErrorAlert name="drug form" />
-{/await}
-<!-- ==================================== -->
-<!-- parent drug -->
-{#await drugs}
-	<InputSkeleton />
-{:then drugs}
-	<Combo
-		{form}
-		options={makeDrugsSelectItems(drugs)}
-		path={['drugID']}
-		label="Selct the parent drug"
-	/>
-{:catch}
-	<LoadErrorAlert name="main drug" />
 {/await}
 <!-- ==================================== -->
 <Form.Fieldset {form} name="size">

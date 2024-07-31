@@ -8,18 +8,20 @@
 	<h2>Requests page</h2>
 	<Button variant="link" href="/requests/create">Create new</Button>
 </div>
-<!-- {#await data.requests}
+{#await data.requests}
 	<p>loading...</p>
-{:then requests} -->
-<section class="space-y-8">
-	{#each data.requests as request}
-		<RequestCard
-			{request}
-			user={data.user}
-			isLikedByUser={data.user ? !!request.likedBy.find((v) => v.userID === data.user?.id) : false}
-		/>
-	{:else}
-		<p>No data found.</p>
-	{/each}
-</section>
-<!-- {/await} -->
+{:then requests}
+	<section class="space-y-8">
+		{#each requests as request}
+			<RequestCard
+				{request}
+				user={data.user}
+				isLikedByUser={data.user
+					? !!request.likedBy.find((v) => v.userID === data.user?.id)
+					: false}
+			/>
+		{:else}
+			<p>No data found.</p>
+		{/each}
+	</section>
+{/await}

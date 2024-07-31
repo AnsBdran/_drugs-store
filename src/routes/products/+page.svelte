@@ -21,13 +21,20 @@
 	<!--<section class="flex flex-col justify-between items-stretch gap-8 sm:flex-row sm:items-stretch cards-wrapper">z-->
 	{#await data.totalBrands}
 		<StatSekeleton />
-		<StatSekeleton />
 	{:then totalBrands}
 		<Stat icon={BxHealth} title="Total Brands" value={totalBrands} />
 		<!-- description="We have over than {totalBrands} different drug producers." -->
-		<Stat icon={AntDesignProductFilled} title="Total Products" value={23} />
 		<!-- description="Continuously increasing and working on adding more prodcuts." -->
 	{:catch error}
+		<p class="border border-muted bg-destructive/40 px-3 py-2 text-destructive-foreground">
+			You have a bad internet connection
+		</p>
+	{/await}
+	{#await data.totalDrugs}
+		<StatSekeleton />
+	{:then totalDrugs}
+		<Stat icon={AntDesignProductFilled} title="Total Products" value={totalDrugs} />
+	{:catch}
 		<p class="border border-muted bg-destructive/40 px-3 py-2 text-destructive-foreground">
 			You have a bad internet connection
 		</p>

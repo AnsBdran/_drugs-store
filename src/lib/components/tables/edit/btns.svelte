@@ -1,16 +1,16 @@
 <script lang="ts">
 	import Button from '$lib/components/ui/button/button.svelte';
-	import type { DrugItem, Manufacturer, Request } from '@prisma/client';
+	import type { DrugItem, Manufacturer, Request, User } from '@prisma/client';
 	import MdiLeadPencil from '~icons/mdi/lead-pencil';
 	import MaterialSymbolsDeleteRounded from '~icons/material-symbols/delete-rounded';
 	import { rowChanges } from '$lib/stores/table.store';
 	// props
-	export let row: Manufacturer | DrugItem | Request;
+	export let row: Manufacturer | DrugItem | Request | User;
 
 	const setEditRow = (
 		isEditOpen: boolean,
 		isDeleteOpen: boolean,
-		row: Manufacturer | DrugItem | Request | null
+		row: Manufacturer | DrugItem | Request | User | null
 	) => {
 		// console.log('received', row);
 		// row?.imageURL ?? delete row?.imageURL;

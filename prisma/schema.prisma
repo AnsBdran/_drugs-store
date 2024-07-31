@@ -3,6 +3,7 @@ generator client {
 }
 
 datasource db {
+  // provider = "mongodb"
   provider = "mongodb"
   url      = env("DATABASE_URL")
 }
@@ -66,6 +67,14 @@ type Size {
   unit   SIZE
 }
 
+type Image {
+  public_id  String
+  width      Int
+  height     Int
+  url        String
+  secure_url String
+}
+
 // type DrugImage {
 //   cover String
 //   inner String?
@@ -122,20 +131,14 @@ model Request {
   brandName      String?
   genericName    String?
   strength       String?
-  imageURL       String?
+  image          Image?
   responseStatus RESPONSE_STATUS @default(pending)
   response       String?
   likes          Int             @default(0)
   description    String?
-
-  // author
-  authorID String @db.ObjectId
-  Author   User   @relation(name: "userRequests", fields: [authorID], references: [id])
-
-  // liked by users
-  // likedBy  User[]   @relation(name: "LikedRequests", through: LikedRequest)
-  likedBy LikedRequest[]
-  // usersIDs String[] @db.ObjectId
+  authorID       String          @db.ObjectId
+  Author         User            @relation(name: "userRequests", fields: [authorID], references: [id], onDelete: Cascade)
+  likedBy        LikedRequest[]
 }
 
 model LikedRequest {
@@ -144,8 +147,8 @@ model LikedRequest {
   updatedAt DateTime @updatedAt
   requestID String   @db.ObjectId
   userID    String   @db.ObjectId
-  request   Request  @relation(fields: [requestID], references: [id])
-  user      User     @relation(fields: [userID], references: [id])
+  request   Request  @relation(fields: [requestID], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userID], references: [id], onDelete: Cascade)
 
   @@unique([userID, requestID])
 }
@@ -156,8 +159,8 @@ model LikedDrugItem {
   updatedAt  DateTime @updatedAt
   drugItemID String   @db.ObjectId
   userID     String   @db.ObjectId
-  drugItem   DrugItem @relation(fields: [drugItemID], references: [id])
-  user       User     @relation(fields: [userID], references: [id])
+  drugItem   DrugItem @relation(fields: [drugItemID], references: [id], onDelete: Cascade)
+  user       User     @relation(fields: [userID], references: [id], onDelete: Cascade)
 
   @@unique([userID, drugItemID])
 }
@@ -192,7 +195,7 @@ model DrugItem {
   drug                 Drug                @relation(fields: [drugID], references: [id], onDelete: Cascade)
   drugID               String              @db.ObjectId
   activeIngredients    ActiveIngredient[]
-  imageURL             String
+  image                Image
   subImagesURL         String[]
   price                Price
   quantityInStock      Quantity?

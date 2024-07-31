@@ -21,8 +21,10 @@
 
 <Dialog.Root bind:open={$rowChanges.isDeleteOpen}>
 	<Dialog.Content>
-		<Dialog.Header>Confirm delete {$rowChanges.data?.name}</Dialog.Header>
-		<Dialog.Description>Are you sure, please know that you can't redo this.</Dialog.Description>
+		<Dialog.Header>Are you absolutely sure?</Dialog.Header>
+		<Dialog.Description
+			>You can't roll back to the previous state after deleting.</Dialog.Description
+		>
 		<form
 			action="?/delete"
 			method="POST"
