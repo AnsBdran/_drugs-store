@@ -1,0 +1,103 @@
+<script>
+	import { Button } from '$lib/components/ui/button';
+	import { Badge } from '$lib/components/ui/badge';
+	import { CldImage } from 'svelte-cloudinary';
+	import IcRoundFavoriteBorder from '~icons/ic/round-favorite-border';
+	import IcTwotoneFavorite from '~icons/ic/twotone-favorite';
+	import { cn, fromNow } from '$lib/utils';
+	import LikeBtn from '$lib/components/like-btn.svelte';
+	import Loading from '$lib/components/loading.svelte';
+	export let data;
+	const { product, user } = data;
+
+	$: isLikedByUser = user ? !!product?.likedBy.find((p) => p.userID === user.id) : false;
+</script>
+
+<section class="bg-white py-8 antialiased dark:bg-background md:py-16">
+	<div class="mx-auto max-w-screen-xl px-4 2xl:px-0">
+		<div class="lg:grid lg:grid-cols-2 lg:gap-8 xl:gap-16">
+			<div class="mx-auto max-w-md shrink-0 lg:max-w-lg">
+				<CldImage src={product?.image.public_id} alt={product?.drug.brandName} />
+			</div>
+
+			<div class="mt-6 sm:mt-8 lg:mt-0">
+				<h1 class="text-4xl font-semibold text-primary sm:text-6xl">
+					{product?.drug.brandName}
+				</h1>
+				<div class="mt-4 sm:flex sm:items-center sm:gap-4">
+					<p class="text-2xl font-extrabold text-gray-900 dark:text-white sm:text-3xl">
+						NIS {product?.price.item}
+					</p>
+				</div>
+
+				<LikeBtn
+					{user}
+					{isLikedByUser}
+					id={product?.id}
+					likes={product?.likes}
+					let:isLoading
+					let:isHighlighted
+					let:num
+				>
+					<div class="mt-6 flex items-center gap-4">
+						<Button type="submit" variant="secondary" class="flex min-w-52 items-center gap-2">
+							{#if isLoading}
+								<Loading class="bg-primary" />
+							{:else if isHighlighted}
+								<IcTwotoneFavorite class="text-primary" />Remove from favorites
+							{:else}
+								<IcRoundFavoriteBorder />
+								Add to favorites
+							{/if}
+						</Button>
+						<Badge
+							class={cn('flex h-full items-center gap-1 bg-opacity-70', {
+								'bg-opacity-100': isHighlighted
+							})}
+						>
+							<IcTwotoneFavorite />
+							{num}
+						</Badge>
+						<!-- {JSON.stringify({ num, isLoading, isHighlighted }, null, 2)} -->
+					</div>
+				</LikeBtn>
+
+				<hr class="my-6 border-gray-200 dark:border-gray-800 md:my-8" />
+
+				<p class="mb-6 text-gray-500 dark:text-gray-400">
+					Studio quality three mic array for crystal clear calls and voice recordings. Six-speaker
+					sound system for a remarkably robust and high-quality audio experience. Up to 256GB of
+					ultrafast SSD storage.
+				</p>
+			</div>
+			<div class="bg-neutral-800/15 p-3 dark:bg-neutral-600/10">
+				<h4 class="mb-2 text-neutral-800/80 dark:text-neutral-400">Categories</h4>
+				<div class="flex gap-2">
+					{#each product.drug.categories as category}
+						<Badge class="bg-neutral-700 dark:bg-neutral-700/60 dark:text-neutral-400"
+							>{category}</Badge
+						>
+					{/each}
+				</div>
+			</div>
+
+			<div class="bg-primary/10 p-3">
+				<h4 class="mb-2 text-primary/80">Indications</h4>
+				<div class="flex gap-2">
+					{#each product.drug.indications as indication}
+						<Badge>{indication}</Badge>
+					{/each}
+				</div>
+			</div>
+
+			<div class="bg-destructive/15 p-3">
+				<h4 class="mb-2 text-destructive/80">Contra-Indications</h4>
+				<div class="flex gap-2">
+					{#each product.drug.contraIndications as contraIndication}
+						<Badge variant="destructive">{contraIndication}</Badge>
+					{/each}
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

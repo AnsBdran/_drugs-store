@@ -177,7 +177,7 @@ model Drug {
   id                String       @id @default(auto()) @map("_id") @db.ObjectId
   createdAt         DateTime     @default(now())
   updatedAt         DateTime     @updatedAt
-  brandName         String
+  brandName         String       @unique
   description       String?
   indications       String[]     @unique
   contraIndications String[]

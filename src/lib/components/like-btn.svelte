@@ -14,13 +14,15 @@
 	import MaterialSymbolsKidStar from '~icons/material-symbols/kid-star';
 	import Loading from './loading.svelte';
 
+	let className = '';
+
 	// props
 	export let user;
 	export let likes: number;
 	export let isLikedByUser: boolean;
 	export let id;
-
-	let isHighlighted = isLikedByUser;
+	export { className as class };
+	let isHighlighted: boolean = isLikedByUser;
 	let num = likes;
 	let isLoading: boolean = false;
 </script>
@@ -45,7 +47,7 @@
 			if (result.type === 'success') {
 				num = result.data.likesCount;
 				isLoading = false;
-				isHighlighted = result.data.isLikedByUser;
+				isHighlighted = result.data?.isLikedByUser;
 			} else {
 				toast('Error', {
 					description: 'Something bad happens on our end, try again!'
@@ -58,26 +60,30 @@
 	<input type="hidden" name="itemID" value={id} />
 	<input type="hidden" name="userID" value={user ? user.id : null} />
 
-	<button
-		class={cn(
-			badgeVariants({ variant: 'outline' }),
-			'h-[22px] min-w-14 justify-evenly gap-1 focus:ring-0',
-			{
-				'bg-blue-300/50 text-blue-600 hover:bg-blue-800/30 dark:bg-blue-500/20 dark:text-blue-200/90':
-					isHighlighted
-			}
-		)}
-		disabled={isLoading}
-	>
-		{#if isLoading}
-			<Loading className="space-x-[2px]" class=" bg-blue-800" />
-		{:else}
-			{num}
-			{#if isHighlighted}
-				<MaterialSymbolsKidStar />
+	{#if $$slots.default}
+		<slot {isLoading} {isHighlighted} {num} />
+	{:else}
+		<button
+			class={cn(
+				badgeVariants({ variant: 'outline' }),
+				'h-[22px] min-w-14 justify-evenly gap-1 focus:ring-0',
+				{
+					'bg-blue-300/50 text-blue-600 hover:bg-blue-800/30 dark:bg-blue-500/20 dark:text-blue-200/90':
+						isHighlighted
+				}
+			)}
+			disabled={isLoading}
+		>
+			{#if isLoading}
+				<Loading className="space-x-[2px]" class=" bg-blue-800" />
 			{:else}
-				<MaterialSymbolsLightKidStarOutline />
+				{num}
+				{#if isHighlighted}
+					<MaterialSymbolsKidStar />
+				{:else}
+					<MaterialSymbolsLightKidStarOutline />
+				{/if}
 			{/if}
-		{/if}
-	</button>
+		</button>
+	{/if}
 </form>
