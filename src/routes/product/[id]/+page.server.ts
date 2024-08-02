@@ -12,11 +12,16 @@ export const load = async ({ request, params }) => {
 			likedBy: true
 		}
 	});
+
+	if (!product) {
+		return fail(404);
+	}
 	return {
 		label: product?.drug.brandName,
 		product
 	};
 };
+
 export const actions = {
 	like: async ({ request }) => {
 		const formData = await request.formData();

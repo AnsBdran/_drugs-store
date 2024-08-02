@@ -5,17 +5,23 @@
 	import { Badge } from './ui/badge';
 	import { CldImage } from 'svelte-cloudinary';
 	import { Button } from './ui/button';
+	import { dimensions } from '$lib/stores/dimensions';
+	import { page } from '$app/stores';
+	import type { User } from 'lucia';
 
 	let className: string | undefined | null = undefined;
 	export let drug: DrugItem;
-	export let width: number;
-	export let height: number;
+
+	const { store } = dimensions;
+	$: width = $store.width;
+	$: height = $store.height;
+
 	export let aspectRatio: 'portrait' | 'square' = 'square';
 	export { className as class };
 
-	export let user;
-	console.log('drug', drug);
-	export let isLikedByUser: boolean;
+	const user: User | null = $page.data.user;
+	const isLikedByUser = user ? !!drug.likedBy.find((d) => d.userID === user.id) : false;
+	console.log('exploring', $page);
 </script>
 
 <div
@@ -50,7 +56,16 @@
 			<LikeBtn id={drug.id} likes={drug.likes} {user} {isLikedByUser} />
 		</div>
 		<div>
-			<span>{drug.price.item}</span>
+			<span>NIS {drug.price.item}</span>
 		</div>
+		{#each drug.activeIngredients as ai}
+			<Badge
+				>{ai.name}
+				{ai.strength.amount}
+				{#if ai.strength.per !== 'unit'}
+					/{ai.strength.per}
+				{/if}
+			</Badge>
+		{/each}
 	</div>
 </div>

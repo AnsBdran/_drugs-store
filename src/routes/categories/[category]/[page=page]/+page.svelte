@@ -1,12 +1,12 @@
-<script lang="ts">
+<script>
 	import { DrugCard } from '$lib/components';
+	import Pagination from '$lib/components/pagination.svelte';
 	import DrugCardSkeleton from '$lib/components/skeletons/drug-card-skeleton.svelte';
-	import { Pagination } from '$lib/components';
+	import { dimensions } from '$lib/stores/dimensions';
 	import { onMount } from 'svelte';
-	import { dimensions } from '$lib/stores/dimensions.js';
 
 	export let data;
-	$: pageNumber = data.pageSlug;
+	$: pageNumber = data.pageNumber;
 	$: totalDrugs = data.totalCount;
 
 	onMount(() => {
@@ -15,15 +15,17 @@
 	});
 </script>
 
-<h1>Page number {pageNumber}</h1>
-<div class="flex sm:justify-evenly">
-	<Pagination bind:page={pageNumber} count={totalDrugs} perPage={data.pageSize} link="/products" />
-</div>
-
+<h1>Category page</h1>
+<Pagination
+	bind:page={pageNumber}
+	count={totalDrugs}
+	perPage={data.pageSize}
+	link="/categories/{data.category}"
+/>
 <section
-	class=" grid grid-cols-2 place-items-center gap-4 sm:grid-cols-3 sm:gap-8 md:gap-12 900:grid-cols-3 lg:gap-16 xl:grid-cols-4"
+	class=" grid flex-wrap place-items-center gap-4 xs:grid-cols-2 sm:grid-cols-3 sm:gap-8 md:gap-12 900:grid-cols-3 lg:gap-16 xl:grid-cols-4"
 >
-	{#await data.drugItems}
+	{#await data.products}
 		{#each new Array(10).fill(0) as _}
 			<DrugCardSkeleton class="self-stretch" />
 		{/each}

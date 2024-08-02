@@ -9,9 +9,9 @@
 		<a
 			href={link.href}
 			class={cn(
-				'flex h-12 flex-1 flex-col items-center justify-between gap-[2px] border-t bg-muted px-3 pb-1 pt-[5px] text-xs font-normal tracking-wider text-muted-foreground',
+				'flex h-12 flex-1 flex-col items-center justify-between gap-[2px] border-t bg-muted px-3 pb-1 pt-[5px] text-xs font-normal tracking-wider text-muted-foreground/70',
 				{
-					'border-t-accent-foreground/40 bg-muted-foreground/20':
+					'border-t-accent-foreground/40 bg-muted-foreground/20 brightness-[60%] dark:brightness-[90%]':
 						link.href === '/'
 							? $page.url.pathname === '/'
 							: $page.url.pathname.startsWith(link.href)

@@ -13,13 +13,7 @@
 {:then requests}
 	<section class="space-y-8">
 		{#each requests as request}
-			<RequestCard
-				{request}
-				user={data.user}
-				isLikedByUser={data.user
-					? !!request.likedBy.find((v) => v.userID === data.user?.id)
-					: false}
-			/>
+			<RequestCard {request} />
 		{:else}
 			<p>No data found.</p>
 		{/each}

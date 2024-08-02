@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { Button } from '$lib/components/ui/button';
 	import { Badge } from '$lib/components/ui/badge';
 	import { CldImage } from 'svelte-cloudinary';
@@ -7,7 +7,11 @@
 	import { cn, fromNow } from '$lib/utils';
 	import LikeBtn from '$lib/components/like-btn.svelte';
 	import Loading from '$lib/components/loading.svelte';
+	import * as Collapsible from '$lib/components/ui/collapsible';
+
 	export let data;
+
+	import PhCaretUpDownBold from '~icons/ph/caret-up-down-bold';
 	const { product, user } = data;
 
 	$: isLikedByUser = user ? !!product?.likedBy.find((p) => p.userID === user.id) : false;
@@ -21,26 +25,54 @@
 			</div>
 
 			<div class="mt-6 sm:mt-8 lg:mt-0">
-				<h1 class="text-4xl font-semibold text-primary sm:text-6xl">
-					{product?.drug.brandName}
-				</h1>
-				<div class="mt-4 sm:flex sm:items-center sm:gap-4">
+				<div class="flex items-start justify-between">
+					<h1 class="sm:text-6x mb-0 text-4xl font-semibold text-primary">
+						{product?.drug.brandName}
+					</h1>
+					<Collapsible.Root class="space-y-2">
+						<Collapsible.Trigger>
+							<Button variant="ghost" class="gap-3"
+								>Drug Active Ingredients
+								<PhCaretUpDownBold />
+							</Button>
+						</Collapsible.Trigger>
+
+						<Collapsible.Content class="space-y-2">
+							{#each product?.activeIngredients as ai}
+								<p class="flex justify-between rounded border px-4 py-1">
+									{ai.name}<Badge variant="secondary">
+										{ai.strength.amount}
+										{#if ai.strength.per !== 'unit'}
+											/{ai.strength.per}
+										{/if}
+									</Badge>
+								</p>
+							{/each}
+						</Collapsible.Content>
+					</Collapsible.Root>
+				</div>
+				<div class="mt-4 flex sm:items-center sm:gap-4">
 					<p class="text-2xl font-extrabold text-gray-900 dark:text-white sm:text-3xl">
 						NIS {product?.price.item}
 					</p>
 				</div>
-
 				<LikeBtn
 					{user}
 					{isLikedByUser}
 					id={product?.id}
 					likes={product?.likes}
+					let:likeFn
 					let:isLoading
 					let:isHighlighted
 					let:num
 				>
 					<div class="mt-6 flex items-center gap-4">
-						<Button type="submit" variant="secondary" class="flex min-w-52 items-center gap-2">
+						<Button
+							type="submit"
+							variant="secondary"
+							class="flex min-w-52 items-center gap-2"
+							on:click={likeFn}
+						>
 							{#if isLoading}
 								<Loading class="bg-primary" />
 							{:else if isHighlighted}
@@ -74,9 +106,11 @@
 				<h4 class="mb-2 text-neutral-800/80 dark:text-neutral-400">Categories</h4>
 				<div class="flex gap-2">
 					{#each product.drug.categories as category}
-						<Badge class="bg-neutral-700 dark:bg-neutral-700/60 dark:text-neutral-400"
-							>{category}</Badge
-						>
+						<a href="/categories/{category}">
+							<Badge class="bg-neutral-700 dark:bg-neutral-700/60 dark:text-neutral-400"
+								>{category}</Badge
+							>
+						</a>
 					{/each}
 				</div>
 			</div>

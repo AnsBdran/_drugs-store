@@ -9,13 +9,18 @@
 	// icons
 	import Loading from './loading.svelte';
 	import LikeBtn from './like-btn.svelte';
+	import { page } from '$app/stores';
+	import type { User } from 'lucia';
 
 	dayjs.extend(relativeTime);
 
 	// props
-	export let user;
+	// export let user;
 	export let request: Request;
-	export let isLikedByUser: boolean;
+	// export let isLikedByUser: boolean;
+
+	const user: User | null = $page.data.user;
+	const isLikedByUser = user ? !!request.likedBy.find((v) => v.userID === user?.id) : false;
 
 	let likes = request.likes;
 	let isLiked: boolean = isLikedByUser;

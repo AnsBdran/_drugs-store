@@ -1,10 +1,14 @@
 <script>
 	import { Skeleton } from '$lib/components/ui/skeleton';
+	import { dimensions } from '$lib/stores/dimensions';
 	import { cn } from '$lib/utils';
 
 	let className = '';
-	export let width = 150;
-	export let height = 150;
+
+	const { store } = dimensions;
+	// const { width, height } = $store;
+	$: width = $store.width;
+	$: height = $store.height;
 	export { className as class };
 </script>
 
