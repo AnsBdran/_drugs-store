@@ -3,7 +3,7 @@
 	import type { DrugItem, Manufacturer, Request, User } from '@prisma/client';
 	import MdiLeadPencil from '~icons/mdi/lead-pencil';
 	import MaterialSymbolsDeleteRounded from '~icons/material-symbols/delete-rounded';
-	import { rowChanges } from '$lib/stores/table.store';
+	import { rowChanges } from '$lib/stores/table';
 	// props
 	export let row: Manufacturer | DrugItem | Request | User;
 

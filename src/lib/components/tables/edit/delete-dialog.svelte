@@ -2,7 +2,7 @@
 	import { enhance } from '$app/forms';
 	import Button from '$lib/components/ui/button/button.svelte';
 	import * as Dialog from '$lib/components/ui/dialog';
-	import { rowChanges } from '$lib/stores/table.store';
+	import { rowChanges } from '$lib/stores/table';
 	import type { DrugItem, Manufacturer } from '@prisma/client';
 	import LineMdLoadingAltLoop from '~icons/line-md/loading-alt-loop';
 	import { toast } from 'svelte-sonner';

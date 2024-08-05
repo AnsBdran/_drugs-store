@@ -59,6 +59,7 @@ export const POST = async ({ request }) => {
 				});
 				isLiked = true;
 			}
+			// invalidateAll();
 			return json({
 				likesCount: updatedDrugItem.likes,
 				isLikedByUser: isLiked

@@ -20,8 +20,8 @@
 			<li>
 				<a
 					href="/dashboard/{link.href}"
-					class={cn('flex cursor-pointer gap-6 px-4 py-3', {
-						'bg-accent text-accent-foreground': isActive(link.href)
+					class={cn('flex cursor-pointer items-center gap-4 px-4 py-3 hover:bg-accent', {
+						'pointer-events-none bg-accent text-primary': isActive(link.href)
 					})}
 				>
 					<svelte:component this={link.icon} />

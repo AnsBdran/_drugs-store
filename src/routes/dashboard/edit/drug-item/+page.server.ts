@@ -58,6 +58,11 @@ export const actions: Actions = {
 		const formData = await request.formData();
 		const id = formData.get('_id') as string;
 		try {
+			await prisma.likedDrugItem.deleteMany({
+				where: {
+					drugItemID: id
+				}
+			});
 			const result = await prisma.drugItem.delete({
 				where: {
 					id

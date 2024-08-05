@@ -4,14 +4,16 @@
 	import { cn } from '$lib/utils';
 </script>
 
-<section class="fixed bottom-0 left-0 z-50 flex w-full justify-around bg-accent md:hidden">
+<section
+	class="h-bottom-navbar fixed bottom-0 left-0 z-50 flex w-full justify-around bg-accent md:hidden"
+>
 	{#each navLinks as link (link.href)}
 		<a
 			href={link.href}
 			class={cn(
-				'flex h-12 flex-1 flex-col items-center justify-between gap-[2px] border-t bg-muted px-3 pb-1 pt-[5px] text-xs font-normal tracking-wider text-muted-foreground/70',
+				'flex h-12 flex-1 flex-col items-center justify-between gap-[2px] border-t-2 bg-muted px-3 pb-1 pt-[5px] text-xs font-normal tracking-wider text-muted-foreground/70 hover:border-t-primary/30 hover:bg-foreground/10',
 				{
-					'border-t-accent-foreground/40 bg-muted-foreground/20 brightness-[60%] dark:brightness-[90%]':
+					'pointer-events-none border-t-primary/40 bg-primary/5 text-primary':
 						link.href === '/'
 							? $page.url.pathname === '/'
 							: $page.url.pathname.startsWith(link.href)

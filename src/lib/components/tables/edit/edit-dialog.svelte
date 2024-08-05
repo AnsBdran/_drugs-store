@@ -2,7 +2,7 @@
 	import Button from '$lib/components/ui/button/button.svelte';
 	import * as Dialog from '$lib/components/ui/dialog';
 	import type { DrugItem, Manufacturer, Request } from '@prisma/client';
-	import { rowChanges } from '$lib/stores/table.store';
+	import { rowChanges } from '$lib/stores/table';
 	import SuperDebug, { superForm, type Infer, type SuperValidated } from 'sveltekit-superforms';
 	import type { ManufacturerSchema } from '$lib/schemas/manufacturer';
 	import { toast } from 'svelte-sonner';

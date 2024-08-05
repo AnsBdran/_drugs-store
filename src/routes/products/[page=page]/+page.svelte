@@ -20,9 +20,7 @@
 	<Pagination bind:page={pageNumber} count={totalDrugs} perPage={data.pageSize} link="/products" />
 </div>
 
-<section
-	class=" grid grid-cols-2 place-items-center gap-4 sm:grid-cols-3 sm:gap-8 md:gap-12 900:grid-cols-3 lg:gap-16 xl:grid-cols-4"
->
+<section class="cards-wrapper">
 	{#await data.drugItems}
 		{#each new Array(10).fill(0) as _}
 			<DrugCardSkeleton class="self-stretch" />

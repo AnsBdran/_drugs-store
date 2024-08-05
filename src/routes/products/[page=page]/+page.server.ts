@@ -1,15 +1,15 @@
 import prisma from '$lib/server/prisma';
-import { error, fail, redirect } from '@sveltejs/kit';
-import type { Actions, PageServerLoad } from './$types';
+import { error } from '@sveltejs/kit';
+import type { PageServerLoad } from './$types';
+import { getPagination } from '$lib/utils';
 
 export const load: PageServerLoad = async ({ params }) => {
-	const page = Number(params.page);
-	const limit = 1;
+	const { limit, page, skip } = getPagination(params.page);
 
 	const getDrugs = async () => {
 		const result = await prisma.drugItem.findMany({
 			take: limit,
-			skip: (page - 1) * limit,
+			skip,
 			include: {
 				drug: {
 					select: {

@@ -75,6 +75,10 @@ type Image {
   secure_url String
 }
 
+type Settings {
+  itemsPerPage Int @default(8)
+}
+
 // type DrugImage {
 //   cover String
 //   inner String?
@@ -252,6 +256,7 @@ model Info {
   strengths         Strength[] @unique
   forms             String[]   @unique
   activeIngredients String[]
+  settings          Settings?
 }
 
 model Record {

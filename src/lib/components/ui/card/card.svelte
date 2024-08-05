@@ -13,7 +13,7 @@
 	class={cn(
 		'rounded-xl border bg-card text-card-foreground shadow',
 		// added by anas
-		'bg-secondary/10',
+		'',
 		// end
 		className
 	)}

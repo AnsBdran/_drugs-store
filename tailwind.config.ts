@@ -8,13 +8,24 @@ const config: Config = {
 	theme: {
 		container: {
 			center: true,
-			padding: '2rem',
+			padding: '1rem',
 			screens: {
 				'2xl': '1400px'
 			}
 		},
 
 		extend: {
+			// container: {
+			// 	center: true,
+			// 	padding: '1rem',
+			// 	screens: {
+			// 		sm: '640px', // Default sm breakpoint
+			// 		md: '768px',
+			// 		lg: '1024px',
+			// 		xl: '1280px',
+			// 		'2xl': '1536px'
+			// 	}
+			// },
 			colors: {
 				border: 'hsl(var(--border) / <alpha-value>)',
 				input: 'hsl(var(--input) / <alpha-value>)',
@@ -64,7 +75,8 @@ const config: Config = {
 			},
 			spacing: {
 				header: 'var(--header)',
-				sidebar: 'var(--sidebar)'
+				sidebar: 'var(--sidebar)',
+				'bottom-navbar': 'var(--bottom-navbar)'
 			},
 			// keyframes: {
 			//     marquee: {

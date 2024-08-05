@@ -16,7 +16,7 @@
 	// icons
 
 	$: isActive = (href: string) =>
-		href === '/' ? $page.url.pathname === href : $page.url.pathname.includes(href);
+		href === '/' ? $page.url.pathname === href : $page.url.pathname.startsWith(href);
 
 	const handleLogout = () => {
 		fetch('/logout', {
@@ -30,14 +30,15 @@
 >
 	<section class=" container flex items-center justify-between py-2">
 		<Button href="/" class="text-xl font-semibold" variant="link">Store</Button>
+		<!-- <p>{$cart[0].name}</p> -->
 		<div class="flex items-center space-x-3">
 			<ul class="hidden items-center md:flex">
 				{#each navLinks as navLink (navLink.href)}
 					<li>
 						<Button
 							variant="link"
-							class={cn('active:bg-primary active:text-primary-foreground', {
-								'bg-secondary text-secondary-foreground underline': isActive(navLink.href)
+							class={cn('text-secondary-foreground active:bg-primary/5 active:text-primary/60', {
+								'pointer-events-none bg-primary/10 text-primary': isActive(navLink.href)
 							})}
 							href={navLink.href}>{navLink.name}</Button
 						>
@@ -62,8 +63,8 @@
 						<DropdownMenu.Label>Account</DropdownMenu.Label>
 						<DropdownMenu.Separator />
 						<DropdownMenu.Group>
-							<DropdownMenu.Item>My items</DropdownMenu.Item>
-							<DropdownMenu.Item>Settings</DropdownMenu.Item>
+							<DropdownMenu.Item href="/cart">My cart</DropdownMenu.Item>
+							<DropdownMenu.Item href="/favorites">My favorites</DropdownMenu.Item>
 						</DropdownMenu.Group>
 						<DropdownMenu.Separator />
 						<DropdownMenu.Group>

@@ -1,71 +1,79 @@
 <script lang="ts">
 	import { cn } from '$lib/utils';
-	import type { Drug, DrugItem } from '@prisma/client';
+	import type { DrugItem } from '@prisma/client';
 	import LikeBtn from './like-btn.svelte';
-	import { Badge } from './ui/badge';
-	import { CldImage } from 'svelte-cloudinary';
-	import { Button } from './ui/button';
 	import { dimensions } from '$lib/stores/dimensions';
 	import { page } from '$app/stores';
 	import type { User } from 'lucia';
-
+	import pharmacist from '$lib/images/pharmacist.jpeg';
+	import { Badge } from './ui/badge';
+	import Button from './ui/button/button.svelte';
 	let className: string | undefined | null = undefined;
 	export let drug: DrugItem;
-
+	// icons
+	import MaterialSymbolsAddShoppingCartOutlineRounded from '~icons/material-symbols/add-shopping-cart-outline-rounded';
+	import TablerCurrencyShekel from '~icons/tabler/currency-shekel';
+	import { toast } from 'svelte-sonner';
+	import { cart } from '$lib/stores/cart';
 	const { store } = dimensions;
 	$: width = $store.width;
 	$: height = $store.height;
 
-	export let aspectRatio: 'portrait' | 'square' = 'square';
 	export { className as class };
 
 	const user: User | null = $page.data.user;
 	const isLikedByUser = user ? !!drug.likedBy.find((d) => d.userID === user.id) : false;
-	console.log('exploring', $page);
+
+	const addToCart = () => {
+		console.log('adding to cart');
+		toast('added to cart');
+		if (!!$cart.find((d) => d.id === drug.id)) {
+			return toast('The item is already in the cart');
+		}
+		cart.update((prev) => {
+			const newCart = [...prev, { data: drug, count: 1 }];
+			window.localStorage.setItem('cart', JSON.stringify(newCart));
+			return newCart;
+		});
+	};
 </script>
 
-<div
-	class={cn('space-y-3 overflow-hidden ', className)}
-	{...$$restProps}
-	style={`width: ${width}px;`}
->
+<div class={cn('group block overflow-hidden', className)} style={`width: ${width}px;`}>
 	<div
-		class="relative overflow-hidden rounded-md border-2 border-transparent transition-all duration-500 hover:border-primary/50"
-		style={`width: ${width}px; height: ${height}px;`}
+		class="relative w-[{width}px] h-[{height}px] overflow-hidden border-2 border-transparent hover:border-primary/40"
 	>
-		<CldImage
-			src={drug.image.public_id}
-			alt={drug.drug.brandName}
-			class={cn(
-				'h-full w-full object-cover transition-all hover:scale-105',
-				aspectRatio === 'portrait' ? 'aspect-[3/4]' : 'aspect-square'
-			)}
-			width="full"
-			height="full"
-		/>
-		<Badge variant="secondary" class="absolute bottom-1 right-1 opacity-90">{drug.form}</Badge>
+		<a href="/product/{drug.id}">
+			<img
+				src={pharmacist}
+				alt="pharmacist"
+				class="h-full w-full object-cover transition-all duration-500 group-hover:scale-105"
+			/>
+		</a>
+		<Button
+			class="absolute bottom-1 right-1 size-6 bg-gray-800 p-0 text-background opacity-80 group-hover:opacity-95 dark:text-foreground 900:size-9"
+			variant="ghost"
+			on:click={addToCart}
+		>
+			<MaterialSymbolsAddShoppingCartOutlineRounded class="900:size-6" />
+		</Button>
 	</div>
 
-	<div class="space-y-1 overflow-hidden text-sm">
-		<div class="flex items-center justify-between pr-1">
-			<h3 class="mb-0 truncate text-lg font-medium leading-none">
-				<Button href="/product/{drug.id}" variant="link">
-					{drug.drug.brandName ?? 'drug'}
-				</Button>
+	<div class="relative pt-3">
+		<div class="flex items-start justify-between">
+			<h3
+				class="mb-0 text-sm text-primary/70 group-hover:underline group-hover:underline-offset-4 sm:text-base md:text-lg"
+			>
+				<a href="/product/{drug.id}">
+					{drug.drug.brandName}
+				</a>
 			</h3>
-			<LikeBtn id={drug.id} likes={drug.likes} {user} {isLikedByUser} />
+			<LikeBtn {user} {isLikedByUser} likes={drug.likes} id={drug.id} on:dislike />
 		</div>
-		<div>
-			<span>NIS {drug.price.item}</span>
+
+		<div class="mt-1.5 flex items-center justify-between">
+			<p class="flex items-center tracking-wide"><TablerCurrencyShekel />{drug.price.item}</p>
+			<Badge variant="secondary" class="!mt-0 text-xs uppercase  tracking-wide">{drug.form}</Badge>
+			<!-- <p class="!mt-0 text-xs uppercase tracking-wide">{drug.form}</p> -->
 		</div>
-		{#each drug.activeIngredients as ai}
-			<Badge
-				>{ai.name}
-				{ai.strength.amount}
-				{#if ai.strength.per !== 'unit'}
-					/{ai.strength.per}
-				{/if}
-			</Badge>
-		{/each}
 	</div>
 </div>

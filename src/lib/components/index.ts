@@ -5,3 +5,5 @@ export { default as Pagination } from './pagination.svelte';
 export { default as Breadcrumb } from './breadcrumb.svelte';
 export { default as ScrollingText } from './scrolling-text.svelte';
 export { default as RequestCard } from './request-card.svelte';
+export { default as Footer } from './footer.svelte';
+export { default as CartItem } from './cart-item.svelte';

@@ -12,7 +12,7 @@
 	} from '@tanstack/svelte-table';
 	import EditDialog from './edit/edit-dialog.svelte';
 	import DeleteDialog from './edit/delete-dialog.svelte';
-	import { rowChanges } from '$lib/stores/table.store';
+	import { rowChanges } from '$lib/stores/table';
 	import { writable } from 'svelte/store';
 	import { rankItem } from '@tanstack/match-sorter-utils';
 	import Input from '../ui/input/input.svelte';
