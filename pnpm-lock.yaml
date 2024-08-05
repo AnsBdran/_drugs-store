@@ -78,6 +78,9 @@ importers:
       '@iconify-json/circum':
         specifier: ^1.1.11
         version: 1.1.11
+      '@iconify-json/clarity':
+        specifier: ^1.1.14
+        version: 1.1.14
       '@iconify-json/f7':
         specifier: ^1.1.0
         version: 1.1.0
@@ -640,6 +643,9 @@ packages:
 
   '@iconify-json/circum@1.1.11':
     resolution: {integrity: sha512-L8W22uUaPP/oczYqAX2jAx/LHYO5Ti1nEi3aj8+mbcZsyIj6fTb4ssuUFMRJtZQ0hHLb42N1n5RvPXRU1nC0iQ==}
+
+  '@iconify-json/clarity@1.1.14':
+    resolution: {integrity: sha512-iZICEs5OZi64+IBt/Yj+DwifGLBP6je4WKJkfi2wpNILTp7EFcIIXPD3+laLlaRk3/Sfe45yJbPqK0dYw39XXg==}
 
   '@iconify-json/f7@1.1.0':
     resolution: {integrity: sha512-CSY3ZVPkCGBdx1FjAi/VDV3is68CMM1E8qVWUQwy3rGJeHHsfdo0M10sY4I65gC8DvcUdr+uqnRQ64R3eHC69g==}
@@ -3220,6 +3226,10 @@ snapshots:
       '@iconify/types': 2.0.0
 
   '@iconify-json/circum@1.1.11':
+    dependencies:
+      '@iconify/types': 2.0.0
+
+  '@iconify-json/clarity@1.1.14':
     dependencies:
       '@iconify/types': 2.0.0
 

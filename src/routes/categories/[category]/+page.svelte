@@ -17,12 +17,14 @@
 	<p>We have a total of {count} products of this category</p>
 {/await}
 
-<h2>Top liked products of <span class="text-primary">{category}</span> Catgory.</h2>
-{#await data.topProducts}
-	<p>loading</p>
-{:then topProducts}
-	{#each topProducts as product}
-		<DrugCard drug={product} />
-	{/each}
-{/await}
-<p>Browse</p>
+<h2 class="">Top liked products of <span class="text-primary">{category}</span> Catgory.</h2>
+<section class="cards-wrapper">
+	{#await data.topProducts}
+		<p>loading</p>
+	{:then topProducts}
+		{#each topProducts as product}
+			<DrugCard drug={product} />
+		{/each}
+	{/await}
+</section>
+<Button href="/categories/{category}/1">Browse all</Button>

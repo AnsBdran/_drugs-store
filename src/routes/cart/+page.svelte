@@ -3,15 +3,12 @@
 	import Button from '$lib/components/ui/button/button.svelte';
 	import Separator from '$lib/components/ui/separator/separator.svelte';
 	import { cart } from '$lib/stores/cart';
-	console.log($cart);
 	import IconoirDeliveryTruck from '~icons/iconoir/delivery-truck';
-	import PajamasExternalLink from '~icons/pajamas/external-link';
 	import AntDesignDeleteOutlined from '~icons/ant-design/delete-outlined';
 	import * as Dialog from '$lib/components/ui/dialog';
 	import * as Popover from '$lib/components/ui/popover';
-	import Label from '$lib/components/ui/label/label.svelte';
-	import { Input } from '$lib/components/ui/input';
 	import { formatCartItem } from '$lib/utils';
+	import * as Alert from '$lib/components/ui/alert';
 	let isDialogOpen = false;
 	let isPopoverOpen = false;
 	const clear = () => {
@@ -21,8 +18,8 @@
 
 	const phoneNumber = 972597866163;
 	const sayHi = encodeURIComponent('السلام عليكم دكتور محمد،\n أرغب بشراء الأصناف الآتية\n');
-	const value = encodeURIComponent($cart.map((i) => formatCartItem(i)).join('\n\n'));
-	const totalPrice = encodeURIComponent(
+	$: value = encodeURIComponent($cart.map((i) => formatCartItem(i)).join('\n\n'));
+	$: totalPrice = encodeURIComponent(
 		`مجموع السعر: ${$cart.reduce((p, n) => p + n.data.price.item * n.count, 0)} شيكل.`
 	);
 	8;
@@ -35,7 +32,15 @@
 <section class="flex flex-col gap-24 md:flex-row">
 	<div class="basis-80">
 		{#if !$cart.length}
-			<p>Your cart is empty</p>
+			<Alert.Root variant="destructive" class="bg-destructive/10">
+				<Alert.Title>Your cart is empty</Alert.Title>
+				<Alert.Description
+					>First <Button
+						variant="link"
+						class="px-0 text-destructive underline hover:underline-offset-2">browse</Button
+					> our products, and add things you like!</Alert.Description
+				>
+			</Alert.Root>
 		{:else}
 			{#each $cart as c}
 				<CartItem item={c} />

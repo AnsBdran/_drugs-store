@@ -17,7 +17,7 @@
 	<!-- <h3>Accurate prescription, fast delivery, High prices</h3> -->
 	<!-- <h3>Accurate prescription, fast delivery, High prices</h3> -->
 </ScrollingText>
-<section class="cards-wrapper flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:justify-center">
+<section class="stats-wrapper flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:justify-center">
 	<!--<section class="flex flex-col justify-between items-stretch gap-8 sm:flex-row sm:items-stretch cards-wrapper">z-->
 	{#await data.totalBrands}
 		<StatSekeleton />
@@ -45,7 +45,7 @@
 <!-- <Stat icon={BxHealth} title="Total Brands" value={2} /> -->
 
 <style>
-	:global(.cards-wrapper > *) {
+	:global(.stats-wrapper > *) {
 		flex: 1;
 		min-width: 300px;
 	}

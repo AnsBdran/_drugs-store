@@ -8,7 +8,7 @@
 	import LikeBtn from '$lib/components/like-btn.svelte';
 	import Loading from '$lib/components/loading.svelte';
 	import * as Collapsible from '$lib/components/ui/collapsible';
-
+	import TablerCurrencyShekel from '~icons/tabler/currency-shekel';
 	export let data;
 
 	import PhCaretUpDownBold from '~icons/ph/caret-up-down-bold';
@@ -52,8 +52,11 @@
 					</Collapsible.Root>
 				</div>
 				<div class="mt-4 flex sm:items-center sm:gap-4">
-					<p class="text-2xl font-extrabold text-gray-900 dark:text-white sm:text-3xl">
-						NIS {product?.price.item}
+					<p
+						class="flex items-center text-3xl font-normal text-gray-900 dark:text-white sm:text-3xl"
+					>
+						<TablerCurrencyShekel />
+						{product?.price.item}
 					</p>
 				</div>
 				<LikeBtn
@@ -102,36 +105,38 @@
 					ultrafast SSD storage.
 				</p>
 			</div>
-			<div class="bg-neutral-800/15 p-3 dark:bg-neutral-600/10">
-				<h4 class="mb-2 text-neutral-800/80 dark:text-neutral-400">Categories</h4>
-				<div class="flex gap-2">
-					{#each product.drug.categories as category}
-						<a href="/categories/{category}">
-							<Badge class="bg-neutral-700 dark:bg-neutral-700/60 dark:text-neutral-400"
-								>{category}</Badge
-							>
-						</a>
-					{/each}
+			<section class="space-y-3 [&>*]:rounded-sm">
+				<div class="bg-neutral-800/15 p-3 dark:bg-neutral-600/10">
+					<h4 class="mb-2 text-neutral-800/80 dark:text-neutral-400">Categories</h4>
+					<div class="flex gap-2">
+						{#each product.drug.categories as category}
+							<a href="/categories/{category}">
+								<Badge class="bg-neutral-700 dark:bg-neutral-700/60 dark:text-neutral-400"
+									>{category}</Badge
+								>
+							</a>
+						{/each}
+					</div>
 				</div>
-			</div>
 
-			<div class="bg-primary/10 p-3">
-				<h4 class="mb-2 text-primary/80">Indications</h4>
-				<div class="flex gap-2">
-					{#each product.drug.indications as indication}
-						<Badge>{indication}</Badge>
-					{/each}
+				<div class="bg-primary/10 p-3">
+					<h4 class="mb-2 text-primary/80">Indications</h4>
+					<div class="flex gap-2">
+						{#each product.drug.indications as indication}
+							<Badge>{indication}</Badge>
+						{/each}
+					</div>
 				</div>
-			</div>
 
-			<div class="bg-destructive/15 p-3">
-				<h4 class="mb-2 text-destructive/80">Contra-Indications</h4>
-				<div class="flex gap-2">
-					{#each product.drug.contraIndications as contraIndication}
-						<Badge variant="destructive">{contraIndication}</Badge>
-					{/each}
+				<div class="bg-destructive/15 p-3">
+					<h4 class="mb-2 text-destructive/80">Contra-Indications</h4>
+					<div class="flex gap-2">
+						{#each product.drug.contraIndications as contraIndication}
+							<Badge variant="destructive">{contraIndication}</Badge>
+						{/each}
+					</div>
 				</div>
-			</div>
+			</section>
 		</div>
 	</div>
 </section>

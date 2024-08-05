@@ -45,6 +45,10 @@
 		--input: 217.2 32.6% 17.5%;
 		--ring: 224.3 76.3% 48%;
 	}
+
+	.cards-wrapper {
+		@apply my-8 grid grid-cols-2 place-items-center gap-4 sm:grid-cols-3 sm:gap-8 md:gap-12 900:grid-cols-3 lg:gap-16 xl:grid-cols-4;
+	}
 }
 
 @layer base {
@@ -97,8 +101,4 @@
 
 [type='file'] {
 	@apply block w-full border border-secondary text-sm text-primary/50 file:mr-4 file:rounded-md file:border-0 file:bg-primary/5 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-primary/80 hover:file:bg-primary/10;
-}
-
-.cards-wrapper {
-	@apply grid grid-cols-2 place-items-center gap-4 sm:grid-cols-3 sm:gap-8 md:gap-12 900:grid-cols-3 lg:gap-16 xl:grid-cols-4;
 }

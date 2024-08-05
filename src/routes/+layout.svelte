@@ -30,7 +30,7 @@
 >
 	<Header user={data.user} />
 	<main
-		class={cn('container mx-auto flex-1 py-3', {
+		class={cn('container mx-auto flex-1 py-6', {
 			'md:pl-[calc(var(--sidebar)_+24px)]': $page.url.pathname.startsWith('/dashboard')
 		})}
 	>

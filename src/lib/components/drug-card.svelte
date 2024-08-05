@@ -26,15 +26,15 @@
 
 	const addToCart = () => {
 		console.log('adding to cart');
-		toast('added to cart');
-		if (!!$cart.find((d) => d.id === drug.id)) {
-			return toast('The item is already in the cart');
+		if (!!$cart.find((d) => d.data.id === drug.id)) {
+			return toast(`${drug.drug.brandName} is already in the cart`);
 		}
 		cart.update((prev) => {
 			const newCart = [...prev, { data: drug, count: 1 }];
 			window.localStorage.setItem('cart', JSON.stringify(newCart));
 			return newCart;
 		});
+		toast(`${drug.drug.brandName} added to cart successfully.`);
 	};
 </script>
 
