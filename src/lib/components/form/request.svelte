@@ -41,20 +41,3 @@
 	</Form.Control>
 	<Form.FieldErrors />
 </Form.Field>
-
-<Form.Field {form} name="image">
-	<Form.Control let:attrs>
-		<Form.Label>Drug Image</Form.Label>
-		<input type="file" {...attrs} bind:files={$imageFile} />
-	</Form.Control>
-	<Form.FieldErrors />
-</Form.Field>
-
-<!-- {#if mode === 'edit'}
-	<Select
-		{form}
-		label="Edit the request status"
-		options={['pending', 'accepted', 'rejected'].map((s) => ({ value: s, label: s }))}
-		path={['responseStatus']}
-	/>
-{/if} -->

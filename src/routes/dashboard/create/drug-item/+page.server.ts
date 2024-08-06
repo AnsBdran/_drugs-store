@@ -3,7 +3,7 @@ import type { Actions, PageServerLoad } from './$types';
 import { zod } from 'sveltekit-superforms/adapters';
 import { drugItemSchema } from '$lib/schemas/drug-item';
 import prisma from '$lib/server/prisma';
-import { uploadFileToCloudinary } from '$lib/server/utils';
+// import { uploadFileToCloudinary } from '$lib/server/utils';
 
 export const load: PageServerLoad = async () => {
 	const form = await superValidate(zod(drugItemSchema));
@@ -27,7 +27,7 @@ export const actions: Actions = {
 			activeIngredients,
 			available,
 			drugID,
-			image,
+			// image,
 			featured,
 			price,
 			form: drugForm,
@@ -35,18 +35,18 @@ export const actions: Actions = {
 			size
 		} = form.data;
 		try {
-			const uploadResult = await uploadFileToCloudinary(image);
+			// const uploadResult = await uploadFileToCloudinary(image);
 			const result = await prisma.drugItem.create({
 				data: {
 					form: drugForm,
 					price,
-					image: {
-						height: uploadResult.height,
-						width: uploadResult.width,
-						public_id: uploadResult.public_id,
-						secure_url: uploadResult.secure_url,
-						url: uploadResult.url
-					},
+					// image: {
+					// 	height: uploadResult.height,
+					// 	width: uploadResult.width,
+					// 	public_id: uploadResult.public_id,
+					// 	secure_url: uploadResult.secure_url,
+					// 	url: uploadResult.url
+					// },
 					description,
 					drugID,
 					activeIngredients,

@@ -199,17 +199,6 @@
 </Form.Fieldset>
 
 <!-- ==================================== -->
-<!-- image field -->
-<Form.Field {form} name="image">
-	<Form.Control let:attrs>
-		<Form.Label>Drug image</Form.Label>
-		<input type="file" {...attrs} bind:files={$imageFile} />
-		<!-- <Input type="file" {...attrs} bind:value={$formData.image} /> -->
-	</Form.Control>
-	<Form.FieldErrors />
-</Form.Field>
-
-<!-- ==================================== -->
 <!-- Checkboxes -->
 <Form.Field
 	{form}

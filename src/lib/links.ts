@@ -10,6 +10,7 @@ import MaterialSymbolsAddToPhotosOutlineRounded from '~icons/material-symbols/ad
 import IcOutlineChat from '~icons/ic/outline-chat';
 import PixelarticonsInfoBox from '~icons/pixelarticons/info-box';
 import SolarUsersGroupRoundedBoldDuotone from '~icons/solar/users-group-rounded-bold-duotone';
+import IonMdImages from '~icons/ion/md-images';
 // Dashboard Create icons
 // import BxBxsCategoryAlt from '~icons/bx/bxs-category-alt';
 import CircumTablets1 from '~icons/circum/tablets-1';
@@ -31,6 +32,7 @@ export const dashboardLinks = [
 	{ href: 'edit', name: 'Edit', icon: MaterialSymbolsAddToPhotosOutlineRounded },
 	{ href: 'requests', name: 'Requests', icon: IcOutlineChat },
 	{ href: 'users', name: 'Users', icon: SolarUsersGroupRoundedBoldDuotone },
+	{ href: 'images', name: 'Images', icon: IonMdImages },
 	{ href: 'settings', name: 'Settings', icon: IcBaselineSettings }
 ];
 

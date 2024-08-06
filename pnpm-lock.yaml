@@ -99,6 +99,9 @@ importers:
       '@iconify-json/ic':
         specifier: ^1.1.17
         version: 1.1.17
+      '@iconify-json/icon-park-outline':
+        specifier: ^1.1.16
+        version: 1.1.16
       '@iconify-json/iconamoon':
         specifier: ^1.1.4
         version: 1.1.4
@@ -153,6 +156,9 @@ importers:
       '@iconify-json/tabler':
         specifier: ^1.1.115
         version: 1.1.116
+      '@iconify-json/weui':
+        specifier: ^1.1.1
+        version: 1.1.1
       '@sveltejs/adapter-auto':
         specifier: ^3.0.0
         version: 3.2.2(@sveltejs/kit@2.5.18(@sveltejs/vite-plugin-svelte@3.1.1(svelte@4.2.18)(vite@5.3.3))(svelte@4.2.18)(vite@5.3.3))
@@ -665,6 +671,9 @@ packages:
   '@iconify-json/ic@1.1.17':
     resolution: {integrity: sha512-EvAjZzVESmN36zlyefylePUNaU2BQ3eRKVZ6KQSQ2bG01ppoZaiFZRri74VTyvp5Mlv2yn68ux1fgCoT+etGmA==}
 
+  '@iconify-json/icon-park-outline@1.1.16':
+    resolution: {integrity: sha512-q6lQ7Hwke2EGM0I10sl4RQf8OE8CCbUXbBvpbDiPuBofD2uv+0rQwWa65DFYVqzr9BoC3xex8wG+S2gBkdEXFA==}
+
   '@iconify-json/iconamoon@1.1.4':
     resolution: {integrity: sha512-ciU8YeoMqWWMRurM7c7PqodEyvd/dGAV5zeLC5+IwqTfcPVI71RUDrhOsE656FjxADcyKh2ZkN64gVqFAZOVng==}
 
@@ -718,6 +727,9 @@ packages:
 
   '@iconify-json/tabler@1.1.116':
     resolution: {integrity: sha512-p+dJ+3L/M2o10REG2lh179Blu5+AA51TFkwuUwY7F+vQsF5Z8DIjyNck3yoBBiCxWqhDhsLzC+p9YO7dWqISmw==}
+
+  '@iconify-json/weui@1.1.1':
+    resolution: {integrity: sha512-c/u2V57DTbvXYkcuJx/j9h8sd6mgyycskmUB908AmCG6M22GQmi2dec15cxAYY6aVWnvRbYH5njMI+bu1dZvfg==}
 
   '@iconify/types@2.0.0':
     resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
@@ -3257,6 +3269,10 @@ snapshots:
     dependencies:
       '@iconify/types': 2.0.0
 
+  '@iconify-json/icon-park-outline@1.1.16':
+    dependencies:
+      '@iconify/types': 2.0.0
+
   '@iconify-json/iconamoon@1.1.4':
     dependencies:
       '@iconify/types': 2.0.0
@@ -3326,6 +3342,10 @@ snapshots:
       '@iconify/types': 2.0.0
 
   '@iconify-json/tabler@1.1.116':
+    dependencies:
+      '@iconify/types': 2.0.0
+
+  '@iconify-json/weui@1.1.1':
     dependencies:
       '@iconify/types': 2.0.0
 

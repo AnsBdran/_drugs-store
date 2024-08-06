@@ -6,7 +6,6 @@ export const drugItemSchema = z.object({
 		item: z.coerce
 			.number({ message: 'item price needed' })
 			.positive('provide a number greater than 0')
-			// .gt(0, 'The price must be greater than 0')
 			.default('' as unknown as number),
 		batch: z.coerce
 			.number({ message: 'batch price must be a number.' })
@@ -30,8 +29,6 @@ export const drugItemSchema = z.object({
 		)
 		.min(1)
 		.default([{ name: '', strength: { amount: '', per: 'unit' } }]),
-	image: z.instanceof(File, { message: 'please proivde a valid image' }),
-	// .refine((f) => f.size < 3000_000, 'Max 3 MB Upload size. '),
 	description: z.string().optional(),
 	available: z.boolean().default(true),
 	form: z.string().min(1, 'You must specify the drug form.'),
@@ -43,21 +40,6 @@ export const drugItemSchema = z.object({
 			.default('' as unknown as number),
 		unit: z.enum(['mg', 'g', 'l', 'ml', 'unit']).default('unit')
 	})
-	// .refine((data) => data.amount != 0, {
-	// 	message: 'You must specify the total size.',
-	// 	path: ['amount']
-	// })
-	// subImagesURL: z.string().url().array(),
-	// quantityInStock: z.object({
-	// 	unit: z.number().gt(0, 'must be greater than 0').optional(),
-	// 	batch: z.number().gt(0, 'must be greater than 0').optional()
-	// }),
-	// likesCount: z.number().default(1),
-	// strength: z.object({
-	// 	amount: z.string(),
-	// 	per: z.string()
-	// }),
-	// dosageInstructionsIDs: z.string().array(),
 });
 
 export type DrugItemSchema = typeof drugItemSchema;

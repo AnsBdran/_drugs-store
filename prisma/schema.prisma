@@ -67,22 +67,9 @@ type Size {
   unit   SIZE
 }
 
-type Image {
-  public_id  String
-  width      Int
-  height     Int
-  url        String
-  secure_url String
-}
-
 type Settings {
   itemsPerPage Int @default(8)
 }
-
-// type DrugImage {
-//   cover String
-//   inner String?
-// }
 
 type Price {
   item  Int
@@ -102,30 +89,20 @@ type AcitveIngredientType {
 // =============================================
 // MODELS
 model User {
-  id           String    @id @default(auto()) @map("_id") @db.ObjectId
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
-  firstName    String?
-  lastName     String?
-  username     String    @unique
-  email        String?   @unique
-  passwordHash String
-  role         Role      @default(USER)
-  sessions     Session[]
-  // created requests
-  requests     Request[] @relation(name: "userRequests")
-  requestsIDs  String[]  @db.ObjectId
-
-  // liked requests
-  // likedRequests Request[] @relation(name: "LikedRequests", through: LikedRequest)
-  likedRequests LikedRequest[]
-  // likedRequests    Request[] @relation(fields: [likedRequestsIDs], references: [id])
-  // likedRequestsIDs String[]  @db.ObjectId
-
-  // liked drug items
+  id             String          @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  firstName      String?
+  lastName       String?
+  username       String          @unique
+  email          String?         @unique
+  passwordHash   String
+  role           Role            @default(USER)
+  sessions       Session[]
+  requests       Request[]       @relation(name: "userRequests")
+  requestsIDs    String[]        @db.ObjectId
+  likedRequests  LikedRequest[]
   likedDrugItems LikedDrugItem[]
-  // likedDrugItems DrugItem[] @relation(fields: [drugItemsIDs], references: [id])
-  // drugItemsIDs   String[]   @db.ObjectId
 }
 
 model Request {
@@ -135,7 +112,6 @@ model Request {
   brandName      String?
   genericName    String?
   strength       String?
-  image          Image?
   responseStatus RESPONSE_STATUS @default(pending)
   response       String?
   likes          Int             @default(0)
@@ -170,7 +146,6 @@ model LikedDrugItem {
 }
 
 model Session {
-  // id        String   @id @default(auto()) @map("_id") @db.ObjectId
   id        String   @id @map("_id")
   userId    String   @db.ObjectId
   expiresAt DateTime
@@ -199,8 +174,6 @@ model DrugItem {
   drug                 Drug                @relation(fields: [drugID], references: [id], onDelete: Cascade)
   drugID               String              @db.ObjectId
   activeIngredients    ActiveIngredient[]
-  image                Image
-  subImagesURL         String[]
   price                Price
   quantityInStock      Quantity?
   description          String?
@@ -216,8 +189,28 @@ model DrugItem {
   features             String[]
   likes                Int                 @default(0)
   likedBy              LikedDrugItem[]
-  // likedBy              User[]              @relation(fields: [usersIDs], references: [id])
-  // usersIDs             String[]            @db.ObjectId
+  images               Image[]
+}
+
+model Image {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  publicID   String    @unique
+  width      Int
+  height     Int
+  secureURL  String
+  url        String
+  isPrimary  Boolean   @default(false)
+  drugItemID String?   @db.ObjectId
+  drugItem   DrugItem? @relation(fields: [drugItemID], references: [id], onDelete: Cascade)
+  format     String
+  assetID    String
+  bytes      Int
+  path       String
+  signature  String
+
+  @@unique([drugItemID, isPrimary], name: "uniquePrimaryImage")
 }
 
 model Manufacturer {

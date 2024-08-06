@@ -7,6 +7,12 @@
 	import { ScrollingText } from '$lib/components';
 	import Badge from '$lib/components/ui/badge/badge.svelte';
 	import Button from '$lib/components/ui/button/button.svelte';
+	import Alert from '$lib/components/alert.svelte';
+
+	let error: string | null = null;
+	const handleLoadError = () => {
+		error = 'Error while loading the data, try refreshing the page.';
+	};
 </script>
 
 <ScrollingText>
@@ -23,23 +29,24 @@
 		<StatSekeleton />
 	{:then totalBrands}
 		<Stat icon={BxHealth} title="Total Brands" value={totalBrands} />
-		<!-- description="We have over than {totalBrands} different drug producers." -->
-		<!-- description="Continuously increasing and working on adding more prodcuts." -->
 	{:catch error}
-		<p class="border border-muted bg-destructive/40 px-3 py-2 text-destructive-foreground">
-			You have a bad internet connection
-		</p>
+		{#if !error}
+			{handleLoadError()}
+		{/if}
 	{/await}
 	{#await data.totalDrugs}
 		<StatSekeleton />
 	{:then totalDrugs}
 		<Stat icon={AntDesignProductFilled} title="Total Products" value={totalDrugs} />
 	{:catch}
-		<p class="border border-muted bg-destructive/40 px-3 py-2 text-destructive-foreground">
-			You have a bad internet connection
-		</p>
+		{#if !error}
+			{handleLoadError()}
+		{/if}
 	{/await}
 </section>
+{#if error}
+	<Alert showRefresh type="error" title="Bad Internet connection">{error}</Alert>
+{/if}
 <Button href="/products/1" class="mt-8">View all drugs</Button>
 
 <!-- <Stat icon={BxHealth} title="Total Brands" value={2} /> -->

@@ -8,7 +8,7 @@
 	import * as Dialog from '$lib/components/ui/dialog';
 	import * as Popover from '$lib/components/ui/popover';
 	import { formatCartItem } from '$lib/utils';
-	import * as Alert from '$lib/components/ui/alert';
+	import Alert from '$lib/components/alert.svelte';
 	let isDialogOpen = false;
 	let isPopoverOpen = false;
 	const clear = () => {
@@ -29,18 +29,10 @@
 	<h1 class="mb-0">Cart page</h1>
 </div>
 
-<section class="flex flex-col gap-24 md:flex-row">
+<section class="flex flex-col justify-evenly gap-24 md:flex-row">
 	<div class="basis-80">
 		{#if !$cart.length}
-			<Alert.Root variant="destructive" class="bg-destructive/10">
-				<Alert.Title>Your cart is empty</Alert.Title>
-				<Alert.Description
-					>First <Button
-						variant="link"
-						class="px-0 text-destructive underline hover:underline-offset-2">browse</Button
-					> our products, and add things you like!</Alert.Description
-				>
-			</Alert.Root>
+			<Alert>Browse products first, and add what you like to your cart.</Alert>
 		{:else}
 			{#each $cart as c}
 				<CartItem item={c} />
@@ -49,10 +41,10 @@
 		{/if}
 	</div>
 
-	<div class="flex gap-6 md:flex-col 900:flex-row">
+	<div class="flex flex-col gap-6 sm:flex-row md:flex-col 900:flex-row">
 		{#if $cart.length}
 			<Button
-				class="w-full gap-3 self-stretch uppercase md:h-12 md:text-lg"
+				class="w-full gap-3 self-stretch uppercase  md:h-12 md:text-lg"
 				href="https://wa.me/{phoneNumber}?text={sayHi}%0a%0a{value}%0a%0a%0a{totalPrice}"
 				target="_blank"
 				>Submit an order
@@ -64,7 +56,7 @@
 						builders={[builder]}
 						disabled={!$cart.length}
 						variant="destructive"
-						class="w-full gap-3 self-stretch uppercase md:h-12 md:text-lg"
+						class="w-full gap-3 self-stretch uppercase text-destructive-foreground md:h-12 md:text-lg"
 						>Clear the cart <AntDesignDeleteOutlined class="size-6 md:size-7" /></Button
 					></Dialog.Trigger
 				>
