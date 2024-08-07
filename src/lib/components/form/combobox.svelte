@@ -32,6 +32,7 @@
 	const bindValue = path.join('.');
 
 	let { value, errors } = formFieldProxy(form, bindValue);
+	$: console.log({ $errors, $value });
 	// $: choosedItem = options.find((i) => i.value === value);
 	// console.log('________', { bindValue, choosedItem });
 </script>
