@@ -3,14 +3,9 @@ import { fail, message, superValidate } from 'sveltekit-superforms';
 import type { PageServerLoad, Actions } from './$types';
 import { zod } from 'sveltekit-superforms/adapters';
 import { drugItemSchema } from '$lib/schemas/drug-item';
-import { uploadFileToCloudinary } from '$lib/server/utils';
-
-const durgItemEditSchema = drugItemSchema.extend({
-	image: drugItemSchema.shape.image.optional()
-});
 
 export const load: PageServerLoad = async () => {
-	const form = await superValidate(zod(durgItemEditSchema));
+	const form = await superValidate(zod(drugItemSchema));
 	return {
 		form,
 		drugItems: await prisma.drugItem.findMany({
@@ -28,20 +23,14 @@ export const actions: Actions = {
 		const formData = await request.formData();
 		const id = formData.get('_id');
 		const form = await superValidate(formData, zod(durgItemEditSchema));
-		console.log('edit action called', form);
-		let uploadResult;
 		if (!form.valid) {
 			return fail(400, { form });
 		}
 
 		try {
-			if (form.data.image) {
-				uploadResult = await uploadFileToCloudinary(form.data.image);
-			}
 			const result = await prisma.drugItem.update({
 				data: {
-					...form.data,
-					imageURL: uploadResult?.secure_url
+					...form.data
 				},
 				where: {
 					id: id as string
