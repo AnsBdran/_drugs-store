@@ -2,6 +2,10 @@ import { z } from 'zod';
 
 export const drugItemSchema = z.object({
 	drugID: z.string().min(1),
+	image: z
+		.instanceof(File, { message: 'please proivde a valid image' })
+		.refine((f) => f.size < 2000_000, 'Max 2 MB Upload size. ')
+		.optional(),
 	price: z.object({
 		item: z.coerce
 			.number({ message: 'item price needed' })

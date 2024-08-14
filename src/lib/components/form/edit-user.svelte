@@ -1,7 +1,6 @@
 <script lang="ts">
 	import type { User } from '@prisma/client';
 	import Select from './select.svelte';
-	import { makeSelectItemsFromStrings } from '$lib/utils';
 	import Input from '../ui/input/input.svelte';
 	import Label from '../ui/label/label.svelte';
 

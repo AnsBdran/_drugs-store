@@ -1,5 +1,5 @@
 import { browser } from '$app/environment';
-import type { DrugItem } from '@prisma/client';
+import type { DrugItem } from '$lib/types';
 import { writable } from 'svelte/store';
 
 export type CartItem = { data: DrugItem; count: number };

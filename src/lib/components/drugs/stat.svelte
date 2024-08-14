@@ -11,9 +11,14 @@
 	export { className as class };
 </script>
 
-<div class={cn('flex space-x-4 rounded-lg bg-secondary p-4 sm:max-w-sm md:space-x-6', className)}>
+<div
+	class={cn(
+		'flex space-x-4 rounded-lg border border-muted-foreground bg-secondary p-4 sm:max-w-sm md:space-x-6',
+		className
+	)}
+>
 	<div
-		class="flex aspect-square items-center justify-center self-center rounded-lg p-2 dark:bg-primary sm:p-3"
+		class="flex aspect-square items-center justify-center self-center rounded-lg bg-accent-foreground p-2 text-accent dark:bg-primary sm:p-3"
 	>
 		<svelte:component this={icon} class="h-6 w-6 sm:h-8 sm:w-8" />
 	</div>

@@ -4,25 +4,25 @@ import type { PageServerLoad, Actions } from './$types';
 import { zod } from 'sveltekit-superforms/adapters';
 import { z } from 'zod';
 import { fail } from '@sveltejs/kit';
-
-const userEditSchema = z.object({
-	role: z.enum(['USER', 'ADMIN', 'SUPER_ADMIN'])
-});
+import { userEditSchema } from '$lib/schemas/auth';
 
 export const load: PageServerLoad = async () => {
+	console.log('users load called 1');
 	const form = await superValidate(zod(userEditSchema));
+	console.log('users load called 2');
 
 	const users = await prisma.user.findMany({
 		include: {
-			_count: {
-				select: {
-					requests: true,
-					likedDrugItems: true,
-					likedRequests: true
-				}
-			}
+			// _count: {
+			// 	select: {
+			// 		requests: true,
+			// 		likedDrugItems: true,
+			// 		likedRequests: true
+			// 	}
+			// }
 		}
 	});
+	console.log('users load called 3');
 	return { users, form };
 };
 

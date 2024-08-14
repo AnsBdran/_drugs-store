@@ -1,569 +1,212 @@
-// import {
-// 	contraIndications,
-// 	dosageInstructions,
-// 	drugCategories,
-// 	drugForms,
-// 	drugStrengths,
-// 	indications
-// } from '../src/lib/info';
+import {
+	activeIngredients,
+	contraIndications,
+	drugCategories,
+	// 	activeIngredients,
+	// 	contraIndications,
+	// 	drugCategories,
+	drugForms,
+	drugStrengths,
+	indications
+	// 	indications
+} from '../src/lib/info';
+import { Role, SIZE } from '@prisma/client';
 import prisma from '../src/lib/server/prisma';
+import { faker } from '@faker-js/faker';
 // import { drugItems, manufacturers } from '../src/lib/mock-data';
-const seedDB = async () => {
-	try {
-		// await prisma.info.create({
-		// 	data: {
-		// 		categories: drugCategories,
-		// 		contraIndications,
-		// 		indications,
-		// 		strengths: drugStrengths,
-		// 		forms: drugForms
-		// 	}
-		// });
-		// await prisma.dosageInstruction.createMany({
-		// 	data: dosageInstructions
-		// });
-		// await prisma.drugItem.createMany({
-		// 	data: drugItems
-		// });
-		// await prisma.manufacturer.createMany({
-		// 	data: manufacturers
-		// });
-		await prisma.info.update({
-			data: {
-				activeIngredients: Array.from(
-					new Set([
-						'Paracetamol',
 
-						'Ibuprofen',
-						'Aspirin',
-						'Acetaminophen',
-						'Amoxicillin',
-						'Cephalexin',
-						'Azithromycin',
-						'Clindamycin',
-						'Metronidazole',
-						'Levofloxacin',
-						'Doxycycline',
-						'Ciprofloxacin',
-						'Erythromycin',
-						'Norfloxacin',
-						'Nitrofurantoin',
-						'Trimethoprim',
-						'Sulfamethoxazole',
-						'Moxifloxacin',
-						'Bacitracin',
-						'Neomycin',
-						'Gentamicin',
-						'Tobramycin',
-						'Amikacin',
-						'Vancomycin',
-						'Linezolid',
-						'Meropenem',
-						'Imipenem',
-						'Ceftriaxone',
-						'Cefuroxime',
-						'Cefepime',
-						'Piperacillin',
-						'Tazobactam',
-						'Ticarcillin',
-						'Clavulanate',
-						'Penicillin',
-						'Benzathine',
-						'Dicloxacillin',
-						'Flucloxacillin',
-						'Cloxacillin',
-						'Nafcillin',
-						'Oxacillin',
-						'Fosfomycin',
-						'Chloramphenicol',
-						'Tetracycline',
-						'Minocycline',
-						'Tigecycline',
-						'Daptomycin',
-						'Polymyxin',
-						'Colistin',
-						'Rifampicin',
-						'Isoniazid',
-						'Ethambutol',
-						'Pyrazinamide',
-						'Streptomycin',
-						'Bedaquiline',
-						'Delamanid',
-						'Pretomanid',
-						'Mefloquine',
-						'Chloroquine',
-						'Hydroxychloroquine',
-						'Artemether',
-						'Lumefantrine',
-						'Quinine',
-						'Quinidine',
-						'Pyrimethamine',
-						'Sulfadoxine',
-						'Atovaquone',
-						'Proguanil',
-						'Dapsone',
-						'Clofazimine',
-						'Thalidomide',
-						'Amphotericin',
-						'Nystatin',
-						'Fluconazole',
-						'Itraconazole',
-						'Voriconazole',
-						'Posaconazole',
-						'Isavuconazole',
-						'Terbinafine',
-						'Griseofulvin',
-						'Caspofungin',
-						'Micafungin',
-						'Anidulafungin',
-						'Acyclovir',
-						'Valacyclovir',
-						'Famciclovir',
-						'Ganciclovir',
-						'Valganciclovir',
-						'Foscarnet',
-						'Cidofovir',
-						'Oseltamivir',
-						'Zanamivir',
-						'Peramivir',
-						'Baloxavir',
-						'Ritonavir',
-						'Lopinavir',
-						'Darunavir',
-						'Atazanavir',
-						'Saquinavir',
-						'Indinavir',
-						'Nelfinavir',
-						'Amprenavir',
-						'Fosamprenavir',
-						'Enfuvirtide',
-						'Maraviroc',
-						'Raltegravir',
-						'Elvitegravir',
-						'Dolutegravir',
-						'Bictegravir',
-						'Lamivudine',
-						'Emtricitabine',
-						'Tenofovir',
-						'Abacavir',
-						'Zidovudine',
-						'Didanosine',
-						'Stavudine',
-						'Nevirapine',
-						'Efavirenz',
-						'Etravirine',
-						'Rilpivirine',
-						'Delavirdine',
-						'Doravirine',
-						'Hydrocortisone',
-						'Prednisolone',
-						'Prednisone',
-						'Methylprednisolone',
-						'Dexamethasone',
-						'Betamethasone',
-						'Triamcinolone',
-						'Fluticasone',
-						'Budesonide',
-						'Beclomethasone',
-						'Mometasone',
-						'Clobetasol',
-						'Halobetasol',
-						'Diflorasone',
-						'Desonide',
-						'Desoximetasone',
-						'Fluocinonide',
-						'Hydroxyzine',
-						'Diphenhydramine',
-						'Loratadine',
-						'Cetirizine',
-						'Fexofenadine',
-						'Chlorpheniramine',
-						'Brompheniramine',
-						'Dimenhydrinate',
-						'Meclizine',
-						'Promethazine',
-						'Cyproheptadine',
-						'Doxepin',
-						'Amitriptyline',
-						'Nortriptyline',
-						'Imipramine',
-						'Desipramine',
-						'Clomipramine',
-						'Doxepin',
-						'Trimipramine',
-						'Protriptyline',
-						'Citalopram',
-						'Escitalopram',
-						'Fluoxetine',
-						'Paroxetine',
-						'Sertraline',
-						'Fluvoxamine',
-						'Venlafaxine',
-						'Desvenlafaxine',
-						'Duloxetine',
-						'Milnacipran',
-						'Levomilnacipran',
-						'Bupropion',
-						'Mirtazapine',
-						'Trazodone',
-						'Nefazodone',
-						'Vilazodone',
-						'Vortioxetine',
-						'Lithium',
-						'Valproate',
-						'Divalproex',
-						'Carbamazepine',
-						'Oxcarbazepine',
-						'Lamotrigine',
-						'Levetiracetam',
-						'Topiramate',
-						'Gabapentin',
-						'Pregabalin',
-						'Phenytoin',
-						'Fosphenytoin',
-						'Phenobarbital',
-						'Primidone',
-						'Ethosuximide',
-						'Lacosamide',
-						'Zonisamide',
-						'Clonazepam',
-						'Lorazepam',
-						'Diazepam',
-						'Alprazolam',
-						'Midazolam',
-						'Clobazam',
-						'Temazepam',
-						'Triazolam',
-						'Estazolam',
-						'Quazepam',
-						'Flurazepam',
-						'Zolpidem',
-						'Zaleplon',
-						'Eszopiclone',
-						'Ramelteon',
-						'Suvorexant',
-						'Lemborexant',
-						'Buspirone',
-						'Chlorpromazine',
-						'Thioridazine',
-						'Fluphenazine',
-						'Perphenazine',
-						'Prochlorperazine',
-						'Trifluoperazine',
-						'Haloperidol',
-						'Droperidol',
-						'Pimozide',
-						'Clozapine',
-						'Olanzapine',
-						'Quetiapine',
-						'Risperidone',
-						'Paliperidone',
-						'Aripiprazole',
-						'Ziprasidone',
-						'Iloperidone',
-						'Asenapine',
-						'Lurasidone',
-						'Brexpiprazole',
-						'Cariprazine',
-						'Lisdexamfetamine',
-						'Methylphenidate',
-						'Dexmethylphenidate',
-						'Amphetamine',
-						'Dextroamphetamine',
-						'Methamphetamine',
-						'Modafinil',
-						'Armodafinil',
-						'Atomoxetine',
-						'Guanfacine',
-						'Clonidine',
-						'Phentermine',
-						'Diethylpropion',
-						'Benzphetamine',
-						'Phendimetrazine',
-						'Lorcaserin',
-						'Orlistat',
-						'Liraglutide',
-						'Naltrexone',
-						'Bupropion',
-						'Methadone',
-						'Buprenorphine',
-						'Naloxone',
-						'Naltrexone',
-						'Disulfiram',
-						'Acamprosate',
-						'Gabapentin',
-						'Topiramate',
-						'Baclofen',
-						'Clonidine',
-						'Lofexidine',
-						'Methocarbamol',
-						'Cyclobenzaprine',
-						'Carisoprodol',
-						'Metaxalone',
-						'Chlorzoxazone',
-						'Orphenadrine',
-						'Tizanidine',
-						'Baclofen',
-						'Dantrolene',
-						'Diazepam',
-						'Lorazepam',
-						'Midazolam',
-						'Clonazepam',
-						'Alprazolam',
-						'Temazepam',
-						'Triazolam',
-						'Estazolam',
-						'Quazepam',
-						'Flurazepam',
-						'Gabapentin',
-						'Pregabalin',
-						'Carbamazepine',
-						'Oxcarbazepine',
-						'Lamotrigine',
-						'Topiramate',
-						'Levetiracetam',
-						'Zonisamide',
-						'Lacosamide',
-						'Valproate',
-						'Divalproex',
-						'Phenobarbital',
-						'Primidone',
-						'Phenytoin',
-						'Fosphenytoin',
-						'Ethosuximide',
-						'Methsuximide',
-						'Rufinamide',
-						'Clobazam',
-						'Stiripentol',
-						'Cannabidiol',
-						'Fenfluramine',
-						'Everolimus',
-						'Sirolimus',
-						'Tacrolimus',
-						'Cyclosporine',
-						'Azathioprine',
-						'Mycophenolate',
-						'Methotrexate',
-						'Leflunomide',
-						'Cyclophosphamide',
-						'Chlorambucil',
-						'Busulfan',
-						'Melphalan',
-						'Carmustine',
-						'Lomustine',
-						'Dacarbazine',
-						'Procarbazine',
-						'Temozolomide',
-						'Vincristine',
-						'Vinblastine',
-						'Vinorelbine',
-						'Paclitaxel',
-						'Docetaxel',
-						'Cabazitaxel',
-						'Etoposide',
-						'Teniposide',
-						'Irinotecan',
-						'Topotecan',
-						'Doxorubicin',
-						'Daunorubicin',
-						'Epirubicin',
-						'Idarubicin',
-						'Mitoxantrone',
-						'Bleomycin',
-						'Mitomycin',
-						'Dactinomycin',
-						'Plicamycin',
-						'Trabectedin',
-						'Eribulin',
-						'Methotrexate',
-						'Pemetrexed',
-						'Pralatrexate',
-						'5-Fluorouracil',
-						'Capecitabine',
-						'Cytarabine',
-						'Gemcitabine',
-						'Azacitidine',
-						'Decitabine',
-						'Fludarabine',
-						'Cladribine',
-						'Clofarabine',
-						'Pentostatin',
-						'Nelarabine',
-						'Mercaptopurine',
-						'Thioguanine',
-						'Azathioprine',
-						'Allopurinol',
-						'Rasburicase',
-						'Pegloticase',
-						'Methotrexate',
-						'Cyclophosphamide',
-						'Ifosfamide',
-						'Chlorambucil',
-						'Melphalan',
-						'Busulfan',
-						'Carmustine',
-						'Lomustine',
-						'Streptozocin',
-						'Mechlorethamine',
-						'Procarbazine',
-						'Dacarbazine',
-						'Temozolomide',
-						'Bortezomib',
-						'Carfilzomib',
-						'Ixazomib',
-						'Thalidomide',
-						'Lenalidomide',
-						'Pomalidomide',
-						'Rituximab',
-						'Obinutuzumab',
-						'Ofatumumab',
-						'Ocrelizumab',
-						'Alemtuzumab',
-						'Daratumumab',
-						'Elotuzumab',
-						'Blinatumomab',
-						'Inotuzumab',
-						'Brentuximab',
-						'Gemtuzumab',
-						'Moxetumomab',
-						'Ibritumomab',
-						'Tositumomab',
-						'Cetuximab',
-						'Panitumumab',
-						'Necitumumab',
-						'Bevacizumab',
-						'Ramucirumab',
-						'Trastuzumab',
-						'Pertuzumab',
-						'Ado-trastuzumab',
-						'Fam-trastuzumab',
-						'Dinutuximab',
-						'Nivolumab',
-						'Pembrolizumab',
-						'Atezolizumab',
-						'Durvalumab',
-						'Avelumab',
-						'Ipilimumab',
-						'Tremelimumab',
-						'Sipuleucel-T',
-						'Tisagenlecleucel',
-						'Axicabtagene',
-						'Brexucabtagene',
-						'Lisocabtagene',
-						'Idecabtagene',
-						'Blinatumomab',
-						'Cemiplimab',
-						'Dostarlimab',
-						'Bempegaldesleukin',
-						'Belantamab',
-						'Belantamab mafodotin',
-						'Sacituzumab',
-						'Trodelvy',
-						'Enfortumab',
-						'Padcev',
-						'Lurbinectedin',
-						'Zanubrutinib',
-						'Acalabrutinib',
-						'Ibrutinib',
-						'Idelalisib',
-						'Copanlisib',
-						'Duvelisib',
-						'Umbralisib',
-						'Venetoclax',
-						'Abemaciclib',
-						'Palbociclib',
-						'Ribociclib',
-						'Alpelisib',
-						'Buparlisib',
-						'Taselisib',
-						'Copanlisib',
-						'Avapritinib',
-						'Ripretinib',
-						'Sunitinib',
-						'Sorafenib',
-						'Pazopanib',
-						'Axitinib',
-						'Cabozantinib',
-						'Lenvatinib',
-						'Regorafenib',
-						'Vandetanib',
-						'Pexidartinib',
-						'Larotrectinib',
-						'Entrectinib',
-						'Selpercatinib',
-						'Pralsetinib',
-						'Capmatinib',
-						'Tepotinib',
-						'Crizotinib',
-						'Ceritinib',
-						'Alectinib',
-						'Brigatinib',
-						'Lorlatinib',
-						'Erlotinib',
-						'Gefitinib',
-						'Afatinib',
-						'Osimertinib',
-						'Dacomitinib',
-						'Lapatinib',
-						'Neratinib',
-						'Tucatinib',
-						'Mobocertinib',
-						'Amivantamab',
-						'Sotorasib',
-						'Selumetinib',
-						'Trametinib',
-						'Cobimetinib',
-						'Binimetinib',
-						'Dabrafenib',
-						'Vemurafenib',
-						'Encorafenib',
-						'Sorafenib',
-						'Sunitinib',
-						'Axitinib',
-						'Pazopanib',
-						'Cabozantinib',
-						'Lenvatinib',
-						'Regorafenib',
-						'Vandetanib',
-						'Avapritinib',
-						'Ripretinib',
-						'Tivozanib',
-						'Fedratinib',
-						'Ruxolitinib',
-						'Tofacitinib',
-						'Baricitinib',
-						'Upadacitinib',
-						'Filgotinib',
-						'Peficitinib',
-						'Abrocitinib',
-						'Oclacitinib',
-						'Ritlecitinib',
-						'Roxadustat',
-						'Vadadustat',
-						'Daprodustat',
-						'Desidustat',
-						'Enarodustat',
-						'Molibresib',
-						'Birabresib',
-						'Zotatifin',
-						'Mivebresib'
-					])
-				)
-			},
-			where: {
-				id: '668a354c251a5be6cf49befb'
+// Before discovring arrayElement and arrayElements
+// const getRandomItem = (arr: any[]) => arr[Math.floor(Math.random() * arr.length)];
+// // const getRandomItems = (arr: any[]) => Array.from({ length: Math.floor(Math.random() * 10) + 1 })
+
+// const getRandomItems = (arr: any[]) => {
+// 	let _ = [];
+// 	for (let i = 0; i < Math.floor(Math.random() * 10 + 1); i++) {
+// 		console.log('getting random item for array || ', i);
+// 		_.push(getRandomItem(arr));
+// 	}
+// 	return Array.from(new Set(_));
+// };
+
+// const manufacturer = () => ({
+// 	city: faker.location.city(),
+// 	country: faker.location.country(),
+// 	description: faker.lorem.sentence(),
+// 	url: faker.internet.url(),
+// 	name: faker.company.name(),
+// 	featured: faker.datatype.boolean()
+// });
+
+// const drug: Drug = () => ({
+// 	brandName: faker.commerce.product(),
+// 	categories: faker.da
+// })
+
+const units = ['unit', 'mg', 'g', 'l', 'ml'];
+
+const seedInfo = async () => {
+	const info = await prisma.info.findFirst();
+	const updated = { ...info, strengths: drugStrengths };
+	delete updated.id;
+	await prisma.info.update({
+		where: {
+			id: info?.id
+		},
+		data: updated
+	});
+};
+const seedDB = async () => {
+	await prisma.drugItem.deleteMany();
+	await prisma.drug.deleteMany();
+	await prisma.likedDrugItem.deleteMany();
+	await prisma.likedRequest.deleteMany();
+	await prisma.request.deleteMany();
+	await prisma.manufacturer.deleteMany();
+	await prisma.image.deleteMany();
+	await prisma.session.deleteMany();
+	await prisma.user.deleteMany();
+
+	console.log('done deleting');
+
+	Array.from({ length: 500 }).forEach(async () => {
+		const user = await prisma.user.create({
+			data: {
+				firstName: faker.person.firstName(),
+				createdAt: faker.date.between({ from: '2023-10-07', to: '2024-08-13' }),
+				lastName: faker.person.lastName(),
+				email: faker.internet.email(),
+				role: faker.helpers.arrayElement(['USER', 'ADMIN']) as Role,
+				username: `${faker.person.firstName()}_${faker.person.lastName()}`,
+				passwordHash: faker.internet.password(),
+				id: faker.database.mongodbObjectId()
 			}
 		});
-		console.log('database seed successfully');
-	} catch (error) {
-		console.log('==> some error happened during seeding. <==\n', error);
-	}
+
+		const requestsLikesCount = faker.number.int({ min: 0, max: 100 });
+		const request = await prisma.request.create({
+			data: {
+				createdAt: faker.date.between({ from: '2023-10-07', to: '2024-08-13' }),
+				authorID: user.id,
+				brandName: faker.commerce.productName(),
+				description: faker.lorem.sentence(),
+				genericName: faker.lorem.words({ min: 1, max: 3 }),
+				strength: `${faker.number.int({ min: 100, max: 900 })}mg`,
+				responseStatus: faker.helpers.arrayElement(['PENDING', 'ACCEPTED', 'REJECTED']),
+				likes: requestsLikesCount,
+				likedBy: {
+					create: Array.from({ length: requestsLikesCount }).map(() => ({
+						userID: faker.database.mongodbObjectId()
+					}))
+				}
+			}
+		});
+
+		const drugItemLikesCount = faker.number.int({ min: 0, max: 500 });
+		await prisma.drugItem.create({
+			data: {
+				form: drugForms[Math.floor(Math.random() * drugForms.length)],
+				price: {
+					batch: faker.number.int({ min: 3, max: 300 }),
+					item: faker.number.int({ min: 3, max: 300 })
+				},
+				size: {
+					amount: faker.number.int({ max: 200 }),
+					unit: faker.helpers.arrayElement(units) as SIZE
+				},
+				activeIngredients: Array.from({ length: faker.number.int({ min: 2, max: 5 }) }).map(
+					(_, i) => ({
+						name: faker.helpers.arrayElement(activeIngredients),
+						strength: faker.helpers.arrayElement(drugStrengths)
+					})
+				),
+				// activeIngredients: Array.from({ length: faker.number.int({ min: 2, max: 5 }) }).map(
+				// 	(_, i) => ({
+				// 		name: faker.helpers.arrayElement(activeIngredients),
+				// 		strength: {
+				// 			amount: `${faker.number.int({ min: 20, max: 400 })}${faker.helpers.arrayElement(['mg', 'ml'])}`,
+				// 			per: `${faker.number.int({ min: 100, max: 900 })}${faker.helpers.arrayElement(['unit', 'ml', 'g', 'l'])}`
+				// 		}
+				// 	})
+				// ),
+				available: faker.datatype.boolean({ probability: 0.7 }),
+				discount: {
+					batch: faker.number.int(),
+					item: faker.number.int()
+				},
+				features: [faker.lorem.word(), faker.lorem.word()],
+				featured: faker.datatype.boolean(),
+				quantityInStock: {
+					batches: Number(faker.number),
+					items: Number(Number(faker.number))
+				},
+				notes: [faker.lorem.text(), faker.lorem.text()],
+
+				// parent drug
+				drug: {
+					create: {
+						brandName: faker.commerce.productName(),
+						categories: faker.helpers.arrayElements(drugCategories.map((i) => i.name)),
+						contraIndications: faker.helpers.arrayElements(contraIndications),
+						indications: faker.helpers.arrayElements(indications),
+						manufacturer: {
+							// create manufacturer
+							create: {
+								city: faker.location.city(),
+								country: faker.location.country(),
+								name: faker.company.name(),
+								featured: faker.datatype.boolean(),
+								description: faker.lorem.sentence(),
+								url: faker.internet.url()
+							}
+						},
+						notes: [faker.lorem.words(), faker.lorem.words()],
+						description: faker.lorem.paragraph()
+					}
+				},
+				likedBy: {
+					create: Array.from({ length: drugItemLikesCount }).map(() => ({
+						userID: faker.database.mongodbObjectId()
+					}))
+				},
+				description: faker.lorem.paragraphs(),
+				likes: drugItemLikesCount,
+				images: {
+					create: Array.from({ length: Math.floor(Math.random() * 8 + 1) }).map((_, i) => ({
+						height: faker.number.int({ min: 400, max: 1920 }),
+						width: faker.number.int({ min: 400, max: 1920 }),
+						publicID: faker.image.url(),
+						url: faker.image.urlPicsumPhotos(),
+						isPrimary: i === 0 ? true : false
+						// isPrimary:  faker.datatype.boolean({ probability: 0.9 })
+					}))
+				}
+			}
+		});
+	});
+	console.log('database seed successfully');
 };
 
-seedDB();
-// .then(() => {
-// 	console.log('database seed successfully');
-// })
-// .catch(() => {
-// 	console.log('some error happened during seeding.');
+// seedDB().then(() =>
+seedDB().then(() =>
+	console.log('|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||')
+);
+
+// } catch (error) {
+// 	console.log('==> some error happened during seeding. <==\n', error);
+// }
+// }
+
+// console.log(Array.from({ length: 50 }, manufacturer));
+
+// create info record.
+// ============================
+// await prisma.info.create({
+// 	data: {
+// 		activeIngredients: Array.from(new Set(activeIngredients)),
+// 		forms: Array.from(new Set(drugForms)),
+// 		categories: Array.from(new Set(drugCategories)),
+// 		indications: Array.from(new Set(indications)),
+// 		contraIndications: Array.from(new Set(contraIndications))
+// 	}
+
 // });

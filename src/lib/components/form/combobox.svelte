@@ -32,9 +32,6 @@
 	const bindValue = path.join('.');
 
 	let { value, errors } = formFieldProxy(form, bindValue);
-	$: console.log({ $errors, $value });
-	// $: choosedItem = options.find((i) => i.value === value);
-	// console.log('________', { bindValue, choosedItem });
 </script>
 
 <Form.Field {form} name={bindValue} class="space-y-2 {className}">
@@ -63,7 +60,7 @@
 			<input hidden value={$value} name={attrs.name} type="text" />
 			<!-- </div> -->
 		</Form.Control>
-		<Popover.Content class={cn('p-0', `w-[${width}px]`)}>
+		<Popover.Content class={cn('z-[99999] p-0', `w-[${width}px]`)}>
 			<Command.Root>
 				<Command.Input {placeholder} autofocus />
 				<Command.Empty>{emptyMessage}</Command.Empty>

@@ -6,7 +6,8 @@ import type { TransitionConfig } from 'svelte/transition';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import type { CartItem } from './stores/cart';
-import type { DrugItem } from '@prisma/client';
+import type { DrugItem } from '$lib/types';
+import { ITEMS_PER_PAGE } from './constants';
 // import dayjs from 'dayjs';
 
 export function cn(...inputs: ClassValue[]) {
@@ -132,15 +133,13 @@ export const fromNow = (date: Date) => {
 	return dayjs(date).fromNow();
 };
 
-// export const formatCartItem = (i: CartItem) =>
-// `${i.count} ${i.data.drug.brandName} | ${i.data.form}\n${i.data.activeIngredients.map((ai) => `. ${ai.name} ${ai.strength.amount} ${ai.strength.per === 'unit' ? '' : ai.strength.per}`)}`;
 export const formatCartItem = (i: CartItem) =>
 	`${i.count} x ${i.data.drug.brandName} (${i.data.form})
 ${i.data.activeIngredients.map((ai) => `- ${ai.name} ${ai.strength.amount} ${ai.strength.per === 'unit' ? '' : ai.strength.per}`).join('\n')}`;
 
 export const getPagination = (_page: string) => {
 	const page = Number(_page);
-	const limit = 5;
+	const limit = ITEMS_PER_PAGE;
 	return {
 		page,
 		limit,
@@ -153,3 +152,6 @@ export const makeSelectItemsFromDrugItems = (drugItems: DrugItem[]) =>
 		value: d.id,
 		label: d.drug.brandName + ' ||  ' + d.form
 	}));
+
+export const createLink = (page, slug) =>
+	`${page.url.pathname.replace(/\/\d+(\?.*)?$/, '')}/${slug}${page.url.searchParams ? '?' + page.url.searchParams.toString() : ''}`;

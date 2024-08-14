@@ -1,20 +1,24 @@
 import prisma from '$lib/server/prisma.js';
 
-import { fail } from '@sveltejs/kit';
+import { error, fail } from '@sveltejs/kit';
 import type { Actions } from './$types';
 
 export const load = async ({ request, params }) => {
+	console.log('load product ran');
 	const { id } = params;
 	const product = await prisma.drugItem.findUnique({
 		where: { id },
 		include: {
 			drug: true,
-			likedBy: true
+			likedBy: true,
+			images: true
 		}
 	});
 
 	if (!product) {
-		return fail(404);
+		return error(404, {
+			message: 'Product not found'
+		});
 	}
 	return {
 		label: product?.drug.brandName,

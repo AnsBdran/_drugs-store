@@ -10,7 +10,7 @@ const config: Config = {
 			center: true,
 			padding: '1rem',
 			screens: {
-				'2xl': '1400px'
+				'2xl': '1600px'
 			}
 		},
 
@@ -71,7 +71,9 @@ const config: Config = {
 			},
 			screens: {
 				xs: '350px',
-				'900': '900px'
+				'500': '500px',
+				'900': '900px',
+				'1200': '1200px'
 			},
 			spacing: {
 				header: 'var(--header)',

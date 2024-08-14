@@ -23,7 +23,8 @@ export const load: PageServerLoad = async ({ params }) => {
 			},
 			include: {
 				drug: true,
-				likedBy: true
+				likedBy: true,
+				images: true
 			},
 			orderBy: {
 				likes: 'desc'

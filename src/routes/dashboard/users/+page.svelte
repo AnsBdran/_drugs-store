@@ -7,6 +7,7 @@
 	import type { User } from '@prisma/client';
 	import { createColumnHelper, renderComponent } from '@tanstack/svelte-table';
 
+	console.log('hello from .svelte');
 	export let data;
 	const columnHelper = createColumnHelper<User>();
 	const columns = [
@@ -39,6 +40,3 @@
 
 <h2>Users</h2>
 <Table {columns} data={data.users} form={data.form} formComponent={EditUserForm} />
-<!-- <pre>
-    {JSON.stringify(data.users, null, 2)}
-</pre> -->

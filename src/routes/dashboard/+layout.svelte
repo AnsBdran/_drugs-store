@@ -66,6 +66,6 @@
 	</DropdownMenu.Root>
 </div>
 <div class="">
-	<h1 class="mb-0 hidden md:block">Dashboard</h1>
+	<h1 class="mb-8 hidden md:block">Dashboard</h1>
 	<slot></slot>
 </div>

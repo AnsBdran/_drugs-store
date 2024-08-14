@@ -33,6 +33,11 @@ export const registerSchema = z
 		message: "Password's don't match",
 		path: ['confirmPassword']
 	});
+export const userEditSchema = z.object({
+	role: z.enum(['USER', 'ADMIN', 'SUPER_ADMIN'])
+});
+
+export type UserEditSchema = typeof userEditSchema;
 
 export type LoginSchema = typeof loginSchema;
 export type RegisterSchema = typeof registerSchema;

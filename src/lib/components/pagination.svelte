@@ -4,13 +4,19 @@
 	import MaterialSymbolsArrowLeftAltRounded from '~icons/material-symbols/arrow-left-alt-rounded';
 	import MaterialSymbolsArrowRightAltRounded from '~icons/material-symbols/arrow-right-alt-rounded';
 	import Button from './ui/button/button.svelte';
-	let className = '';
+	import { page as _page } from '$app/stores';
+	import { ITEMS_PER_PAGE } from '$lib/constants';
 
+	let className = '';
 	// props
 	export let count: number;
-	export let perPage: number;
+	// export let perPage: number;
+	let perPage = ITEMS_PER_PAGE;
 	export let page: number;
-	export let link: string;
+	// export let link: string;
+	$: createLink = (slug: string) =>
+		`${$_page.url.pathname.replace(/\/\d+(\?.*)?$/, '')}/${slug}${$_page.url.searchParams ? '?' + $_page.url.searchParams.toString() : ''}`;
+
 	export { className as class };
 
 	$: showPrev = Number(page) > 1;
@@ -36,7 +42,7 @@
 				size="icon"
 				disabled={!showPrev}
 				variant="secondary"
-				href={showPrev ? `${link}/${Number(page) - 1}` : undefined}
+				href={showPrev ? createLink(Number(page) - 1) : undefined}
 			>
 				<MaterialSymbolsArrowLeftAltRounded />
 			</Button>
@@ -48,7 +54,7 @@
 				</Pagination.Item>
 			{:else}
 				<Button
-					href={currentPage === page.value ? undefined : `${link}/${page.value}`}
+					href={currentPage === page.value ? undefined : createLink(page.value)}
 					variant="ghost"
 					size="icon"
 					class={cn({
@@ -68,7 +74,7 @@
 			size="icon"
 			variant="secondary"
 			disabled={!showNext}
-			href={showNext ? `${link}/${Number(page) + 1}` : undefined}
+			href={showNext ? createLink(page + 1) : undefined}
 		>
 			<MaterialSymbolsArrowRightAltRounded /></Button
 		>

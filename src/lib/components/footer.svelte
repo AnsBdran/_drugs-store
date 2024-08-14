@@ -17,7 +17,7 @@
 	>
 		<img class="h-full object-contain" src="/images/logo-circle.png" alt="" />
 	</div> -->
-	<div class="flex justify-between px-8">
+	<div class="flex justify-between px-8 md:justify-evenly">
 		<nav
 			aria-label="Footer Navigation"
 			class="mb-1 flex max-w-lg flex-col justify-center gap-3 sm:flex-row sm:text-left"
@@ -32,9 +32,7 @@
 			<a href="/requests/create" class="font-medium">Request a drug</a>
 		</nav>
 		<div class="flex flex-col items-stretch">
-			<Button href="/" class="" variant="ghost">
-				<LogosWhatsapp class="size-20" />
-			</Button>
+			<Button href="/" class="" variant="ghost">Whatsapp</Button>
 			<Button variant="ghost">Telegram</Button>
 		</div>
 	</div>

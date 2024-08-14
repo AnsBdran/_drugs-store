@@ -4,6 +4,7 @@
 	import Btns from '$lib/components/tables/edit/btns.svelte';
 	import Table from '$lib/components/tables/table.svelte';
 	import { ManufacturerForm } from '$lib/components/form';
+	import { manufacturerSchema } from '$lib/schemas/manufacturer.js';
 
 	// props
 	export let data;
@@ -30,4 +31,10 @@
 	];
 </script>
 
-<Table data={data.manufacturers} form={data.form} {columns} formComponent={ManufacturerForm} />
+<Table
+	data={data.manufacturers}
+	form={data.form}
+	schema={manufacturerSchema}
+	{columns}
+	formComponent={ManufacturerForm}
+/>

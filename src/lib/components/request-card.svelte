@@ -28,8 +28,8 @@
 
 <Card.Root class="">
 	<Card.Header>
-		<div class="flex justify-between">
-			<Card.Title>{request.brandName}</Card.Title>
+		<div class="flex items-center justify-between">
+			<Card.Title class="mb-0 leading-none">{request.brandName}</Card.Title>
 			<Badge class="self-center">{request.Author.firstName} {request.Author.lastName}</Badge>
 		</div>
 		<Card.Description>{request.genericName}</Card.Description>

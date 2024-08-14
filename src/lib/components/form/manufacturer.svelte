@@ -7,13 +7,24 @@
 	import Checkbox from '$lib/components/ui/checkbox/checkbox.svelte';
 	import { makeSelectItemsFromStrings } from '$lib/utils';
 	import type { Manufacturer } from '@prisma/client';
+	import type { Infer, SuperForm } from 'sveltekit-superforms';
+	import type { ManufacturerSchema } from '$lib/schemas/manufacturer';
 
 	// props
-	export let form;
+	export let form: SuperForm<Infer<ManufacturerSchema>>;
 	export let initialValues: Manufacturer | undefined = undefined;
 	const { form: formData } = form;
 
-	initialValues && Object.assign($formData, initialValues);
+	initialValues &&
+		Object.assign($formData, {
+			name: initialValues.name,
+			country: initialValues.country,
+			city: initialValues.city,
+			featured: initialValues.featured,
+			description: initialValues.description
+		});
+	// initialValues && Object.assign($formData, initialValues);
+	console.log('form initial values', { initialValues, $formData });
 </script>
 
 <Form.Field {form} name="name">

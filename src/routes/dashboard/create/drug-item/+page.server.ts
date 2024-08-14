@@ -3,7 +3,7 @@ import type { Actions, PageServerLoad } from './$types';
 import { zod } from 'sveltekit-superforms/adapters';
 import { drugItemSchema } from '$lib/schemas/drug-item';
 import prisma from '$lib/server/prisma';
-// import { uploadFileToCloudinary } from '$lib/server/utils';
+import { uploadFileToCloudinary } from '$lib/server/utils';
 
 export const load: PageServerLoad = async () => {
 	const form = await superValidate(zod(drugItemSchema));
@@ -27,7 +27,7 @@ export const actions: Actions = {
 			activeIngredients,
 			available,
 			drugID,
-			// image,
+			image,
 			featured,
 			price,
 			form: drugForm,
@@ -35,7 +35,6 @@ export const actions: Actions = {
 			size
 		} = form.data;
 		try {
-			// const uploadResult = await uploadFileToCloudinary(image);
 			const result = await prisma.drugItem.create({
 				data: {
 					form: drugForm,
@@ -55,7 +54,25 @@ export const actions: Actions = {
 					size
 				}
 			});
-			console.log('new record created', result);
+			if (image) {
+				const uploadResult = await uploadFileToCloudinary(image);
+				await prisma.image.create({
+					data: {
+						assetID: uploadResult.asset_id,
+						bytes: uploadResult.bytes,
+						format: uploadResult.format,
+						height: uploadResult.height,
+						width: uploadResult.width,
+						path: uploadResult.path,
+						publicID: uploadResult.public_id,
+						secureURL: uploadResult.secure_url,
+						signature: uploadResult.signature,
+						url: uploadResult.url,
+						drugItemID: result.id,
+						isPrimary: true
+					}
+				});
+			}
 			return message(form, {
 				type: 'success',
 				text: 'new drug item has been successfully created.'

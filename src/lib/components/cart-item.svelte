@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { dimensions } from '$lib/stores/dimensions';
-	import type { DrugItem } from '@prisma/client';
 	import { onMount } from 'svelte';
 	import { CldImage } from 'svelte-cloudinary';
 	import TablerCurrencyShekel from '~icons/tabler/currency-shekel';
@@ -16,6 +15,9 @@
 	import Badge from './ui/badge/badge.svelte';
 	import FluentEmojiHighContrastMultiply from '~icons/fluent-emoji-high-contrast/multiply';
 	import StreamlineEqualSignSolid from '~icons/streamline/equal-sign-solid';
+	import type { DrugItem } from '$lib/types';
+	import * as Popover from '$lib/components/ui/popover';
+	import Input from './ui/input/input.svelte';
 	export let item: { data: DrugItem; count: number };
 	onMount(() => {
 		const cleanup = initialize();
@@ -56,13 +58,19 @@
 
 <div class="flex gap-4" style="height: {150}px;">
 	<div class=" " style="width: {150}px; height: {150}px">
-		<CldImage
-			src={item.data.image.public_id}
-			alt={item.data.drug.brandName}
-			class="h-full w-full object-cover"
-			width={150}
-			height={150}
-		/>
+		{#if !!item.data.images.find((i) => i.isPrimary)}
+			<CldImage
+				src={item.data.images.find((i) => i.isPrimary)?.publicID}
+				alt={item.data.drug.brandName}
+				class="h-full w-full object-cover"
+				width={150}
+				height={150}
+			/>
+		{:else}
+			<div class="flex h-full w-full items-center justify-center border-2 bg-background">
+				<span>No Image</span>
+			</div>
+		{/if}
 	</div>
 	<div class="flex flex-1 flex-col items-start gap-2">
 		<div class="flex justify-between gap-8 self-stretch">
@@ -95,7 +103,14 @@
 				<IonBagRemove />
 			</Button>
 			<Separator orientation="vertical" />
-			<span class="flex min-w-8 items-center justify-center">{item.count}</span>
+			<Popover.Root>
+				<Popover.Trigger>
+					<span class="flex min-w-8 items-center justify-center">{item.count}</span>
+				</Popover.Trigger>
+				<Popover.Content>
+					<Input bind:value={item.count} type="number" />
+				</Popover.Content>
+			</Popover.Root>
 			<Separator orientation="vertical" />
 			<Button variant="ghost" size="icon" class="rounded-none" on:click={increment}>
 				<IonBagAdd />

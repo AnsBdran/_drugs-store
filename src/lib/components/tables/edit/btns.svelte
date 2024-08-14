@@ -4,13 +4,14 @@
 	import MdiLeadPencil from '~icons/mdi/lead-pencil';
 	import MaterialSymbolsDeleteRounded from '~icons/material-symbols/delete-rounded';
 	import { rowChanges } from '$lib/stores/table';
+	import type { Drug } from '$lib/types';
 	// props
-	export let row: Manufacturer | DrugItem | Request | User;
+	export let row: Manufacturer | DrugItem | Request | User | Drug;
 
 	const setEditRow = (
 		isEditOpen: boolean,
 		isDeleteOpen: boolean,
-		row: Manufacturer | DrugItem | Request | User | null
+		row: Manufacturer | DrugItem | Request | User | Drug | null
 	) => {
 		// console.log('received', row);
 		// row?.imageURL ?? delete row?.imageURL;

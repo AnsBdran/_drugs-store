@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Alert from '$lib/components/alert.svelte';
 	import { RequestEditForm } from '$lib/components/form';
 	import FormattedDate from '$lib/components/formatted-date.svelte';
 	import { Status } from '$lib/components/requests';
@@ -52,4 +53,8 @@
 </script>
 
 <h2>requests</h2>
-<Table {columns} data={data.requests} form={data.form} formComponent={RequestEditForm} />
+{#if data.requests.length}
+	<Table {columns} data={data.requests} form={data.form} formComponent={RequestEditForm} />
+{:else}
+	<Alert title="No requests were found">You don't have any requests.</Alert>
+{/if}

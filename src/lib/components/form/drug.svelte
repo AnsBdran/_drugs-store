@@ -2,20 +2,38 @@
 	import * as Form from '$lib/components/ui/form';
 	import { Input } from '$lib/components/ui/input';
 	import { MultiCombo, Combo } from '$lib/components/form';
-	import { makeSelectItems, makeStringsSelectItems } from '$lib/utils';
+	import { makeSelectItems, makeSelectItemsFromStrings, makeStringsSelectItems } from '$lib/utils';
 	import InputSkeleton from '$lib/components/skeletons/input-skeleton.svelte';
 	import Textarea from '$lib/components/ui/textarea/textarea.svelte';
 	import LoadErrorAlert from './load-error-alert.svelte';
 	import type { Infer, SuperForm } from 'sveltekit-superforms';
 	import type { DrugSchema } from '$lib/schemas/drug';
+	import SuperDebug from 'sveltekit-superforms';
 
 	// props
 	export let form: SuperForm<Infer<DrugSchema>>;
 	export let manufacturers;
 	export let info;
+	export let initialValues;
 
 	const { form: formData } = form;
+
+	$: console.log({
+		initialValues,
+		$formData
+	});
+
+	initialValues &&
+		Object.assign($formData, {
+			// indications: initialValues.indications.map((i) => ({ label: i, value: i })),
+			indications: makeSelectItemsFromStrings(initialValues.indications),
+			contraIndications: makeSelectItemsFromStrings(initialValues.contraIndications),
+			categories: makeSelectItemsFromStrings(initialValues.categories),
+			brandName: initialValues.brandName
+		});
 </script>
+
+<SuperDebug data={$formData} />
 
 <Form.Field {form} name="brandName">
 	<Form.Control let:attrs>

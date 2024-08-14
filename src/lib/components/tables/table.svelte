@@ -1,6 +1,6 @@
-<script lang="ts">
+<script lang="ts" generics="T">
 	import * as Table from '$lib/components/ui/table';
-	import type { Manufacturer } from '@prisma/client';
+	// import type { Manufacturer } from '@prisma/client';
 	import {
 		createSvelteTable,
 		flexRender,
@@ -19,11 +19,15 @@
 	import Pagination from './pagination.svelte';
 	import ScrollArea from '../ui/scroll-area/scroll-area.svelte';
 
+	// type SingleT<T> = T extends (infer U)[] ? U : never;
+	type SingleElementType<T> = T extends (infer U)[] ? U : never;
+	type DataType = SingleElementType<typeof data>;
 	// props
-	export let data;
+	export let data: SingleElementType<any>[];
 	export let form;
 	export let columns;
 	export let formComponent;
+	export let schema;
 
 	// table props
 	let gloablFilter = '';
@@ -35,9 +39,9 @@
 		return itemRank.passed;
 	};
 
-	const options = writable<TableOptions<Manufacturer>>({
+	const options = writable<TableOptions<DataType>>({
 		columns,
-		data: data,
+		data,
 		getCoreRowModel: getCoreRowModel(),
 		filterFns: {
 			fuzzy: fuzzyFilter
@@ -77,16 +81,16 @@
 </script>
 
 <section>
-	<div class="mb-3 flex flex-col items-start justify-between gap-1 border border-muted lg:flex-row">
-		<Input
-			class="block w-max border-none py-2"
-			type="search"
-			on:keyup={handleKeyUp}
-			bind:value={gloablFilter}
-			placeholder="Filter..."
-		/>
-		<Pagination count={data.length} {perPage} bind:page class="w-max" />
-	</div>
+	<!-- <div class="mb-3 flex flex-col items-start justify-between gap-1 border border-muted lg:flex-row">
+	</div> -->
+	<!-- class="block w-max border-none py-2" -->
+	<Input
+		class="block w-max py-2"
+		type="search"
+		on:keyup={handleKeyUp}
+		bind:value={gloablFilter}
+		placeholder="Filter..."
+	/>
 	<ScrollArea orientation="horizontal" class="pb-2">
 		<Table.Root>
 			<Table.Header>
@@ -120,7 +124,8 @@
 		</Table.Root>
 	</ScrollArea>
 </section>
+<Pagination count={data.length} {perPage} bind:page class="w-max" />
 
 <!-- Form dialogs -->
-<EditDialog data={form} {formComponent} {...$$restProps} />
+<EditDialog data={form} {schema} {formComponent} {...$$restProps} />
 <DeleteDialog />

@@ -9,7 +9,7 @@ export const load = async () => {
 	if (!info?.settings) {
 		await prisma.info.update({
 			where: {
-				id: '668a354c251a5be6cf49befb'
+				id: '66b60807b08ac83045de8870'
 			},
 			data: {
 				settings: {

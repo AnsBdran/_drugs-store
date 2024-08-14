@@ -1,6 +1,7 @@
 <script>
 	import Skeleton from '../ui/skeleton/skeleton.svelte';
 	import * as Card from '$lib/components/ui/card';
+	import { cn } from '$lib/utils';
 
 	let className = '';
 	export { className as class };
@@ -21,7 +22,10 @@
 	</Card.Content>
 </Card.Root> -->
 <div
-	class="flex items-center gap-3 rounded-lg bg-secondary p-4 dark:bg-secondary/20 sm:max-w-sm sm:gap-6"
+	class={cn(
+		'flex items-center gap-3 rounded-lg bg-secondary p-4 dark:bg-secondary/20 sm:max-w-sm sm:gap-6',
+		className
+	)}
 >
 	<Skeleton class="h-10 w-10 sm:h-14 sm:w-14 " />
 

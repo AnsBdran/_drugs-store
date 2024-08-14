@@ -1,13 +1,13 @@
 <script lang="ts">
-	import { DrugCard } from '$lib/components';
+	import { DrugCard, Filters } from '$lib/components';
 	import DrugCardSkeleton from '$lib/components/skeletons/drug-card-skeleton.svelte';
 	import { Pagination } from '$lib/components';
 	import { onMount } from 'svelte';
 	import { dimensions } from '$lib/stores/dimensions.js';
-
+	import { ITEMS_PER_PAGE } from '$lib/constants.js';
 	export let data;
+
 	$: pageNumber = data.pageSlug;
-	$: totalDrugs = data.totalCount;
 
 	onMount(() => {
 		const cleanup = dimensions.initialize();
@@ -15,21 +15,52 @@
 	});
 </script>
 
-<h1>Page number {pageNumber}</h1>
-<div class="flex sm:justify-evenly">
-	<Pagination bind:page={pageNumber} count={totalDrugs} perPage={data.pageSize} link="/products" />
-</div>
+<h1>
+	{#await data._data}
+		Page number {pageNumber}
+	{:then _data}
+		{#if _data.searchTerm}
+			search results for <span class="bg-accent px-2 text-accent-foreground"
+				>{_data.searchTerm}</span
+			>
+			<p class="mt-0 text-sm tracking-wider text-muted-foreground">Found {_data.count} matches</p>
+		{:else}
+			Page number {pageNumber}
+		{/if}
+	{/await}
+</h1>
+<Filters />
 
-<section class="cards-wrapper">
-	{#await data.drugItems}
-		{#each new Array(10).fill(0) as _}
-			<DrugCardSkeleton class="self-stretch" />
-		{/each}
-	{:then drugItems}
-		{#each drugItems as drug}
-			<DrugCard {drug} />
-		{/each}
+<section class="">
+	{#await data._data}
+		<div class="cards-wrapper">
+			{#each new Array(10).fill(ITEMS_PER_PAGE) as _}
+				<DrugCardSkeleton />
+			{/each}
+		</div>
+	{:then _data}
+		<div class="cards-wrapper">
+			{#each _data.data as drug}
+				<DrugCard {drug} />
+			{/each}
+		</div>
+		{#if _data.count > ITEMS_PER_PAGE}
+			<div class="flex">
+				<Pagination bind:page={pageNumber} count={_data.count} />
+			</div>
+		{/if}
 	{:catch error}
 		<p>Error {error.message}</p>
 	{/await}
 </section>
+
+<!-- Alert message if there no products -->
+<!-- {#await data.drugItems}
+	''
+{:then data}
+	{#if !data.length}
+		<Alert title="No products found"
+			>No products were found for the filtering rules you have set</Alert
+		>
+	{/if}
+{/await} -->

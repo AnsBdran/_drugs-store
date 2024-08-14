@@ -13,7 +13,6 @@
 	import Textarea from '$lib/components/ui/textarea/textarea.svelte';
 	import Checkbox from '$lib/components/ui/checkbox/checkbox.svelte';
 	import MaterialSymbolsDeleteForeverRounded from '~icons/material-symbols/delete-forever-rounded';
-	import FormFieldErrors from '$lib/components/ui/form/form-field-errors.svelte';
 	import MaterialSymbolsAdd from '~icons/material-symbols/add';
 	import { Select } from '$lib/components/form';
 	import { fly, fade } from 'svelte/transition';
@@ -78,7 +77,9 @@
 <Form.Fieldset {form} name="activeIngredients" class="border border-muted p-3">
 	<div class="flex items-center justify-between gap-8">
 		<Form.Legend>Drug active ingredients</Form.Legend>
-		<Button on:click={addActiveIngredient} size="icon"><MaterialSymbolsAdd /></Button>
+		<Button on:click={addActiveIngredient} size="icon" class="size-7" variant="secondary"
+			><MaterialSymbolsAdd /></Button
+		>
 	</div>
 	{#await info}
 		<div class="flex items-start gap-2 bg-green-800/5">
@@ -99,17 +100,17 @@
 						{form}
 						path={[`activeIngredients[${i}]`, 'name']}
 						label="Active Ingredient"
-						class=""
+						class=" flex-1"
 					/>
 					<Combo
 						options={makeStrengthsSelectItems(info?.strengths)}
 						{form}
 						path={[`activeIngredients[${i}]`, 'strength']}
 						label="strength"
-						class=""
+						class="flex-1 "
 					/>
 					{#if showDeleteActiveIngredientButton}
-						<div class=" mb-auto self-stretch" transition:fade>
+						<div class="mb-auto ml-auto self-stretch" transition:fade>
 							<Button
 								on:click={() => removeActiveIngredient(i)}
 								variant="destructive"
@@ -136,7 +137,7 @@
 <Form.Field {form} name="description">
 	<Form.Control let:attrs>
 		<Form.Label>Drug description</Form.Label>
-		<Textarea {...attrs} bind:value={$formData.description} />
+		<Textarea {...attrs} bind:value={$formData.description} class="h-fit" />
 	</Form.Control>
 	<Form.FieldErrors />
 </Form.Field>
@@ -197,6 +198,17 @@
 		<Form.FieldErrors>{$errors.size.amount}</Form.FieldErrors>
 	{/if}
 </Form.Fieldset>
+
+<!-- ==================================== -->
+<!-- image field -->
+<Form.Field {form} name="image">
+	<Form.Control let:attrs>
+		<Form.Label>Drug image</Form.Label>
+		<input type="file" {...attrs} bind:files={$imageFile} />
+		<!-- <Input type="file" {...attrs} bind:value={$formData.image} /> -->
+	</Form.Control>
+	<Form.FieldErrors />
+</Form.Field>
 
 <!-- ==================================== -->
 <!-- Checkboxes -->

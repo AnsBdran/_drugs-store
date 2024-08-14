@@ -12,6 +12,9 @@
 	// ===================================
 	export let type: 'warning' | 'error' | 'info' = 'info';
 	export let showRefresh: boolean = false;
+
+	let className = '';
+	export { className as class };
 	$: color = 'indigo';
 	let icon = IconamoonInformationSquareDuotone;
 	if (type === 'error') {
@@ -29,13 +32,17 @@
 		`border-${color}-500 border-l-${color}-400 bg-${color}-100 dark:bg-${color}-800 relative border-2 border-l-[8px] text-${color}-900`
 		)} -->
 <Alert.Root
-	class={cn('relative border border-l-[8px]', {
-		' border-indigo-500 border-l-indigo-400 bg-indigo-100 text-indigo-800 shadow-inner dark:border-l-indigo-400 dark:bg-indigo-950 dark:text-indigo-200':
-			type === 'info',
-		'border-destructive/70 border-l-destructive/40 bg-destructive/10 text-destructive dark:border-l-destructive-foreground/60 dark:bg-destructive/90 dark:text-destructive-foreground':
-			type === 'error',
-		'': type === 'warning'
-	})}
+	class={cn(
+		'relative min-w-60 border border-l-[8px]',
+		{
+			' border-indigo-500 border-l-indigo-400 bg-indigo-100 text-indigo-800 shadow-inner dark:border-l-indigo-400 dark:bg-indigo-950 dark:text-indigo-200':
+				type === 'info',
+			'border-destructive/70 border-l-destructive/40 bg-destructive/10 text-destructive dark:border-l-destructive-foreground/60 dark:bg-destructive/90 dark:text-destructive-foreground':
+				type === 'error',
+			'': type === 'warning'
+		},
+		className
+	)}
 >
 	<div class="flex items-start gap-2">
 		<div>

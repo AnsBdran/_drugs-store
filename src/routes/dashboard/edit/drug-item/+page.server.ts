@@ -20,9 +20,10 @@ export const load: PageServerLoad = async () => {
 
 export const actions: Actions = {
 	edit: async ({ request }) => {
+		console.log('edit action called');
 		const formData = await request.formData();
 		const id = formData.get('_id');
-		const form = await superValidate(formData, zod(durgItemEditSchema));
+		const form = await superValidate(formData, zod(drugItemSchema));
 		if (!form.valid) {
 			return fail(400, { form });
 		}

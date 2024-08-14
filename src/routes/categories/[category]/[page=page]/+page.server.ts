@@ -1,39 +1,17 @@
-import prisma from '$lib/server/prisma';
+import { getFilteredProducts } from '$lib/server/utils';
+import { getPagination } from '$lib/utils';
 import type { PageServerLoad } from './$types';
 
-export const load: PageServerLoad = async ({ params }) => {
-	const pageSize = 5;
-	const { category, page } = params;
-	const pageNumber = Number(params.page);
-	const products = await prisma.drugItem.findMany({
-		where: {
-			drug: {
-				categories: {
-					has: category
-				}
-			}
-		},
-		include: {
-			drug: true,
-			likedBy: true
-		},
-		skip: (page - 1) * pageSize,
-		take: pageSize
-	});
-	console.log('found ', products.length, ' products.');
+export const load: PageServerLoad = async ({ params, url }) => {
+	const { limit, page, skip } = getPagination(params.page);
+	const { category } = params;
+
+	const { count, data, searchTerm } = await getFilteredProducts({ category, limit, skip, url });
 	return {
-		products,
-		pageSize,
+		products: data,
+		count,
+		searchTerm,
 		category,
-		pageNumber,
-		totalCount: await prisma.drugItem.count({
-			where: {
-				drug: {
-					categories: {
-						has: category
-					}
-				}
-			}
-		})
+		pageNumber: page
 	};
 };

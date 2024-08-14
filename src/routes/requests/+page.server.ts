@@ -1,16 +1,19 @@
+import { ITEMS_PER_PAGE } from '$lib/constants';
 import prisma from '$lib/server/prisma';
-import type { Actions } from './$types';
-import { fail } from '@sveltejs/kit';
 
-export const load = async ({ locals }) => {
+export const load = async () => {
 	return {
 		requests: prisma.request.findMany({
 			where: {
-				responseStatus: 'accepted'
+				responseStatus: 'ACCEPTED'
 			},
 			include: {
 				Author: true,
 				likedBy: true
+			},
+			take: ITEMS_PER_PAGE,
+			orderBy: {
+				createdAt: 'desc'
 			}
 		})
 	};

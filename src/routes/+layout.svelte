@@ -31,7 +31,8 @@
 	<Header user={data.user} />
 	<main
 		class={cn('container mx-auto flex-1 py-6', {
-			'md:pl-[calc(var(--sidebar)_+24px)]': $page.url.pathname.startsWith('/dashboard')
+			'md:pl-[calc(var(--sidebar)_+24px)]':
+				$page.url.pathname.startsWith('/dashboard') || $page.url.pathname.includes('/products/')
 		})}
 	>
 		<Breadcrumb
@@ -41,7 +42,8 @@
 	</main>
 	<Footer
 		class={cn('mt-20', {
-			'md:ml-[var(--sidebar)]': $page.url.pathname.startsWith('/dashboard')
+			'md:ml-[var(--sidebar)]':
+				$page.url.pathname.startsWith('/dashboard') || $page.url.pathname.includes('/products/')
 		})}
 	/>
 </div>

@@ -2,20 +2,17 @@
 	import dayjs from 'dayjs';
 	import relativeTime from 'dayjs/plugin/relativeTime';
 	import { toast } from 'svelte-sonner';
-
-	dayjs.extend(relativeTime);
-
-	// props
 	import { badgeVariants } from './ui/badge';
 	import { cn } from '$lib/utils';
-	// icons
-	import MaterialSymbolsLightKidStarOutline from '~icons/material-symbols-light/kid-star-outline';
-	import MaterialSymbolsKidStar from '~icons/material-symbols/kid-star';
 	import Loading from './loading.svelte';
 	import { page } from '$app/stores';
 	import { pageSize } from '$lib/stores/page-size';
 	import { goto } from '$app/navigation';
 	import { createEventDispatcher } from 'svelte';
+	import * as _ from 'lodash-es';
+	// icons
+	import MaterialSymbolsLightKidStarOutline from '~icons/material-symbols-light/kid-star-outline';
+	import MaterialSymbolsKidStar from '~icons/material-symbols/kid-star';
 
 	let className = '';
 
@@ -27,9 +24,10 @@
 	export let id;
 	export { className as class };
 
-	let isHighlighted: boolean = isLikedByUser;
-	let num = likes;
-	let isLoading: boolean = false;
+	dayjs.extend(relativeTime);
+	$: isHighlighted = isLikedByUser;
+	$: num = likes;
+	$: isLoading = false;
 
 	const dispatch = createEventDispatcher();
 
@@ -70,7 +68,7 @@
 	<button
 		class={cn(
 			badgeVariants({ variant: 'outline' }),
-			'h-[22px] min-w-10 justify-evenly gap-1 focus:ring-0 active:outline-0 active:ring-0',
+			'!focus:ring-0 h-[22px] w-14 justify-evenly gap-1 text-xs !ring-0 focus:ring-offset-0 active:border-0 active:outline-0 active:ring-0',
 			{
 				'bg-blue-300/50 text-blue-600 hover:bg-blue-800/30 dark:bg-blue-500/20 dark:text-blue-200/90':
 					isHighlighted

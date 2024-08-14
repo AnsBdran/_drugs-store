@@ -4,10 +4,11 @@ import { fail, message, superValidate } from 'sveltekit-superforms';
 import type { PageServerLoad } from './$types';
 import { zod } from 'sveltekit-superforms/adapters';
 import { imageSchema } from '$lib/schemas/image';
+import { fail as _fail } from '@sveltejs/kit';
 
 export const load: PageServerLoad = async ({ params }) => {
 	const form = await superValidate(zod(imageSchema));
-
+	console.log('images load ran');
 	const { limit, page, skip } = getPagination(params.page);
 	const images = await prisma.image.findMany({
 		include: {
@@ -45,7 +46,8 @@ export const actions = {
 					id: imageID
 				},
 				data: {
-					drugItemID
+					drugItemID,
+					isPrimary
 				}
 			});
 			console.log('update result', result);
@@ -67,7 +69,30 @@ export const actions = {
 			return 'Image deleted successfully.';
 		} catch (e) {
 			console.log(e);
-			return fail(400);
+			return _fail(400);
+		}
+	},
+	unlink: async ({ request }) => {
+		console.log('unlink called');
+		const formData = await request.formData();
+		const id = formData.get('imageID') as string;
+
+		try {
+			await prisma.image.update({
+				where: {
+					id
+				},
+				data: {
+					drugItemID: {
+						unset: true
+					}
+				}
+			});
+
+			return 'Image Unlinked successfully.';
+		} catch (e) {
+			console.log(e);
+			return _fail(400, { message: 'something bad happened' });
 		}
 	}
 };

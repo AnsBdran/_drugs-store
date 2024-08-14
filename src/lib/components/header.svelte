@@ -12,7 +12,6 @@
 	import ClarityFavoriteSolid from '~icons/clarity/favorite-solid';
 	import PhSignOut from '~icons/ph/sign-out';
 	import MaterialSymbolsShoppingBagOutline from '~icons/material-symbols/shopping-bag-outline';
-	import MaterialSymbolsAccountBoxOutlineSharp from '~icons/material-symbols/account-box-outline-sharp';
 	export let user: User | null;
 
 	let className = '';
@@ -32,7 +31,7 @@
 
 <header
 	class={cn(
-		'fixed left-0 right-0 top-0 isolate z-40 h-header border-b border-muted bg-background/80 shadow-sm ring-1 ring-foreground/5',
+		'fixed left-0 right-0 top-0 isolate z-40 h-header border-b border-muted bg-background/80 shadow-xl ring-1 ring-foreground/5',
 		className
 	)}
 >

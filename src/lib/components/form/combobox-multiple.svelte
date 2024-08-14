@@ -7,7 +7,6 @@
 	import { arrayProxy } from 'sveltekit-superforms';
 	import SelectedShips from './selected-ships.svelte';
 	import * as Form from '$lib/components/ui/form';
-	import { FieldErrors } from 'formsnap';
 
 	// props
 	export let options: { label: string; value: string }[];
@@ -40,7 +39,6 @@
 			: options;
 
 	// $: console.log('values', path, $valueErrors);
-	// $: options.map((o) => console.log('multi', o));
 </script>
 
 <div class="relative">

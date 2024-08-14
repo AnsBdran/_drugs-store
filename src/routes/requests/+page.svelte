@@ -5,17 +5,18 @@
 </script>
 
 <div class="mb-8 flex justify-between">
-	<h2>Requests page</h2>
+	<h2>Latest Requests</h2>
 	<Button variant="link" href="/requests/create">Create new</Button>
 </div>
 {#await data.requests}
 	<p>loading...</p>
 {:then requests}
-	<section class="space-y-8">
+	<section class="mb-4 space-y-8">
 		{#each requests as request}
 			<RequestCard {request} />
 		{:else}
 			<p>No data found.</p>
 		{/each}
 	</section>
+	<Button href="/requests/1">Browse all</Button>
 {/await}

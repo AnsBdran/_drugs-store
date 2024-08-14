@@ -33,9 +33,9 @@ enum SIZE {
 }
 
 enum RESPONSE_STATUS {
-  pending
-  accepted
-  rejected
+  PENDING
+  ACCEPTED
+  REJECTED
 }
 
 // =============================================
@@ -112,7 +112,7 @@ model Request {
   brandName      String?
   genericName    String?
   strength       String?
-  responseStatus RESPONSE_STATUS @default(pending)
+  responseStatus RESPONSE_STATUS @default(PENDING)
   response       String?
   likes          Int             @default(0)
   description    String?
@@ -158,7 +158,7 @@ model Drug {
   updatedAt         DateTime     @updatedAt
   brandName         String       @unique
   description       String?
-  indications       String[]     @unique
+  indications       String[]
   contraIndications String[]
   drugItems         DrugItem[]
   manufacturerID    String       @db.ObjectId
@@ -199,18 +199,16 @@ model Image {
   publicID   String    @unique
   width      Int
   height     Int
-  secureURL  String
+  // secureURL  String
   url        String
   isPrimary  Boolean   @default(false)
   drugItemID String?   @db.ObjectId
   drugItem   DrugItem? @relation(fields: [drugItemID], references: [id], onDelete: Cascade)
-  format     String
-  assetID    String
-  bytes      Int
-  path       String
-  signature  String
-
-  @@unique([drugItemID, isPrimary], name: "uniquePrimaryImage")
+  // format     String
+  // assetID    String
+  // bytes      Int
+  // path       String
+  // signature  String
 }
 
 model Manufacturer {
