@@ -36,5 +36,8 @@
 	form={data.form}
 	schema={manufacturerSchema}
 	{columns}
-	formComponent={ManufacturerForm}
-/>
+	let:form
+	let:initialValues
+>
+	<ManufacturerForm {form} {initialValues} />
+</Table>

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Button } from '$lib/components/ui/button';
 	import { Badge } from '$lib/components/ui/badge';
-	import AutoPlay from 'embla-au';
+	// import AutoPlay from 'embla-au';
 	import { CldImage } from 'svelte-cloudinary';
 	import IcRoundFavoriteBorder from '~icons/ic/round-favorite-border';
 	import IcTwotoneFavorite from '~icons/ic/twotone-favorite';
@@ -30,7 +30,7 @@
 		<div class="lg:grid lg:grid-cols-2 lg:gap-8 xl:gap-16">
 			<!-- <CldImage src={product?.image.public_id} alt={product?.drug.brandName} /> -->
 			<div class="mx-auto max-w-md shrink-0 px-3 lg:max-w-lg">
-				<Carousel.Root class="w-full" plugins={[AutoPlay]}>
+				<Carousel.Root class="w-full">
 					<Carousel.Content class="">
 						{#each data.product.images as image, i (i)}
 							<Carousel.Item class="pl-1 md:basis-1/2 lg:basis-1/3">

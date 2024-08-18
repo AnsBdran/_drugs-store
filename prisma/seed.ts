@@ -55,6 +55,7 @@ const seedInfo = async () => {
 		data: updated
 	});
 };
+
 const seedDB = async () => {
 	await prisma.drugItem.deleteMany();
 	await prisma.drug.deleteMany();

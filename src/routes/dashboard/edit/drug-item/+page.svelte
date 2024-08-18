@@ -5,6 +5,9 @@
 	import Table from '$lib/components/tables/table.svelte';
 	import { DrugItemForm } from '$lib/components/form';
 	import Ship from '$lib/components/tables/edit/price-ship.svelte';
+	import ActiveIngredeintCell from './active-ingredeint-cell.svelte';
+	import { info } from 'console';
+	import { drugItemSchema } from '$lib/schemas/drug-item';
 
 	// props
 	export let data;
@@ -21,24 +24,32 @@
 			accessorKey: 'form',
 			header: 'Drug form'
 		},
-		columnHelper.group({
+		columnHelper.accessor('activeIngredients', {
+			// columnHelper.accessor((row) => row.activeIngredients.map((ai) => `${ai.name}`), {
 			header: 'Active Ingredients',
-			columns: [
-				columnHelper.accessor((row) => row.activeIngredients.map((item) => item.name), {
-					header: 'AI name'
-				}),
-				columnHelper.accessor(
-					(row) => {
-						return row.activeIngredients.map(
-							(item) => `${item.strength.amount} / ${item.strength.per}\n`
-						);
-					},
-					{
-						header: 'strength'
-					}
-				)
-			]
+			cell: (info) => renderComponent(ActiveIngredeintCell, { content: info.getValue() })
 		}),
+		// columnHelper.accessor('activeIngredients', {
+		// 	header: 'Active Ingredients'
+		// }),
+		// columnHelper.group({
+		// 	header: 'Active Ingredients',
+		// 	columns: [
+		// 		columnHelper.accessor((row) => row.activeIngredients.map((item) => item.name), {
+		// 			header: 'AI name'
+		// 		}),
+		// 		columnHelper.accessor(
+		// 			(row) => {
+		// 				return row.activeIngredients.map(
+		// 					(item) => `${item.strength.amount} / ${item.strength.per}\n`
+		// 				);
+		// 			},
+		// 			{
+		// 				header: 'strength'
+		// 			}
+		// 		)
+		// 	]
+		// }),
 		columnHelper.group({
 			header: 'Price',
 			columns: [
@@ -66,11 +77,21 @@
 	];
 </script>
 
-<Table
+<!-- <Table
 	{columns}
 	data={data.drugItems}
 	form={data.form}
 	formComponent={DrugItemForm}
 	drugs={data.drugs}
 	info={data.info}
-/>
+/> -->
+<Table
+	data={data.drugItems}
+	form={data.form}
+	{columns}
+	let:form
+	let:initialValues
+	schema={drugItemSchema}
+>
+	<DrugItemForm {form} {initialValues} info={data.info} drugs={data.drugs} />
+</Table>

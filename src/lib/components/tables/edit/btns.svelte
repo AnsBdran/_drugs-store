@@ -3,10 +3,12 @@
 	import type { DrugItem, Manufacturer, Request, User } from '@prisma/client';
 	import MdiLeadPencil from '~icons/mdi/lead-pencil';
 	import MaterialSymbolsDeleteRounded from '~icons/material-symbols/delete-rounded';
-	import { rowChanges } from '$lib/stores/table';
+	import { rowEditStore } from '$lib/stores/row-edit';
 	import type { Drug } from '$lib/types';
 	// props
 	export let row: Manufacturer | DrugItem | Request | User | Drug;
+
+	// const { rowEditStore } = createRowEditStore();
 
 	const setEditRow = (
 		isEditOpen: boolean,
@@ -16,12 +18,19 @@
 		// console.log('received', row);
 		// row?.imageURL ?? delete row?.imageURL;
 		// console.log('deleted', row);
-		rowChanges.set({ data: row, isEditOpen, isDeleteOpen });
+		rowEditStore.set({ data: row, isEditOpen, isDeleteOpen });
 	};
+	// $: console.log({ status: $rowEditStore.isEditOpen });
 </script>
 
 <div class="flex gap-1">
-	<Button size="icon" on:click={() => setEditRow(true, false, row)}>
+	<Button
+		size="icon"
+		on:click={() => {
+			setEditRow(true, false, row);
+			// console.log('status now should be', $rowEditStore.isEditOpen);
+		}}
+	>
 		<MdiLeadPencil />
 	</Button>
 	<Button size="icon" variant="destructive" on:click={() => setEditRow(false, true, row)}>

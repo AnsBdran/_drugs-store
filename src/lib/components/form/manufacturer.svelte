@@ -12,7 +12,7 @@
 
 	// props
 	export let form: SuperForm<Infer<ManufacturerSchema>>;
-	export let initialValues: Manufacturer | undefined = undefined;
+	export let initialValues: Manufacturer | null = null;
 	const { form: formData } = form;
 
 	initialValues &&

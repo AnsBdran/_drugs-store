@@ -19,7 +19,7 @@
 	import { fileProxy, type Infer, type SuperForm } from 'sveltekit-superforms';
 	import LoadErrorAlert from './load-error-alert.svelte';
 	import type { DrugItemSchema } from '$lib/schemas/drug-item';
-	import type { Info } from '@prisma/client';
+	import type { DrugItem, Info } from '@prisma/client';
 	import { Badge } from '../ui/badge';
 
 	// props
@@ -27,7 +27,7 @@
 	export let info: Info;
 	export let drugs;
 	// export let activeIngredients;
-	export let initialValues = undefined;
+	export let initialValues: DrugItem | undefined;
 	// console.log('info in form', info);
 	const { form: formData, errors } = form;
 

@@ -1,45 +1,24 @@
-<script lang="ts">
+<script lang="ts" generics="T">
 	import Button from '$lib/components/ui/button/button.svelte';
 	import * as Dialog from '$lib/components/ui/dialog';
-	import type { Manufacturer, DrugItem, User, Drug, Request } from '@prisma/client';
-
-	import { rowChanges } from '$lib/stores/table';
+	// import type { Manufacturer, DrugItem, User, Drug, Request } from '@prisma/client';
+	import { rowEditStore } from '$lib/stores/row-edit';
 	import SuperDebug, { superForm, type Infer, type SuperValidated } from 'sveltekit-superforms';
-	import { manufacturerSchema, type ManufacturerSchema } from '$lib/schemas/manufacturer';
 	import { toast } from 'svelte-sonner';
 	import { invalidateAll } from '$app/navigation';
 	import ScrollArea from '$lib/components/ui/scroll-area/scroll-area.svelte';
-	import type { DrugItemSchema } from '$lib/schemas/drug-item';
-	import type { RequestEditSchema } from '$lib/schemas/request';
-	import type { UserEditSchema } from '$lib/schemas/auth';
-	import type { DrugSchema } from '$lib/schemas/drug';
 	import { zodClient } from 'sveltekit-superforms/adapters';
 
 	// props
 	export let schema;
-	export let data: SuperValidated<
-		Infer<ManufacturerSchema | UserEditSchema | DrugSchema | DrugItemSchema | RequestEditSchema>
-	>;
-	// export let data;
-	export let formComponent;
+	export let data;
+	// export let data: SuperValidated<Infer<T>>;
 
 	const form = superForm(data, {
 		dataType: 'json',
-		// onError(event) {
-		// 	console.log('I don not know', event);
-		// },
-		// onResult(event) {
-		// 	console.log('I don not know', event);
-		// },
-		// onUpdate(event) {
-		// 	console.log('I don not know', event);
-		// },
 		onSubmit: ({ formData }) => {
 			console.log('submitted', formData);
 		},
-		// onChange: ({ get, paths }) => {
-		// 	console.log('something changed', get, paths);
-		// },
 		validators: zodClient(schema),
 		onUpdated: ({ form }) => {
 			if (form.valid) {
@@ -50,24 +29,21 @@
 		}
 	});
 
+	// const { editRowStore } = createRowEditStore();
 	const { enhance, delayed, form: formData } = form;
 	const setRow = (
 		isEditOpen: boolean,
 		isDeleteOpen: boolean = false,
-		row: Manufacturer | DrugItem | User | Drug | Request | null = null
+		row: any | undefined = undefined
+		// row: Manufacturer | DrugItem | User | Drug | Request | undefined = undefined
 	) => {
-		rowChanges.set({ data: row, isEditOpen, isDeleteOpen });
+		rowEditStore.set({ data: row, isEditOpen, isDeleteOpen });
 	};
-
-	$: console.log(
-		'form updated',
-		$rowChanges.data?.name,
-		'|||||||||||\\\\\\\\\\|||||||||||',
-		$formData.name
-	);
+	let isOpen = false;
+	$: console.log($rowEditStore.isEditOpen);
 </script>
 
-<Dialog.Root bind:open={$rowChanges.isEditOpen}>
+<Dialog.Root bind:open={$rowEditStore.isEditOpen}>
 	<form method="POST" action="?/edit" use:enhance>
 		<Dialog.Content class="flex h-[80vh] flex-col  p-2 sm:p-6">
 			<Dialog.Header class="">
@@ -78,21 +54,14 @@
 			<ScrollArea class="mb-3 pr-2 shadow-inner">
 				<SuperDebug data={$formData} />
 				<div class="space-y-4 px-1">
-					<svelte:component
-						this={formComponent}
-						{form}
-						initialValues={$rowChanges.data}
-						info={$$restProps.info}
-						drugs={$$restProps.drugs}
-						manufacturers={$$restProps.manufacturers}
-					/>
+					<slot {form} />
 				</div>
-				<input type="hidden" name="_id" value={$rowChanges.data?.id} />
+				<input type="hidden" name="_id" value={$rowEditStore.data?.id} />
 				<button type="submit"> submit</button>
 			</ScrollArea>
 			<Dialog.Footer class="flex-row items-center justify-end gap-2 bg-red-50/20 px-2">
 				<Button on:click={() => setRow(false)} type="button" variant="destructive">Cancel</Button>
-				<Button type="submit" class="z-[999999999999999999999999999999999999999]">
+				<Button type="submit">
 					{#if $delayed}
 						loading...
 					{:else}

@@ -1,5 +1,6 @@
 <script lang="ts" generics="T">
 	import * as Table from '$lib/components/ui/table';
+	// import type { Manufacturer } from '@prisma/client';
 	import {
 		createSvelteTable,
 		flexRender,
@@ -11,7 +12,7 @@
 	} from '@tanstack/svelte-table';
 	import EditDialog from './edit/edit-dialog.svelte';
 	import DeleteDialog from './edit/delete-dialog.svelte';
-	import { rowEditStore } from '$lib/stores/row-edit';
+	import { rowChanges } from '$lib/stores/row-edit';
 	import { writable } from 'svelte/store';
 	import { rankItem } from '@tanstack/match-sorter-utils';
 	import Input from '../ui/input/input.svelte';
@@ -19,13 +20,13 @@
 	import ScrollArea from '../ui/scroll-area/scroll-area.svelte';
 
 	// type SingleT<T> = T extends (infer U)[] ? U : never;
-	// type SingleElementType<T> = T extends (infer U)[] ? U : never;
-	// export let data: SingleElementType<any>[];
-	// type DataType = SingleElementType<typeof data>;
+	type SingleElementType<T> = T extends (infer U)[] ? U : never;
+	type DataType = SingleElementType<typeof data>;
 	// props
-	export let data;
+	export let data: SingleElementType<any>[];
 	export let form;
 	export let columns;
+	export let formComponent;
 	export let schema;
 
 	// table props
@@ -38,9 +39,7 @@
 		return itemRank.passed;
 	};
 
-	// const { editRowStore } = createRowEditStore();
-
-	const options = writable<TableOptions<typeof data>>({
+	const options = writable<TableOptions<DataType>>({
 		columns,
 		data,
 		getCoreRowModel: getCoreRowModel(),
@@ -78,7 +77,7 @@
 		$table.setGlobalFilter(String(e.target.value));
 	};
 
-	// $: console.log('not in store', $rowChanges);
+	$: console.log('not in store', $rowChanges);
 </script>
 
 <section>
@@ -128,7 +127,5 @@
 <Pagination count={data.length} {perPage} bind:page class="w-max" />
 
 <!-- Form dialogs -->
-<EditDialog data={form} {schema} let:form>
-	<slot {form} initialValues={$rowEditStore.data} />
-</EditDialog>
+<EditDialog data={form} {schema} {formComponent} {...$$restProps} />
 <DeleteDialog />

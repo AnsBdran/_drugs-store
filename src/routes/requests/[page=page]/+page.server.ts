@@ -10,7 +10,8 @@ export const load: PageServerLoad = async ({ params }) => {
 		take: limit,
 		skip,
 		include: {
-			Author: true
+			Author: true,
+			likedBy: true
 		},
 		orderBy: {
 			createdAt: 'desc'

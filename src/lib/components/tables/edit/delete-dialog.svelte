@@ -2,24 +2,25 @@
 	import { enhance } from '$app/forms';
 	import Button from '$lib/components/ui/button/button.svelte';
 	import * as Dialog from '$lib/components/ui/dialog';
-	import { rowChanges } from '$lib/stores/table';
+	import { rowEditStore } from '$lib/stores/row-edit';
 	import type { DrugItem, Manufacturer } from '@prisma/client';
 	import LineMdLoadingAltLoop from '~icons/line-md/loading-alt-loop';
 	import { toast } from 'svelte-sonner';
 	import { invalidateAll } from '$app/navigation';
 	let isFormLoading = false;
 
-	// props
+	// const { editRowStore } = createRowEditStore();
+
 	const updateRowChanges = (
 		isDeleteOpen: boolean,
 		isEditOpen: boolean = false,
 		data: Manufacturer | DrugItem | null = null
 	) => {
-		rowChanges.set({ isDeleteOpen, isEditOpen, data });
+		rowEditStore.set({ isDeleteOpen, isEditOpen, data });
 	};
 </script>
 
-<Dialog.Root bind:open={$rowChanges.isDeleteOpen}>
+<Dialog.Root bind:open={$rowEditStore.isDeleteOpen}>
 	<Dialog.Content>
 		<Dialog.Header>Are you absolutely sure?</Dialog.Header>
 		<Dialog.Description
@@ -46,7 +47,7 @@
 				};
 			}}
 		>
-			<input type="hidden" name="_id" value={$rowChanges.data?.id} />
+			<input type="hidden" name="_id" value={$rowEditStore.data?.id} />
 			<Dialog.Footer class="flex-row justify-end gap-3">
 				<Button on:click={() => updateRowChanges(false)}>Cancel</Button>
 				<Button type="submit" variant="destructive">
