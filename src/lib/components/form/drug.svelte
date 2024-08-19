@@ -18,11 +18,6 @@
 
 	const { form: formData } = form;
 
-	$: console.log({
-		initialValues,
-		$formData
-	});
-
 	initialValues &&
 		Object.assign($formData, {
 			// indications: initialValues.indications.map((i) => ({ label: i, value: i })),

@@ -77,8 +77,6 @@
 	const handleKeyUp = (e: any) => {
 		$table.setGlobalFilter(String(e.target.value));
 	};
-
-	// $: console.log('not in store', $rowChanges);
 </script>
 
 <section>
@@ -98,13 +96,13 @@
 				{#each $table.getHeaderGroups() as headerGroup}
 					<Table.Row>
 						{#each headerGroup.headers as header}
-							<Table.Head colspan={header.colSpan}>
+							<Table.Cell colspan={header.colSpan}>
 								{#if !header.isPlaceholder}
 									<svelte:component
 										this={flexRender(header.column.columnDef.header, header.getContext())}
 									/>
 								{/if}
-							</Table.Head>
+							</Table.Cell>
 						{/each}
 					</Table.Row>
 				{/each}

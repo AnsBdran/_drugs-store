@@ -2,22 +2,8 @@
 	import * as Tabs from '$lib/components/ui/tabs';
 	import { FormWrapper, LoginForm, RegisterForm } from '$lib/components/form';
 	import { loginSchema, registerSchema } from '$lib/schemas/auth.js';
-	// import {superForm} from 'sveltekit-superforms';
-	// import {showErrorToast} from "$lib/utils";
 
 	export let data;
-	// const loginForm = superForm(data.loginForm, {
-	//     onError: ({result}) => {
-	//         console.log(result);
-	//         showErrorToast(result)
-	//     }, onsubmit: ({}) => {
-
-	//     }
-	// });
-
-	// const registerForm = superForm(data.registerForm);
-	// const {enhance, message, delayed} = loginForm;
-	// const {enhance: RegisterEnhance, delayed: registerDelay} = registerForm;
 </script>
 
 <!-- {#if $message}

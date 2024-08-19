@@ -6,7 +6,6 @@
 
 	export let initialValues: User;
 	export let form;
-	console.log('initial values', initialValues);
 </script>
 
 <div>

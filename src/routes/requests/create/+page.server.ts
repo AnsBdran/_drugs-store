@@ -35,7 +35,6 @@ export const actions: Actions = {
 					authorID: locals.user?.id as string
 				}
 			});
-			console.log(result);
 			return message(form, {
 				type: 'success',
 				text: 'Your request has been successfully submitted '

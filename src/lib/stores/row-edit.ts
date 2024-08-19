@@ -4,7 +4,8 @@ import { writable } from 'svelte/store';
 
 type RowEditType = {
 	// type RowEditType<T> = {
-	data: Manufacturer | DrugItem | Request | User | Drug | undefined;
+	// data: Manufacturer | DrugItem | Request | User | Drug | undefined;
+	data: any | undefined;
 	isEditOpen: boolean;
 	isDeleteOpen: boolean;
 	// data: T | undefined;

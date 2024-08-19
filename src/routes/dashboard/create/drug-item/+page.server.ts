@@ -17,9 +17,7 @@ export const load: PageServerLoad = async () => {
 
 export const actions: Actions = {
 	default: async (event) => {
-		console.log('form is submitting');
 		const form = await superValidate(event, zod(drugItemSchema));
-		console.log(form.data);
 		if (!form.valid) {
 			return fail(400, { form });
 		}
@@ -58,15 +56,15 @@ export const actions: Actions = {
 				const uploadResult = await uploadFileToCloudinary(image);
 				await prisma.image.create({
 					data: {
-						assetID: uploadResult.asset_id,
-						bytes: uploadResult.bytes,
-						format: uploadResult.format,
+						// assetID: uploadResult.asset_id,
+						// bytes: uploadResult.bytes,
+						// format: uploadResult.format,
 						height: uploadResult.height,
 						width: uploadResult.width,
-						path: uploadResult.path,
+						// path: uploadResult.path,
 						publicID: uploadResult.public_id,
-						secureURL: uploadResult.secure_url,
-						signature: uploadResult.signature,
+						// secureURL: uploadResult.secure_url,
+						// signature: uploadResult.signature,
 						url: uploadResult.url,
 						drugItemID: result.id,
 						isPrimary: true
@@ -78,7 +76,6 @@ export const actions: Actions = {
 				text: 'new drug item has been successfully created.'
 			});
 		} catch (e) {
-			console.log('some error happened while trying to create a new drug item.');
 			console.log(e);
 			return fail(400, { form });
 		}

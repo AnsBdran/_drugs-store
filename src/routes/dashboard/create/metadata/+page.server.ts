@@ -9,7 +9,6 @@ import type { Actions, PageServerLoad } from './$types';
 import { zod } from 'sveltekit-superforms/adapters';
 import { metadataSchema, type MetadataSchema } from '$lib/schemas/metdata';
 import prisma from '$lib/server/prisma';
-import type { contraIndications } from '$lib/info';
 
 export const load: PageServerLoad = async () => {
 	const form = await superValidate(zod(metadataSchema));
@@ -19,7 +18,6 @@ export const load: PageServerLoad = async () => {
 export const actions: Actions = {
 	default: async (event) => {
 		const form = await superValidate(event, zod(metadataSchema));
-		console.log('meta action called', form);
 		if (!form.valid) {
 			return fail(400, { form });
 		}
@@ -28,15 +26,18 @@ export const actions: Actions = {
 		const keys = Object.keys(form.data) as DataKey[];
 		try {
 			const document = await prisma.info.findFirst();
+			if (!document) {
+				await prisma.info.create({ data: {} });
+				return;
+			}
 			const updatedDocument = {
 				categories: [...document.categories],
-				contraIndications: [...document?.contraIndications],
-				forms: [...document?.forms],
-				indications: [...document?.indications],
-				strengths: [...document?.strengths],
-				activeIngredients: [...document?.activeIngredients]
+				contraIndications: [...document.contraIndications],
+				forms: [...document.forms],
+				indications: [...document.indications],
+				strengths: [...document.strengths],
+				activeIngredients: [...document.activeIngredients]
 			};
-			console.log('trying =========', updatedDocument);
 			keys.forEach((key) => {
 				if (form.data[key] && form.data[key].length >= 1) {
 					updatedDocument[key] = [...updatedDocument[key], ...form.data[key]];
@@ -49,7 +50,6 @@ export const actions: Actions = {
 				},
 				data: updatedDocument
 			});
-			console.log(updated);
 			return message(form, {
 				type: 'success',
 				text: 'Hola'

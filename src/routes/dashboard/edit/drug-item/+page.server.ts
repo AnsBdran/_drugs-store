@@ -20,7 +20,7 @@ export const load: PageServerLoad = async () => {
 
 export const actions: Actions = {
 	edit: async ({ request }) => {
-		console.log('edit action called');
+		console.log('edit drug item action is here');
 		const formData = await request.formData();
 		const id = formData.get('_id');
 		const form = await superValidate(formData, zod(drugItemSchema));
@@ -37,7 +37,6 @@ export const actions: Actions = {
 					id: id as string
 				}
 			});
-			console.log({ result });
 			return message(form, { type: 'success', text: `Drug item has been updated successfully.` });
 		} catch (error) {
 			console.error(error);
@@ -47,6 +46,7 @@ export const actions: Actions = {
 	delete: async ({ request }) => {
 		const formData = await request.formData();
 		const id = formData.get('_id') as string;
+
 		try {
 			await prisma.likedDrugItem.deleteMany({
 				where: {

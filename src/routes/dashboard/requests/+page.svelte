@@ -5,13 +5,13 @@
 	import { Status } from '$lib/components/requests';
 	import Btns from '$lib/components/tables/edit/btns.svelte';
 	import Table from '$lib/components/tables/table.svelte';
+	import { requestEditSchema } from '$lib/schemas/request';
 	import type { Request } from '@prisma/client';
 	import { createColumnHelper, renderComponent } from '@tanstack/svelte-table';
 
 	export let data;
 
 	const columnHelper = createColumnHelper<Request>();
-	console.log('data here', data);
 
 	const columns = [
 		columnHelper.accessor('createdAt', {
@@ -54,7 +54,16 @@
 
 <h2>requests</h2>
 {#if data.requests.length}
-	<Table {columns} data={data.requests} form={data.form} formComponent={RequestEditForm} />
+	<Table
+		{columns}
+		data={data.requests}
+		form={data.form}
+		schema={requestEditSchema}
+		let:form
+		let:initialValues
+	>
+		<RequestEditForm {form} {initialValues} />
+	</Table>
 {:else}
 	<Alert title="No requests were found">You don't have any requests.</Alert>
 {/if}

@@ -43,7 +43,6 @@ export const getFilteredProducts = async ({
 	const sortBy = url.searchParams.get('sortBy') || '';
 	const price = url.searchParams.get('price') || '';
 	const order = url.searchParams.get('order') || '';
-	console.log({ price, sortBy, q });
 	const query: Prisma.DrugItemFindManyArgs = {
 		take: limit,
 		skip,

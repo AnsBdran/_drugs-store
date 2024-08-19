@@ -24,11 +24,10 @@
 
 	// props
 	export let form: SuperForm<Infer<DrugItemSchema>>;
-	export let info: Info;
+	export let info: Promise<Info>;
 	export let drugs;
 	// export let activeIngredients;
 	export let initialValues: DrugItem | undefined;
-	// console.log('info in form', info);
 	const { form: formData, errors } = form;
 
 	const imageFile = fileProxy(form, 'image');
@@ -58,7 +57,6 @@
 	};
 
 	initialValues && Object.assign($formData, initialValues);
-	// $: console.log('initial values', initialValues);
 </script>
 
 <!-- ==================================== -->

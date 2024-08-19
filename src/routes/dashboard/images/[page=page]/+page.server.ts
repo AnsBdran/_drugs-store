@@ -8,7 +8,6 @@ import { fail as _fail } from '@sveltejs/kit';
 
 export const load: PageServerLoad = async ({ params }) => {
 	const form = await superValidate(zod(imageSchema));
-	console.log('images load ran');
 	const { limit, page, skip } = getPagination(params.page);
 	const images = await prisma.image.findMany({
 		include: {
@@ -32,9 +31,7 @@ export const load: PageServerLoad = async ({ params }) => {
 
 export const actions = {
 	edit: async ({ request }) => {
-		console.log('action called');
 		const form = await superValidate(request, zod(imageSchema));
-		console.log('form', form);
 		const { drugItemID, imageID, isPrimary } = form.data;
 
 		if (!form.valid) {
@@ -50,7 +47,6 @@ export const actions = {
 					isPrimary
 				}
 			});
-			console.log('update result', result);
 			return message(form, { text: 'Image link updated successfully', type: 'success' });
 		} catch (error) {
 			console.error(error);
@@ -68,12 +64,10 @@ export const actions = {
 			});
 			return 'Image deleted successfully.';
 		} catch (e) {
-			console.log(e);
 			return _fail(400);
 		}
 	},
 	unlink: async ({ request }) => {
-		console.log('unlink called');
 		const formData = await request.formData();
 		const id = formData.get('imageID') as string;
 
@@ -91,7 +85,6 @@ export const actions = {
 
 			return 'Image Unlinked successfully.';
 		} catch (e) {
-			console.log(e);
 			return _fail(400, { message: 'something bad happened' });
 		}
 	}

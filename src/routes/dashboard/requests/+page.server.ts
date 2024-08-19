@@ -23,10 +23,8 @@ export const actions: Actions = {
 		const id = formData.get('_id');
 
 		const form = await superValidate(formData, zod(requestEditSchema));
-		console.log('recieved', form);
 
 		if (!form.valid) {
-			console.log('the form is not valid');
 			return fail(400, { form });
 		}
 
@@ -37,7 +35,6 @@ export const actions: Actions = {
 				},
 				data: { ...form.data, responseStatus: form.data.responseStatus }
 			});
-			console.log('updated', updated);
 			return message(form, {
 				type: 'success',
 				text: `${updated.brandName} Request updated successfully.`

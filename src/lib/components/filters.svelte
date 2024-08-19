@@ -38,7 +38,7 @@
 	</div>
 </section>
 
-<section class="fixed inset-0 top-header hidden w-sidebar border-r-2 bg-background md:block">
+<section class="sidebar fixed inset-0 top-header hidden w-sidebar md:block">
 	<div class="flex h-full flex-col justify-between gap-4 px-3 py-3 pb-8">
 		<Search class="w-full" />
 		<ScrollArea class="h-4/5 flex-1">

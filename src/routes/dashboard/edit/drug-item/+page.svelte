@@ -6,7 +6,6 @@
 	import { DrugItemForm } from '$lib/components/form';
 	import Ship from '$lib/components/tables/edit/price-ship.svelte';
 	import ActiveIngredeintCell from './active-ingredeint-cell.svelte';
-	import { info } from 'console';
 	import { drugItemSchema } from '$lib/schemas/drug-item';
 
 	// props

@@ -1,9 +1,9 @@
-<script lang="ts" generics="T">
+<script lang="ts">
 	import Button from '$lib/components/ui/button/button.svelte';
 	import * as Dialog from '$lib/components/ui/dialog';
 	// import type { Manufacturer, DrugItem, User, Drug, Request } from '@prisma/client';
 	import { rowEditStore } from '$lib/stores/row-edit';
-	import SuperDebug, { superForm, type Infer, type SuperValidated } from 'sveltekit-superforms';
+	import { superForm, type Infer } from 'sveltekit-superforms';
 	import { toast } from 'svelte-sonner';
 	import { invalidateAll } from '$app/navigation';
 	import ScrollArea from '$lib/components/ui/scroll-area/scroll-area.svelte';
@@ -16,9 +16,9 @@
 
 	const form = superForm(data, {
 		dataType: 'json',
-		onSubmit: ({ formData }) => {
-			console.log('submitted', formData);
-		},
+
+		// onSubmit: ({ formData }) => {
+		// },
 		validators: zodClient(schema),
 		onUpdated: ({ form }) => {
 			if (form.valid) {
@@ -39,27 +39,46 @@
 	) => {
 		rowEditStore.set({ data: row, isEditOpen, isDeleteOpen });
 	};
-	let isOpen = false;
-	$: console.log($rowEditStore.isEditOpen);
 </script>
 
-<Dialog.Root bind:open={$rowEditStore.isEditOpen}>
-	<form method="POST" action="?/edit" use:enhance>
-		<Dialog.Content class="flex h-[80vh] flex-col  p-2 sm:p-6">
-			<Dialog.Header class="">
-				<Dialog.Title>Edit item</Dialog.Title>
-				<Dialog.Description>Complete the form to edit the item</Dialog.Description>
-			</Dialog.Header>
-			<!-- form section -->
-			<ScrollArea class="mb-3 pr-2 shadow-inner">
-				<SuperDebug data={$formData} />
-				<div class="space-y-4 px-1">
-					<slot {form} />
-				</div>
-				<input type="hidden" name="_id" value={$rowEditStore.data?.id} />
-				<button type="submit"> submit</button>
+<!-- ================================================== -->
+<!-- ================================================== -->
+<!-- ================================================== -->
+<!-- |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+<!-- ✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨ -->
+<!-- {#if $rowEditStore.isEditOpen}
+	<form method="POST" action="?/edit" use:enhance enctype="multipart/form-data">
+		<slot {form} />
+		<input type="hidden" name="_id" value={$rowEditStore.data?.id} />
+		<Button type="submit">
+			{#if $delayed}
+				loading...
+			{:else}
+				Submit
+			{/if}
+		</Button>
+	</form>
+	<button on:click={() => setRow(false)}>hide</button>
+{/if} -->
+
+<!-- ================================================== -->
+<!-- ================================================== -->
+<!-- ================================================== -->
+
+<!-- <Dialog.Root bind:open={$rowEditStore.isEditOpen}> -->
+
+<!-- <Dialog.Root bind:open={$rowEditStore.isEditOpen}>
+	<Dialog.Content>
+		<Dialog.Header class="">
+			<Dialog.Title>Edit item</Dialog.Title>
+			<Dialog.Description>Complete the form to edit the item</Dialog.Description>
+		</Dialog.Header>
+		<form method="POST" action="?/edit" use:enhance>
+			<ScrollArea type="scroll" class="h-96 pr-2 shadow-inner">
+				<slot {form} />
 			</ScrollArea>
-			<Dialog.Footer class="flex-row items-center justify-end gap-2 bg-red-50/20 px-2">
+			<input type="hidden" name="_id" value={$rowEditStore.data?.id} />
+			<Dialog.Footer class="flex-row items-center justify-end gap-2 px-2 py-2">
 				<Button on:click={() => setRow(false)} type="button" variant="destructive">Cancel</Button>
 				<Button type="submit">
 					{#if $delayed}
@@ -69,7 +88,33 @@
 					{/if}
 				</Button>
 			</Dialog.Footer>
-			<!-- end form section -->
-		</Dialog.Content>
-	</form>
+		</form>
+	</Dialog.Content>
+</Dialog.Root> -->
+
+<Dialog.Root bind:open={$rowEditStore.isEditOpen}>
+	<Dialog.Content class="flex max-h-[80vh] flex-col justify-between  p-2 sm:p-6">
+		<Dialog.Header class="">
+			<Dialog.Title>Edit item</Dialog.Title>
+			<Dialog.Description>Complete the form to edit the item</Dialog.Description>
+		</Dialog.Header>
+		<form method="POST" action="?/edit" use:enhance enctype="multipart/form-data">
+			<div class="flex-1">
+				<ScrollArea type="scroll" class="h-96 pr-2 shadow-inner">
+					<slot {form} />
+				</ScrollArea>
+			</div>
+			<Dialog.Footer class="flex-row items-center justify-end gap-2 px-2 py-2">
+				<input type="hidden" name="_id" value={$rowEditStore.data?.id} />
+				<Button on:click={() => setRow(false)} type="button" variant="destructive">Cancel</Button>
+				<Button type="submit">
+					{#if $delayed}
+						loading...
+					{:else}
+						Submit
+					{/if}
+				</Button>
+			</Dialog.Footer>
+		</form>
+	</Dialog.Content>
 </Dialog.Root>

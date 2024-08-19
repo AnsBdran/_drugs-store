@@ -7,9 +7,7 @@ import { fail } from '@sveltejs/kit';
 import { userEditSchema } from '$lib/schemas/auth';
 
 export const load: PageServerLoad = async () => {
-	console.log('users load called 1');
 	const form = await superValidate(zod(userEditSchema));
-	console.log('users load called 2');
 
 	const users = await prisma.user.findMany({
 		include: {
@@ -22,7 +20,6 @@ export const load: PageServerLoad = async () => {
 			// }
 		}
 	});
-	console.log('users load called 3');
 	return { users, form };
 };
 
@@ -42,7 +39,6 @@ export const actions = {
 					role: form.data.role
 				}
 			});
-			console.log({ user });
 			return message(form, {
 				type: 'success',
 				text: `User ${user.username} role updated successfully.`
@@ -50,13 +46,11 @@ export const actions = {
 		} catch (error) {
 			console.error(error);
 		}
-		console.log(form);
 		return fail(400, { form });
 	},
 	delete: async ({ request }) => {
 		const formData = await request.formData();
 		const id = formData.get('_id') as string;
-		console.log(formData);
 		try {
 			const user = await prisma.user.delete({
 				where: {
@@ -98,8 +92,6 @@ export const actions = {
 					});
 				}
 			}
-
-			console.log('deleted', user);
 
 			return { name: user.username };
 		} catch (error) {

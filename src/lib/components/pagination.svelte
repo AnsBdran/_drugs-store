@@ -21,11 +21,6 @@
 
 	$: showPrev = Number(page) > 1;
 	$: showNext = Number(page) < count / perPage;
-	$: console.log({
-		count,
-		perPage,
-		page
-	});
 </script>
 
 <Pagination.Root

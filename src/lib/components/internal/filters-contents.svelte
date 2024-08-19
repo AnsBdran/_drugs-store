@@ -23,7 +23,6 @@
 	// export let orientation: 'vertical' | 'horizontal' = 'horizontal';
 	export let toggleGroupClass = '';
 	const handleSortChange = (value: string | undefined) => {
-		console.log('handling sort change');
 		const newUrl = new URL($page.url);
 		if (!value || value === 'recent') {
 			newUrl.searchParams.delete('sortBy');
@@ -35,7 +34,6 @@
 	};
 
 	const handlePriceChange = (value: string | undefined) => {
-		console.log('handling price change');
 		const newUrl = new URL($page.url);
 		if (!value) {
 			newUrl.searchParams.delete('price');
@@ -47,7 +45,6 @@
 	};
 
 	const handleOrderChange = (value: string | undefined) => {
-		console.log('handling order change');
 		const newUrl = new URL($page.url);
 		if (!value) {
 			newUrl.searchParams.delete('order');

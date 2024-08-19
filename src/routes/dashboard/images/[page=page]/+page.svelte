@@ -15,17 +15,12 @@
 		},
 		onSubmit: ({ formData }) => {
 			const data = Object.fromEntries(formData);
-			console.log('inside onSubmit', formData, data);
 		}
 	});
 	onMount(() => {
 		const cleanup = dimensions.initialize();
 		return cleanup;
 	});
-	$: console.log(
-		'images recieved',
-		data.images.map((i) => i.drugItemID)
-	);
 	const { form: formData } = form;
 </script>
 

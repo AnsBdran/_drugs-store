@@ -27,7 +27,6 @@
 	$: isLikedByUser = user ? !!drug.likedBy.find((d) => d.userID === user.id) : false;
 
 	const addToCart = () => {
-		console.log('adding to cart');
 		if (!!$cart.find((d) => d.data.id === drug.id)) {
 			return toast(`${drug.drug.brandName} is already in your cart`);
 		}
@@ -40,7 +39,7 @@
 	};
 </script>
 
-<div class={cn('group block overflow-hidden', className)} style={`width: ${width}px;`}>
+<div class={cn('group block overflow-hidden ', className)} style={`width: ${width}px;`}>
 	<div
 		style="width: {width}px; height: {height}px"
 		class="relative overflow-hidden border-2 border-transparent hover:border-primary/40"

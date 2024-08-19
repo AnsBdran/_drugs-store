@@ -12,7 +12,7 @@
 
 	// props
 	export let form: SuperForm<Infer<ManufacturerSchema>>;
-	export let initialValues: Manufacturer | null = null;
+	export let initialValues: Manufacturer | undefined = undefined;
 	const { form: formData } = form;
 
 	initialValues &&
@@ -23,8 +23,6 @@
 			featured: initialValues.featured,
 			description: initialValues.description
 		});
-	// initialValues && Object.assign($formData, initialValues);
-	console.log('form initial values', { initialValues, $formData });
 </script>
 
 <Form.Field {form} name="name">

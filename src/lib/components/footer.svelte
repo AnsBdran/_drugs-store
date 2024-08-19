@@ -6,12 +6,7 @@
 	export { className as class };
 </script>
 
-<footer
-	class={cn(
-		'relative mt-2 border-t-2 border-muted-foreground/20 bg-muted px-4 pt-12 shadow-xl dark:bg-gray-900 dark:text-muted-foreground',
-		className
-	)}
->
+<footer class={cn('footer relative mt-2  px-4 pt-12 ', className)}>
 	<!-- <div
 		class="absolute -top-10 left-1/2 h-16 w-16 -translate-x-1/2 rounded-xl border-4 border-sky-500 bg-white p-2"
 	>

@@ -12,9 +12,7 @@
 		href === '' ? $page.url.pathname === '/dashboard' : $page.url.pathname.includes(href);
 </script>
 
-<div
-	class="fixed bottom-0 left-0 top-header z-40 hidden h-screen w-sidebar border-r border-muted md:block"
->
+<div class="sidebar fixed bottom-0 left-0 top-header z-40 hidden h-screen w-sidebar md:block">
 	<ul>
 		{#each dashboardLinks as link (link.href)}
 			<li>

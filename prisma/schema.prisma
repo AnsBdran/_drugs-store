@@ -162,7 +162,7 @@ model Drug {
   contraIndications String[]
   drugItems         DrugItem[]
   manufacturerID    String       @db.ObjectId
-  manufacturer      Manufacturer @relation(fields: [manufacturerID], references: [id])
+  manufacturer      Manufacturer @relation(fields: [manufacturerID], references: [id], onDelete: Cascade)
   categories        String[]
   notes             String[]
 }

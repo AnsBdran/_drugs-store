@@ -9,11 +9,6 @@
 	export let perPage: number;
 	export let page: number;
 	export { className as class };
-	$: console.log({
-		count,
-		perPage,
-		page
-	});
 </script>
 
 <Pagination.Root

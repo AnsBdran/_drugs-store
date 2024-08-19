@@ -16,7 +16,6 @@ export const load: PageServerLoad = async ({ locals }) => {
 
 export const actions: Actions = {
 	login: async ({ request, cookies }) => {
-		console.log('login action');
 		const form = await superValidate(request, zod(loginSchema));
 		const { password, username } = form.data;
 		if (!form.valid) {
@@ -30,7 +29,6 @@ export const actions: Actions = {
 		});
 
 		if (!user) {
-			console.log('failed');
 			return setError(form, 'username', 'There is no such user!');
 		}
 
@@ -42,19 +40,16 @@ export const actions: Actions = {
 		});
 
 		if (!validPassword) {
-			console.log('wrong password');
 			return fail(400, {
 				form
 			});
 		}
-		console.log('about to end');
 		const session = await lucia.createSession(user.id, {});
 		const sessionCookie = lucia.createSessionCookie(session.id);
 		cookies.set(sessionCookie.name, sessionCookie.value, {
 			path: '.',
 			...sessionCookie.attributes
 		});
-		console.log('ended');
 		redirect(302, '/');
 	},
 
@@ -74,7 +69,6 @@ export const actions: Actions = {
 			}
 		});
 
-		console.log('asdfl', isAvailable);
 		if (isAvailable) {
 			return setError(form, 'username', 'username not available');
 		}
@@ -97,7 +91,6 @@ export const actions: Actions = {
 				}
 			});
 
-			console.log('prisma said', user);
 			const session = await lucia.createSession(user.id, {});
 			const sessionCookie = lucia.createSessionCookie(session.id);
 			cookies.set(sessionCookie.name, sessionCookie.value, {
@@ -107,7 +100,6 @@ export const actions: Actions = {
 
 			redirect(302, '/');
 		} catch (error) {
-			console.log(error);
 			fail(401, { form });
 		}
 	},

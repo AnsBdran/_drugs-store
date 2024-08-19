@@ -76,8 +76,6 @@
 	const handleKeyUp = (e: any) => {
 		$table.setGlobalFilter(String(e.target.value));
 	};
-
-	$: console.log('not in store', $rowChanges);
 </script>
 
 <section>

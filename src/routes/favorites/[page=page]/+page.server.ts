@@ -5,8 +5,6 @@ import { getPagination } from '$lib/utils';
 
 export const load: PageServerLoad = async ({ locals, params }) => {
 	const user = locals.user;
-	console.log('|||||||||||||||||||||||||||||||||');
-	console.log('favorites load raaaaaaan');
 	if (!user) {
 		return redirect(302, '/auth');
 	}
@@ -31,7 +29,6 @@ export const load: PageServerLoad = async ({ locals, params }) => {
 				_count: true
 			}
 		});
-		// console.log('liked', result?.likedDrugItems);
 		return {
 			favorites: result?.likedDrugItems.map((i) => ({ ...i.drugItem })),
 			count: result?._count.likedDrugItems,

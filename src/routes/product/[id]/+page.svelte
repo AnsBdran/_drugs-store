@@ -22,7 +22,6 @@
 	$: isLikedByUser = data.user
 		? !!data.product?.likedBy.find((p) => p.userID === data.user?.id)
 		: false;
-	console.log('product recieved', data.product.likes);
 </script>
 
 <section class="bg-white py-8 antialiased dark:bg-background md:py-16">

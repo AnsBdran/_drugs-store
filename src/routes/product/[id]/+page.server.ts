@@ -4,7 +4,6 @@ import { error, fail } from '@sveltejs/kit';
 import type { Actions } from './$types';
 
 export const load = async ({ request, params }) => {
-	console.log('load product ran');
 	const { id } = params;
 	const product = await prisma.drugItem.findUnique({
 		where: { id },

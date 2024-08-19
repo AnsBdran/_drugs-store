@@ -25,12 +25,10 @@
 	});
 
 	const increment = () => {
-		console.log('incrementing');
 		cart.update((prev) => {
 			const updated = prev.map((i) =>
 				i.data.id === item.data.id ? { ...i, count: ++i.count } : i
 			);
-			console.log('updated values', updated);
 			window.localStorage.setItem('cart', JSON.stringify(updated));
 			return updated;
 		});
@@ -41,7 +39,6 @@
 			const updated = prev.map((i) =>
 				i.data.id === item.data.id ? { ...i, count: i.count <= 0 ? i.count : --i.count } : i
 			);
-			console.log('updated values', updated);
 			window.localStorage.setItem('cart', JSON.stringify(updated));
 			return updated;
 		});

@@ -5,8 +5,6 @@
 	export let selected;
 	import { slide } from 'svelte/transition';
 
-	// $: console.log('ships', selected);
-
 	const dispatch = createEventDispatcher();
 </script>
 

@@ -38,7 +38,6 @@
 			});
 		}
 
-		console.log($pageSize.count);
 		isLoading = true;
 		const res = await fetch('/api/like', {
 			cache: 'no-cache',
@@ -53,7 +52,6 @@
 			}
 		});
 		const { likesCount, isLikedByUser } = await res.json();
-		console.log({ isLikedByUser, likesCount });
 		num = likesCount;
 		isHighlighted = isLikedByUser;
 		isLoading = false;

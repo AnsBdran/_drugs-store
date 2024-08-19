@@ -5,6 +5,7 @@
 	import { DrugForm } from '$lib/components/form';
 	import Btns from '$lib/components/tables/edit/btns.svelte';
 	import Alert from '$lib/components/alert.svelte';
+	import { drugSchema } from '$lib/schemas/drug';
 
 	export let data;
 
@@ -29,10 +30,12 @@
 		{columns}
 		data={data.drugs}
 		form={data.form}
-		formComponent={DrugForm}
-		info={data.info}
-		manufacturers={data.manufacturers}
-	/>
+		let:form
+		let:initialValues
+		schema={drugSchema}
+	>
+		<DrugForm info={data.info} manufacturers={data.manufacturers} {form} {initialValues} />
+	</Table>
 {:else}
 	<Alert title="You don't have any drugs added yet">
 		Head over to the

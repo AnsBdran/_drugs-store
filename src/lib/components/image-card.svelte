@@ -134,7 +134,6 @@
 						isPrimary: image.isPrimary
 					});
 				}
-				console.log('Form data initialized:', $formData); // Debug statement
 			}}
 		>
 			<Dialog.Trigger asChild let:builder>

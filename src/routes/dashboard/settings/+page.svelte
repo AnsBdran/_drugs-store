@@ -7,7 +7,6 @@
 	const { itemsPerPage } = data.settings;
 
 	let _pageSize = itemsPerPage;
-	$: console.log(_pageSize);
 </script>
 
 <h2>Settings page</h2>

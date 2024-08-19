@@ -3,11 +3,11 @@
 	import RoleStatus from '$lib/components/role-status.svelte';
 	import Btns from '$lib/components/tables/edit/btns.svelte';
 	import Table from '$lib/components/tables/table.svelte';
+	import { userEditSchema } from '$lib/schemas/auth';
 	import { fromNow } from '$lib/utils';
 	import type { User } from '@prisma/client';
 	import { createColumnHelper, renderComponent } from '@tanstack/svelte-table';
 
-	console.log('hello from .svelte');
 	export let data;
 	const columnHelper = createColumnHelper<User>();
 	const columns = [
@@ -39,4 +39,13 @@
 </script>
 
 <h2>Users</h2>
-<Table {columns} data={data.users} form={data.form} formComponent={EditUserForm} />
+<Table
+	{columns}
+	data={data.users}
+	form={data.form}
+	schema={userEditSchema}
+	let:form
+	let:initialValues
+>
+	<EditUserForm {form} {initialValues} />
+</Table>

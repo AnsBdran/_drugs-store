@@ -11,9 +11,7 @@
 	export let options: { value: string; label: string }[];
 
 	const bindPath = path.join('.');
-	console.log('....', bindPath);
 	const { value } = formFieldProxy<any, 'responseStatus', string>(form, bindPath);
-	// $: selected = $formData[path] ? { label: $formData[path], value: $formData[path] } : undefined;
 	$: selected = $value ? { label: $value, value: $value } : undefined;
 </script>
 

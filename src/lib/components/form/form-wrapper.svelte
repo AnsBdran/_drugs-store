@@ -32,10 +32,6 @@
 		dataType: 'json',
 		onUpdate: ({ form }) => {
 			showToast(form);
-		},
-		onError: ({ result }) => {
-			console.log(result);
-			// $message = result.error.message;
 		}
 	});
 	const { enhance, delayed, form: formData, message, errors } = form;

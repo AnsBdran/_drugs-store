@@ -16,25 +16,12 @@
 
 	let className = '';
 	export { className as class };
-	// console.log('user in header', user);
-	// icons
 	let form: HTMLFormElement;
 	$: isActive = (href: string) =>
 		href === '/' ? $page.url.pathname === href : $page.url.pathname.startsWith(href);
-
-	const handleLogout = () => {
-		fetch('/logout', {
-			method: 'POST'
-		});
-	};
 </script>
 
-<header
-	class={cn(
-		'fixed left-0 right-0 top-0 isolate z-40 h-header border-b border-muted bg-background/80 shadow-xl ring-1 ring-foreground/5',
-		className
-	)}
->
+<header class={cn('header fixed left-0 right-0 top-0 isolate z-40 h-header', className)}>
 	<section class=" container flex items-center justify-between py-2">
 		<Button href="/" class="text-xl font-semibold" variant="link">Store</Button>
 		<!-- <p>{$cart[0].name}</p> -->
@@ -58,9 +45,9 @@
 			{:else}
 				<DropdownMenu.Root>
 					<DropdownMenu.Trigger>
-						<Avatar.Root class="rounded-none shadow-lg duration-[8000ms]">
+						<Avatar.Root class=" ">
 							<Avatar.Fallback
-								class=" rounded-lg border border-gray-500 bg-gray-800 text-gray-50 transition-all hover:border-gray-300 "
+								class=" border border-gray-500 bg-gray-800 uppercase text-gray-50 transition-all hover:border-gray-300"
 							>
 								{user.firstName?.charAt(0)}{user.lastName?.charAt(0)}
 							</Avatar.Fallback>

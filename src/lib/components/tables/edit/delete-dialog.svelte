@@ -40,9 +40,7 @@
 						// invalidate('data:manufacturer');
 						invalidateAll();
 					}
-					console.log({
-						result
-					});
+
 					updateRowChanges(false);
 				};
 			}}

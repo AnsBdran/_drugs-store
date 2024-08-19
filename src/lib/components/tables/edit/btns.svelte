@@ -15,25 +15,26 @@
 		isDeleteOpen: boolean,
 		row: Manufacturer | DrugItem | Request | User | Drug | null
 	) => {
-		// console.log('received', row);
-		// row?.imageURL ?? delete row?.imageURL;
-		// console.log('deleted', row);
 		rowEditStore.set({ data: row, isEditOpen, isDeleteOpen });
 	};
-	// $: console.log({ status: $rowEditStore.isEditOpen });
 </script>
 
 <div class="flex gap-1">
 	<Button
+		variant="secondary"
 		size="icon"
 		on:click={() => {
 			setEditRow(true, false, row);
-			// console.log('status now should be', $rowEditStore.isEditOpen);
 		}}
 	>
 		<MdiLeadPencil />
 	</Button>
-	<Button size="icon" variant="destructive" on:click={() => setEditRow(false, true, row)}>
+	<Button
+		size="icon"
+		variant="ghost"
+		class="bg-destructive/20 text-destructive hover:bg-destructive/10 hover:text-destructive dark:bg-destructive/80 dark:text-destructive-foreground dark:hover:bg-destructive/70"
+		on:click={() => setEditRow(false, true, row)}
+	>
 		<MaterialSymbolsDeleteRounded />
 	</Button>
 </div>
