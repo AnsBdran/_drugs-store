@@ -11,20 +11,15 @@
 	} from '@tanstack/svelte-table';
 	import EditDialog from './edit/edit-dialog.svelte';
 	import DeleteDialog from './edit/delete-dialog.svelte';
-	import { rowEditStore } from '$lib/stores/row-edit';
 	import { writable } from 'svelte/store';
 	import { rankItem } from '@tanstack/match-sorter-utils';
 	import Input from '../ui/input/input.svelte';
 	import Pagination from './pagination.svelte';
 	import ScrollArea from '../ui/scroll-area/scroll-area.svelte';
+	import Separator from '../ui/separator/separator.svelte';
 
-	// type SingleT<T> = T extends (infer U)[] ? U : never;
-	// type SingleElementType<T> = T extends (infer U)[] ? U : never;
-	// export let data: SingleElementType<any>[];
-	// type DataType = SingleElementType<typeof data>;
-	// props
 	export let data;
-	export let form;
+	export let validatedForm;
 	export let columns;
 	export let schema;
 
@@ -38,9 +33,7 @@
 		return itemRank.passed;
 	};
 
-	// const { editRowStore } = createRowEditStore();
-
-	const options = writable<TableOptions<typeof data>>({
+	const options = writable<TableOptions<T>>({
 		columns,
 		data,
 		getCoreRowModel: getCoreRowModel(),
@@ -80,9 +73,6 @@
 </script>
 
 <section>
-	<!-- <div class="mb-3 flex flex-col items-start justify-between gap-1 border border-muted lg:flex-row">
-	</div> -->
-	<!-- class="block w-max border-none py-2" -->
 	<Input
 		class="block w-max py-2"
 		type="search"
@@ -90,6 +80,7 @@
 		bind:value={gloablFilter}
 		placeholder="Filter..."
 	/>
+	<Separator class="my-8" />
 	<ScrollArea orientation="horizontal" class="pb-2">
 		<Table.Root>
 			<Table.Header>
@@ -111,7 +102,7 @@
 				{#each $table.getRowModel().rows as row}
 					<Table.Row>
 						{#each row.getVisibleCells() as cell}
-							<Table.Cell class="text-nowrap">
+							<Table.Cell class="text-nowrap align-top">
 								<svelte:component
 									this={flexRender(cell.column.columnDef.cell, cell.getContext())}
 								/>
@@ -123,10 +114,11 @@
 		</Table.Root>
 	</ScrollArea>
 </section>
-<Pagination count={data.length} {perPage} bind:page class="w-max" />
+<Separator class="my-8" />
 
+<Pagination count={data.length} {perPage} bind:page class="w-max" />
 <!-- Form dialogs -->
-<EditDialog data={form} {schema} let:form>
-	<slot {form} initialValues={$rowEditStore.data} />
+<EditDialog data={validatedForm} {schema} let:form let:initialValues>
+	<slot {form} {initialValues} />
 </EditDialog>
 <DeleteDialog />

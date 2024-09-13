@@ -1,11 +1,12 @@
 <script lang="ts">
-	import type { Drug } from '$lib/types';
+	import type { Drug } from '@prisma/client';
 	import Table from '$lib/components/tables/table.svelte';
 	import { createColumnHelper, renderComponent } from '@tanstack/svelte-table';
 	import { DrugForm } from '$lib/components/form';
 	import Btns from '$lib/components/tables/edit/btns.svelte';
 	import Alert from '$lib/components/alert.svelte';
 	import { drugSchema } from '$lib/schemas/drug';
+	import Ships from './ships.svelte';
 
 	export let data;
 
@@ -14,6 +15,19 @@
 		columnHelper.accessor('brandName', {
 			header: 'Brand Name'
 		}),
+		columnHelper.accessor('categories', {
+			cell: (info) => renderComponent(Ships, { content: info.getValue() })
+		}),
+
+		columnHelper.accessor('indications', {
+			cell: (info) => renderComponent(Ships, { content: info.getValue() })
+		}),
+		columnHelper.accessor('contraIndications', {
+			cell: (info) => renderComponent(Ships, { content: info.getValue() })
+		}),
+		// columnHelper.accessor('description', {
+		// 	// cell: (info) => renderComponent()
+		// }),
 
 		columnHelper.display({
 			header: 'Actions',
@@ -29,7 +43,7 @@
 	<Table
 		{columns}
 		data={data.drugs}
-		form={data.form}
+		validatedForm={data.form}
 		let:form
 		let:initialValues
 		schema={drugSchema}

@@ -10,6 +10,13 @@ export const load: PageServerLoad = async () => {
 		take: 10,
 		orderBy: {
 			createdAt: 'desc'
+		},
+		include: {
+			drugItem: {
+				include: {
+					drug: true
+				}
+			}
 		}
 	});
 	const drugItems = await prisma.drugItem.findMany({

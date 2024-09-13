@@ -3,7 +3,7 @@
 	import { cn } from '$lib/utils';
 	import MaterialSymbolsArrowLeftAltRounded from '~icons/material-symbols/arrow-left-alt-rounded';
 	import MaterialSymbolsArrowRightAltRounded from '~icons/material-symbols/arrow-right-alt-rounded';
-	import Button from './ui/button/button.svelte';
+	import { Button } from './ui/button';
 	import { page as _page } from '$app/stores';
 	import { ITEMS_PER_PAGE } from '$lib/constants';
 
@@ -29,7 +29,7 @@
 	let:pages
 	let:currentPage
 	bind:page
-	class={cn('mx-0 mb-6 w-max', className)}
+	class={cn('mx-0 my-6 w-max', className)}
 >
 	<Pagination.Content>
 		<Pagination.Item>

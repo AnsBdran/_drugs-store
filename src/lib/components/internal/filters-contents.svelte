@@ -60,7 +60,7 @@
 	};
 </script>
 
-<section class={cn('filters space-y-8 px-4', className)}>
+<section class={cn('filters filters space-y-8 px-4', className)}>
 	<div>
 		<h5 class="mb-1">Filter by Price</h5>
 		<ToggleGroup.Root

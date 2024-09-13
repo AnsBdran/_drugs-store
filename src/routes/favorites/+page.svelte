@@ -13,4 +13,4 @@
 {:then count}
 	<Stat title="Total Favorites" value={count} icon={ClarityFavoriteSolid} class="mb-4" />
 {/await}
-<Button href="favorites/1">Browser favorites</Button>
+<Button href="favorites/1">Browse favorites</Button>

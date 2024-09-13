@@ -5,7 +5,7 @@ const multiSelectSchema = z
 		z.object({
 			value: z.string(),
 			label: z.string(),
-			disabled: z.boolean().optional()
+			disabled: z.boolean().nullable()
 		})
 	)
 	.min(1);

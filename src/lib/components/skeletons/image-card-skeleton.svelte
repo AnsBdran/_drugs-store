@@ -1,18 +1,17 @@
 <script>
 	import { Skeleton } from '$lib/components/ui/skeleton';
-	import { dimensions } from '$lib/stores/dimensions';
+	// import { dimensions } from '$lib/stores/dimensions';
 	import { cn } from '$lib/utils';
 
 	let className = '';
 
-	const { store } = dimensions;
+	// const { store } = dimensions;
 	// const { width, height } = $store;
 	// $: width = $store.width;
 	// $: height = $store.height;
-
 	export let width;
 	export let height;
-	$: console.log('in the skeleton ', $store.width, $store.height);
+	$: console.log('in the skeleton ', width, height);
 	export { className as class };
 </script>
 

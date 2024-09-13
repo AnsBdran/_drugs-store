@@ -46,8 +46,9 @@
 				<DropdownMenu.Root>
 					<DropdownMenu.Trigger>
 						<Avatar.Root class=" ">
+							<!-- class=" border border-gray-500 bg-gray-800 uppercase text-gray-50 transition-all hover:border-gray-300" -->
 							<Avatar.Fallback
-								class=" border border-gray-500 bg-gray-800 uppercase text-gray-50 transition-all hover:border-gray-300"
+								class=" border  border-primary bg-primary/20 uppercase text-primary transition-all"
 							>
 								{user.firstName?.charAt(0)}{user.lastName?.charAt(0)}
 							</Avatar.Fallback>
@@ -69,9 +70,10 @@
 						<DropdownMenu.Separator />
 						<DropdownMenu.Group>
 							<form bind:this={form} action="/auth?/logout" method="post" use:enhance>
+								<!-- class="bg-destructive/10  text-destructive transition-all hover:bg-destructive/15 dark:text-destructive dark:hover:bg-destructive/15" -->
 								<DropdownMenu.Item
 									on:click={() => form.requestSubmit()}
-									class="bg-destructive/10  text-destructive transition-all hover:bg-destructive/15 dark:text-destructive dark:hover:bg-destructive/15"
+									class="bg-destructive-foreground text-destructive transition-all dark:bg-destructive dark:text-destructive-foreground"
 								>
 									Sign out
 									<DropdownMenu.Shortcut><PhSignOut /></DropdownMenu.Shortcut>

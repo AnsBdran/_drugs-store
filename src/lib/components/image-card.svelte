@@ -27,14 +27,16 @@
 	import SuperDebug from 'sveltekit-superforms';
 	const { store } = dimensions;
 	export let image: Image;
-	$: width = $store.width;
-	$: height = $store.height;
-
+	// $: width = $store.width;
+	// $: height = $store.height;
+	export let width;
+	export let height;
 	let deleteLoading = false;
 	let unlinkLoading = false;
 	export let drugItems;
 	export let form: SuperForm<Infer<ImageSchema>>;
 	const { enhance, delayed, form: formData, reset } = form;
+	$: console.log('in card', width, height);
 </script>
 
 <div style="width:{width}px;" class="group cursor-pointer overflow-hidden">

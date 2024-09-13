@@ -17,9 +17,11 @@
 	import type { DrugItem } from '$lib/types';
 
 	export let drug: DrugItem;
-	const { store } = dimensions;
-	$: width = $store.width;
-	$: height = $store.height;
+	// const { store } = dimensions;
+	// $: width = $store.width;
+	// $: height = $store.height;
+	export let width;
+	export let height;
 
 	export { className as class };
 
@@ -28,14 +30,14 @@
 
 	const addToCart = () => {
 		if (!!$cart.find((d) => d.data.id === drug.id)) {
-			return toast(`${drug.drug.brandName} is already in your cart`);
+			return toast.error(`${drug.drug.brandName} is already in your cart`);
 		}
 		cart.update((prev) => {
 			const newCart = [...prev, { data: drug, count: 1 }];
 			window.localStorage.setItem('cart', JSON.stringify(newCart));
 			return newCart;
 		});
-		toast(`${drug.drug.brandName} added to cart successfully.`);
+		toast.success(`${drug.drug.brandName} added to cart successfully.`);
 	};
 </script>
 

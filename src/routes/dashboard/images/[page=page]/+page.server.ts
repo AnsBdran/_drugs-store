@@ -5,11 +5,13 @@ import type { PageServerLoad } from './$types';
 import { zod } from 'sveltekit-superforms/adapters';
 import { imageSchema } from '$lib/schemas/image';
 import { fail as _fail } from '@sveltejs/kit';
+import type { Prisma } from '@prisma/client';
 
 export const load: PageServerLoad = async ({ params }) => {
 	const form = await superValidate(zod(imageSchema));
 	const { limit, page, skip } = getPagination(params.page);
-	const images = await prisma.image.findMany({
+	// const images = await prisma.image.findMany({
+	const query: Prisma.ImageFindManyArgs = {
 		include: {
 			drugItem: {
 				include: {
@@ -19,14 +21,19 @@ export const load: PageServerLoad = async ({ params }) => {
 		},
 		take: limit,
 		skip
-	});
+	};
+	// });
+	const promise = prisma.$transaction([
+		prisma.image.findMany(query),
+		prisma.drugItem.findMany({
+			include: {
+				drug: true
+			}
+		}),
+		prisma.image.count()
+	]);
 
-	const drugItems = await prisma.drugItem.findMany({
-		include: {
-			drug: true
-		}
-	});
-	return { images, page, drugItems, form };
+	return { promise, page, form };
 };
 
 export const actions = {

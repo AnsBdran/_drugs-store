@@ -6,6 +6,7 @@
 	import Btns from '$lib/components/tables/edit/btns.svelte';
 	import Table from '$lib/components/tables/table.svelte';
 	import { requestEditSchema } from '$lib/schemas/request';
+	import { fromNow } from '$lib/utils.js';
 	import type { Request } from '@prisma/client';
 	import { createColumnHelper, renderComponent } from '@tanstack/svelte-table';
 
@@ -15,11 +16,8 @@
 
 	const columns = [
 		columnHelper.accessor('createdAt', {
-			cell: (info) =>
-				renderComponent(FormattedDate, {
-					date: info.getValue()
-				}),
-			header: 'Date'
+			header: 'Time added',
+			cell: (info) => fromNow(info.getValue())
 		}),
 		columnHelper.accessor((row) => `${row.Author.firstName} ${row.Author.lastName}`, {
 			header: 'User'
@@ -57,7 +55,7 @@
 	<Table
 		{columns}
 		data={data.requests}
-		form={data.form}
+		validatedForm={data.form}
 		schema={requestEditSchema}
 		let:form
 		let:initialValues

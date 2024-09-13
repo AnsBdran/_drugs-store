@@ -8,8 +8,6 @@
 	// props
 	export let row: Manufacturer | DrugItem | Request | User | Drug;
 
-	// const { rowEditStore } = createRowEditStore();
-
 	const setEditRow = (
 		isEditOpen: boolean,
 		isDeleteOpen: boolean,

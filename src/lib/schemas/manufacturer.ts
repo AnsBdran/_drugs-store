@@ -5,7 +5,7 @@ export const manufacturerSchema = z.object({
 		message: 'Please choose a country'
 	}),
 	city: z.string().min(1),
-	description: z.string().optional(),
+	description: z.string().nullable(),
 	featured: z.boolean()
 });
 

@@ -73,7 +73,18 @@
 	.header,
 	.footer,
 	.sidebar {
-		@apply bg-background shadow dark:border-gray-800 dark:bg-gray-950 dark:shadow-none;
+		@apply bg-background dark:border-gray-800 dark:bg-gray-950 dark:shadow-none;
+	}
+	.bottom-navbar {
+		@apply bg-secondary shadow-2xl;
+	}
+
+	.bottom-navbar a {
+		@apply hover:bg-primary/5;
+	}
+
+	.active-link {
+		@apply border-t-primary/60 bg-primary/10 text-primary dark:bg-accent;
 	}
 
 	.header {
@@ -81,7 +92,7 @@
 	}
 
 	.footer {
-		@apply z-50 border-t;
+		@apply border-t;
 	}
 
 	.sidebar {
@@ -102,6 +113,9 @@
 
 	h4 {
 		@apply scroll-m-20 text-xl font-semibold tracking-tight;
+	}
+	.filters h5 {
+		@apply font-medium tracking-wide underline decoration-primary underline-offset-8;
 	}
 
 	p {
@@ -129,3 +143,14 @@
 /* .highlighted {
 	@apply bg-primary;
 } */
+
+.requests-wrapper {
+	@apply grid items-stretch gap-8 md:grid-cols-2 xl:grid-cols-3;
+}
+
+.footer-links {
+	@apply flex flex-col gap-3 text-muted-foreground md:flex-row;
+}
+.footer-links a {
+	@apply decoration-wavy underline-offset-4 hover:underline;
+}

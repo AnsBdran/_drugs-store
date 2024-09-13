@@ -15,6 +15,6 @@
 <Select
 	{form}
 	label="Edit the request status"
-	options={['pending', 'accepted', 'rejected'].map((s) => ({ value: s, label: s }))}
+	options={['PENDING', 'ACCEPTED', 'REJECTED'].map((s) => ({ value: s, label: s }))}
 	path={['responseStatus']}
 />

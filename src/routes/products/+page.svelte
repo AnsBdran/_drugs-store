@@ -14,16 +14,29 @@
 	const handleLoadError = () => {
 		error = 'Error while loading the data, try refreshing the page.';
 	};
+	import image from '$lib/images/pharmacist.jpeg';
 </script>
 
-<ScrollingText>
-	<Badge variant="destructive">Accurate prescription</Badge>
-	<Badge variant="secondary">Fast delivery</Badge>
-	<Badge variant="default">Competent prices</Badge>
-
-	<!-- <h3>Accurate prescription, fast delivery, High prices</h3> -->
-	<!-- <h3>Accurate prescription, fast delivery, High prices</h3> -->
-</ScrollingText>
+<div class="mb-8 flex space-x-16 overflow-hidden">
+	<div class="flex animate-loop-scroll space-x-16">
+		<img width="200" height="200" src={image} alt="lorem" class="max-w-none" />
+		<img width="200" height="200" src={image} alt="lorem" class="max-w-none" />
+		<img width="200" height="200" src={image} alt="lorem" class="max-w-none" />
+	</div>
+	<div class="flex animate-loop-scroll space-x-16">
+		<img width="200" height="200" src={image} alt="lorem" class="max-w-none" />
+		<img width="200" height="200" src={image} alt="lorem" class="max-w-none" />
+		<img width="200" height="200" src={image} alt="lorem" class="max-w-none" />
+	</div>
+</div>
+<!-- <ScrollingText> -->
+<!-- <Badge class="!max-w-none" variant="destructive">Accurate prescription</Badge> -->
+<!-- <Badge class="!max-w-none" variant="secondary">Fast delivery</Badge> -->
+<!-- <Badge class="!max-w-none" variant="default">Competent prices</Badge> -->
+<!-- <img src={image} alt="lorem" class="max-w-none" width="150" height="150" /> -->
+<!-- <h3>Accurate prescription, fast delivery, High prices</h3> -->
+<!-- <h3>Accurate prescription, fast delivery, High prices</h3> -->
+<!-- </ScrollingText> -->
 <section class="stats-wrapper flex flex-col gap-4 sm:flex-row sm:flex-wrap">
 	<!--<section class="flex flex-col justify-between items-stretch gap-8 sm:flex-row sm:items-stretch cards-wrapper">z-->
 	{#await data.totalBrands}

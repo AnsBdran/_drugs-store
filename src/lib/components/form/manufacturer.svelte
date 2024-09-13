@@ -15,14 +15,24 @@
 	export let initialValues: Manufacturer | undefined = undefined;
 	const { form: formData } = form;
 
-	initialValues &&
-		Object.assign($formData, {
+	$: initialValues &&
+		formData.set({
 			name: initialValues.name,
 			country: initialValues.country,
 			city: initialValues.city,
 			featured: initialValues.featured,
-			description: initialValues.description
+			description: initialValues.description as string
 		});
+	// $: initialValues &&
+	// 	Object.assign($formData, {
+	// 		name: initialValues.name,
+	// 		country: initialValues.country,
+	// 		city: initialValues.city,
+	// 		featured: initialValues.featured,
+	// 		description: initialValues.description
+	// 	});
+
+	console.log('manufacturer form re-re-rendered', $formData);
 </script>
 
 <Form.Field {form} name="name">

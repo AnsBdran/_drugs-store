@@ -5,7 +5,7 @@ export const drugItemSchema = z.object({
 	image: z
 		.instanceof(File, { message: 'please proivde a valid image' })
 		.refine((f) => f.size < 2000_000, 'Max 2 MB Upload size. ')
-		.optional(),
+		.nullable(),
 	price: z.object({
 		item: z.coerce
 			.number({ message: 'item price needed' })
@@ -33,7 +33,7 @@ export const drugItemSchema = z.object({
 		)
 		.min(1)
 		.default([{ name: '', strength: { amount: '', per: 'unit' } }]),
-	description: z.string().optional(),
+	description: z.string().nullable(),
 	available: z.boolean().default(true),
 	form: z.string().min(1, 'You must specify the drug form.'),
 	featured: z.boolean().default(false),

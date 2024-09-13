@@ -11,7 +11,7 @@
 {#await data.requests}
 	<p>loading...</p>
 {:then requests}
-	<section class="mb-4 space-y-8">
+	<section class="requests-wrapper mb-4 space-y-8">
 		{#each requests as request}
 			<RequestCard {request} />
 		{:else}

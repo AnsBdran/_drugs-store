@@ -5,31 +5,31 @@ export const indicationsSchema = z
 	.array(z.string().min(1))
 	.default([])
 	// .default([''] as unknown as string[])
-	.optional();
+	.nullable();
 
 export const contraIndicationsSchema = z
 	.array(z.string().min(1))
 	// .default([''] as unknown as string[])
 	.default([])
-	.optional();
+	.nullable();
 
 export const activeIngredientsSchema = z
 	.array(z.string().min(1))
 	// .default([''] as unknown as string[])
 	.default([])
-	.optional();
+	.nullable();
 
 export const formsSchema = z
 	.array(z.string().min(1))
 	// .default([''] as unknown as string[])
 	.default([])
-	.optional();
+	.nullable();
 
 export const categoriesSchema = z
 	.array(z.string().min(1))
 	.default([])
 	// .default([''] as unknown as string[])
-	.optional();
+	.nullable();
 
 export const strengthsSchema = z
 	.array(
@@ -39,7 +39,7 @@ export const strengthsSchema = z
 		})
 	)
 	.default([])
-	.optional();
+	.nullable();
 // .default([{ amount: '', per: '' }]);
 
 // const metadataSchemaFields: keyof typeof metadataSchema =

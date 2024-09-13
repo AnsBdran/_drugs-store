@@ -26,6 +26,7 @@
 	export let form: SuperForm<Infer<DrugItemSchema>>;
 	export let info: Promise<Info>;
 	export let drugs;
+	export let hideImageInput = false;
 	// export let activeIngredients;
 	export let initialValues: DrugItem | undefined;
 	const { form: formData, errors } = form;
@@ -56,7 +57,18 @@
 		});
 	};
 
-	initialValues && Object.assign($formData, initialValues);
+	// initialValues && Object.assign($formData, initialValues);
+	initialValues &&
+		formData.set({
+			activeIngredients: initialValues.activeIngredients,
+			available: initialValues.available,
+			featured: initialValues.featured,
+			form: initialValues.form,
+			price: initialValues.price,
+			size: initialValues.size,
+			description: initialValues.description,
+			drugID: initialValues.drugID
+		});
 </script>
 
 <!-- ==================================== -->
@@ -199,15 +211,16 @@
 
 <!-- ==================================== -->
 <!-- image field -->
-<Form.Field {form} name="image">
-	<Form.Control let:attrs>
-		<Form.Label>Drug image</Form.Label>
-		<input type="file" {...attrs} bind:files={$imageFile} />
-		<!-- <Input type="file" {...attrs} bind:value={$formData.image} /> -->
-	</Form.Control>
-	<Form.FieldErrors />
-</Form.Field>
-
+{#if !hideImageInput}
+	<Form.Field {form} name="image">
+		<Form.Control let:attrs>
+			<Form.Label>Drug image</Form.Label>
+			<input type="file" {...attrs} bind:files={$imageFile} />
+			<!-- <Input type="file" {...attrs} bind:value={$formData.image} /> -->
+		</Form.Control>
+		<Form.FieldErrors />
+	</Form.Field>
+{/if}
 <!-- ==================================== -->
 <!-- Checkboxes -->
 <Form.Field

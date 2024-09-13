@@ -3,7 +3,7 @@ import prisma from '$lib/server/prisma.js';
 import { error, fail } from '@sveltejs/kit';
 import type { Actions } from './$types';
 
-export const load = async ({ request, params }) => {
+export const load = async ({ params }) => {
 	const { id } = params;
 	const product = await prisma.drugItem.findUnique({
 		where: { id },

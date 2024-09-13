@@ -42,7 +42,7 @@
 <Table
 	{columns}
 	data={data.users}
-	form={data.form}
+	validatedForm={data.form}
 	schema={userEditSchema}
 	let:form
 	let:initialValues

@@ -3,12 +3,13 @@
 	import DrugCardSkeleton from '$lib/components/skeletons/drug-card-skeleton.svelte';
 	import { Pagination } from '$lib/components';
 	import { onMount } from 'svelte';
-	import { dimensions } from '$lib/stores/dimensions.js';
-	import { ITEMS_PER_PAGE } from '$lib/constants.js';
+	import { dimensions } from '$lib/stores/dimensions';
+	import { ITEMS_PER_PAGE } from '$lib/constants';
 	export let data;
 
 	$: pageNumber = data.pageSlug;
 
+	const { store } = dimensions;
 	onMount(() => {
 		const cleanup = dimensions.initialize();
 		return cleanup;
@@ -34,14 +35,14 @@
 <section class="">
 	{#await data._data}
 		<div class="cards-wrapper">
-			{#each new Array(10).fill(ITEMS_PER_PAGE) as _}
-				<DrugCardSkeleton />
+			{#each new Array(ITEMS_PER_PAGE).fill(0) as _}
+				<DrugCardSkeleton width={$store.width} height={$store.height} />
 			{/each}
 		</div>
 	{:then _data}
 		<div class="cards-wrapper">
 			{#each _data.data as drug}
-				<DrugCard {drug} />
+				<DrugCard width={$store.width} height={$store.height} {drug} />
 			{/each}
 		</div>
 		{#if _data.count > ITEMS_PER_PAGE}

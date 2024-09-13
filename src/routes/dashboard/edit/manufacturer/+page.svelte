@@ -33,7 +33,7 @@
 
 <Table
 	data={data.manufacturers}
-	form={data.form}
+	validatedForm={data.form}
 	schema={manufacturerSchema}
 	{columns}
 	let:form

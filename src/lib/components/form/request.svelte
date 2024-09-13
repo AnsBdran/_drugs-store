@@ -10,7 +10,14 @@
 	const { form: formData } = form;
 
 	const imageFile = fileProxy(form, 'image');
-	initialValues && Object.assign($formData, initialValues);
+	// initialValues && Object.assign($formData, initialValues);
+	initialValues &&
+		formData.set({
+			brandName: initialValues.brandName,
+			description: initialValues.description,
+			genericName: initialValues.description,
+			strength: initialValues.strength
+		});
 </script>
 
 <Form.Field {form} name="brandName">

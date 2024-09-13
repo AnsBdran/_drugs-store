@@ -1,13 +1,9 @@
 <script lang="ts">
-	export let date: Date;
+	import { fromNow } from '$lib/utils';
 
-	const formatted = new Date(date).toLocaleDateString('en', {
-		month: 'numeric',
-		year: 'numeric',
-		day: '2-digit'
-	});
+	export let date: Date;
 </script>
 
 <span class="text-nowrap">
-	{formatted}
+	{fromNow(date)}
 </span>

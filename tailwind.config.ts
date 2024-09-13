@@ -13,7 +13,6 @@ const config: Config = {
 				'2xl': '1600px'
 			}
 		},
-
 		extend: {
 			// container: {
 			// 	center: true,
@@ -80,32 +79,23 @@ const config: Config = {
 				sidebar: 'var(--sidebar)',
 				'bottom-navbar': 'var(--bottom-navbar)'
 			},
-			// keyframes: {
-			//     marquee: {
-			//         '0%': {transform: 'translateX(0%)'},
-			//         '100%': {transform: 'translateX(-100%)'}
-			//     },
-			//     _marquee: {
-			//         '0%': {transform: 'translateX(100%)'},
-			//         '100%': {transform: 'translateX(0%)'},
-			//     }
-			// },
-			// animation: {
-			//     marquee: 'marquee 2s linear infinite',
-			//     _marquee: '_marquee 2s linear infinite',
-			// },
 			animation: {
-				marquee: 'marquee 15s linear infinite',
-				_marquee: '_marquee 15s linear infinite'
+				// marquee: 'marquee 15s linear infinite',
+				// _marquee: '_marquee 15s linear infinite',
+				'loop-scroll': 'loop-scroll 3s linear infinite'
 			},
 			keyframes: {
-				marquee: {
-					'0%': { transform: 'translateX(0%)' },
-					'100%': { transform: 'translateX(-100%)' }
-				},
-				_marquee: {
-					'0%': { transform: 'translateX(100%)' },
-					'100%': { transform: 'translateX(0%)' }
+				// marquee: {
+				// 	'0%': { transform: 'translateX(0%)' },
+				// 	'100%': { transform: 'translateX(-100%)' }
+				// },
+				// _marquee: {
+				// 	'0%': { transform: 'translateX(100%)' },
+				// 	'100%': { transform: 'translateX(0%)' }
+				// },
+				'loop-scroll': {
+					from: { transform: 'translateX(0)' },
+					to: { transform: 'translateX(-50%)' }
 				}
 			}
 		}

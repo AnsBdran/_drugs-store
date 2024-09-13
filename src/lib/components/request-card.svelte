@@ -26,11 +26,13 @@
 	let isLiked: boolean = isLikedByUser;
 </script>
 
-<Card.Root class="">
+<Card.Root class="!m-0">
 	<Card.Header>
-		<div class="flex items-center justify-between">
-			<Card.Title class="mb-0 leading-none">{request.brandName}</Card.Title>
-			<Badge class="self-center">{request.Author.firstName} {request.Author.lastName}</Badge>
+		<div class="flex items-center justify-between gap-3">
+			<Card.Title class="!mt-0 mb-0 leading-none">{request.brandName}</Card.Title>
+			<Badge class="self-center text-nowrap"
+				>{request.Author.firstName} {request.Author.lastName}</Badge
+			>
 		</div>
 		<Card.Description>{request.genericName}</Card.Description>
 	</Card.Header>

@@ -12,6 +12,7 @@
 	import Stat from '$lib/components/drugs/stat.svelte';
 	import IconParkOutlineBill from '~icons/icon-park-outline/bill';
 	import GridiconsProduct from '~icons/gridicons/product';
+	import ScrollArea from '$lib/components/ui/scroll-area/scroll-area.svelte';
 	let isDialogOpen = false;
 	let isPopoverOpen = false;
 	const clear = () => {
@@ -27,12 +28,11 @@
 	8;
 </script>
 
-<div class="mb-8 flex items-center justify-between">
+<div class="mb-8 flex items-center justify-between md:hidden">
 	<h1 class="mb-0">Cart page</h1>
 </div>
-
-<section class="flex flex-col justify-between md:flex-row md:items-center lg:gap-24">
-	<div class="basis-80">
+<section class="flex flex-col justify-between md:flex-row-reverse md:items-start lg:gap-24">
+	<div class="min-w-80">
 		{#if !$cart.length}
 			<Alert title="Your cart is empty!" class="lg:min-w-96"
 				>Browse products first, and add what you like to your cart.</Alert
@@ -42,16 +42,23 @@
 				<GridiconsProduct />
 			</Button>
 		{:else}
-			{#each $cart as c}
-				<CartItem item={c} />
-				<Separator class="my-8 last:hidden" />
-			{/each}
+			<ScrollArea class="h-[80vh]">
+				<div class="px-8 py-8">
+					{#each $cart as c}
+						<CartItem item={c} />
+						<Separator class="my-8 last:hidden" />
+					{/each}
+				</div>
+			</ScrollArea>
 		{/if}
 	</div>
 
 	<div>
+		<div class="mb-8 hidden items-center justify-between md:block">
+			<h1 class="mb-0">Cart page</h1>
+		</div>
 		<div>
-			<Stat title="Total Price" icon={IconParkOutlineBill} value={totalPrice} class="mb-4" />
+			<Stat title="Total Price" icon={IconParkOutlineBill} value={totalPrice} class="my-8" />
 		</div>
 
 		<div class="flex flex-col gap-6 sm:flex-row md:flex-col 900:flex-row">

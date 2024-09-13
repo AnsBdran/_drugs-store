@@ -9,26 +9,35 @@
 	import type { Infer, SuperForm } from 'sveltekit-superforms';
 	import type { DrugSchema } from '$lib/schemas/drug';
 	import SuperDebug from 'sveltekit-superforms';
+	import type { Drug } from '@prisma/client';
 
 	// props
 	export let form: SuperForm<Infer<DrugSchema>>;
 	export let manufacturers;
 	export let info;
-	export let initialValues;
+	export let initialValues: Drug;
 
 	const { form: formData } = form;
 
+	// initialValues &&
+	// 	Object.assign($formData, {
+	// 		// indications: initialValues.indications.map((i) => ({ label: i, value: i })),
+	// 		indications: makeSelectItemsFromStrings(initialValues.indications),
+	// 		contraIndications: makeSelectItemsFromStrings(initialValues.contraIndications),
+	// 		categories: makeSelectItemsFromStrings(initialValues.categories),
+	// 		brandName: initialValues.brandName
+	// 	});
+
 	initialValues &&
-		Object.assign($formData, {
-			// indications: initialValues.indications.map((i) => ({ label: i, value: i })),
-			indications: makeSelectItemsFromStrings(initialValues.indications),
-			contraIndications: makeSelectItemsFromStrings(initialValues.contraIndications),
+		formData.set({
+			brandName: initialValues.brandName,
 			categories: makeSelectItemsFromStrings(initialValues.categories),
-			brandName: initialValues.brandName
+			contraIndications: makeSelectItemsFromStrings(initialValues.contraIndications),
+			indications: makeSelectItemsFromStrings(initialValues.indications),
+			description: initialValues.description ?? '',
+			manufacturerID: initialValues.manufacturerID
 		});
 </script>
-
-<SuperDebug data={$formData} />
 
 <Form.Field {form} name="brandName">
 	<Form.Control let:attrs>
